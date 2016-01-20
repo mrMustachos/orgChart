@@ -1,0 +1,123 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic,600italic,700italic,800italic);
+
+.gridster * {
+  margin:0;
+  padding:0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+
+/*/ demo /*/
+body, html {
+    margin: 0;
+    padding: 0; 
+}
+body {
+    font-size: 16px;
+    font-family: 'Open Sans', Helvetica, 'Helvetica Neue', Arial, sans-serif;
+    color: #3a3a3a;
+    position: relative;
+}
+
+
+/*/ gridster /*/
+.gridster {
+    margin: 0 auto;
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+}
+
+.gridster ul {
+    background-color: #EFEFEF;
+    margin: 0 auto;
+}
+
+.gridster li {
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 100%;
+}
+
+.gridster .gs-w {
+    background: #DDD;
+    cursor: pointer;
+}
+.gridster .gs-w.box {
+    background: #fff;
+    cursor: pointer;
+}
+.gridster .gs-w.thru,
+.gridster .gs-w.doubled,
+.gridster .gs-w.tripled {
+    background: transparent;
+    cursor: default;
+}
+
+.gridster .gs-w:after,
+.gridster .gs-w.thru:after {
+    content: "";
+    background: #333;
+    display: block;
+    width: 5px;
+    height: 10px;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    -ms-transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+}
+.gridster .gs-w.thru:after {
+    height: 75px;
+}
+.gridster .gs-w.divider.thru:after {
+    height: 15px;
+}
+.gridster .gs-w.divider.reachLeft, .gridster .gs-w.divider.reachRight {
+    background: url('../images/divider.svg');
+    background-repeat: no-repeat;
+}
+.gridster .gs-w.divider.reachLeft {
+    background-position: top left;
+}
+.gridster .gs-w.divider.reachRight {
+    background-position: top right;
+}
+.gridster .gs-w.divider.full {
+    background: #333;
+}
+
+.divider:before {
+    content: "";
+    display: block;
+    height: 5px;
+    width: 12px;
+    background: #333;
+    position: absolute;
+}
+.reachLeft.divider:before {
+    left: -11px;
+}
+.reachRight.divider:before, .full.divider:before {
+    left: 129px;
+}
+
+.gridster .gs-w.doubled .box {
+    width: 130px;
+    height: 65px;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.gs-w.divider.thru:before,
+.gs-w.divider.blocking:before,
+.gs-w.nope:after {
+    display: none !important;
+}

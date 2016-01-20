@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?e7n275');
+    src: url('fonts/icomoon.eot?e7n275#iefix') format('embedded-opentype'),
+         url('fonts/icomoon.ttf?e7n275') format('truetype'),
+         url('fonts/icomoon.woff?e7n275') format('woff'),
+         url('fonts/icomoon.svg?e7n275#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-lock:before { content: "\e900"; }
+.icon-wrench:before { content: "\e902"; }
+.icon-cog:before { content: "\e901"; }
+.icon-remove:before { content: "\e903"; }
+
+[class^="icon-"], [class*=" icon-"] { padding-right: 4px; }
+
+.controls {
+	margin-bottom: 20px;
+}
+
+.build {
+	display: none;
+}
+
+.btn, .btn.active:hover {
+    display: inline-block;
+    padding: 5px 10px 5px 7px;
+    border: 1px solid #3a3a3a;
+    border-radius: 3px;
+    color: #3a3a3a;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+.hide {
+	display: none;
+}
+
+.set {
+	border-radius: 0 3px 3px 0;
+	border-left: 0;
+	border-color: #f80046;
+	background: #f80046;
+	color: #fff;
+}
+
+.btn:hover {
+	border-color: #f80046;
+    color: #f80046;
+}
+.set:hover {
+    border-color: #f80046;
+    background: #f80046;
+    color: #fff;
+}
+.btn.active, .btn.active:hover {
+    border-radius: 3px 0px 0px 3px;
+    color: #f80046;
+    border-color: #f80046;
+}
+
+.btn.locked, .btn.locked:hover {
+    border: 1px solid #ccc;
+    color: #ccc;
+    cursor: default;
+}
+
+.btn.js-seralize {
+	float: left;
+	padding: 5px 15px;
+	border-color: #f80046;
+	background: #f80046;
+	color: #fff;
+}
+.btn.js-seralize:hover {
+	border-color: #DF003F;
+	background: #DF003F;
+}
+
+.gridster .gs-w.blocking {
+    background: url('../images/blocking.png')repeat top left;
+}
+.gridster .gs-w.gone {
+    background: url('../images/trash.png')repeat top left;
+}
