@@ -51,13 +51,9 @@ body {
 }
 .gridster .gs-w.box {
     background: #fff;
-    cursor: pointer;
 }
-.gridster .gs-w.thru,
-.gridster .gs-w.doubled,
-.gridster .gs-w.tripled {
+.gridster .gs-w.thru {
     background: transparent;
-    cursor: default;
 }
 
 .gridster .gs-w:after,
