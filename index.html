@@ -117,10 +117,10 @@
 			
 			gridster.remove_all_widgets();
 			$.each(serialization, function() {
-				gridster.add_widget('<li />', this.size_x, this.size_y, this.col, this.row);
+				gridster.add_widget('<li class="blocking nope"></li>', this.size_x, this.size_y, this.col, this.row);
 			});
 
-			$('li').addClass('blocking nope');
+			// $('li').addClass('blocking nope');
 
 		});
 	</script>
