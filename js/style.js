@@ -1,83 +1,60 @@
 function test(){
 
-    // changes the divider to rise
-	$('.gs-w.divider.reach-xxx.change').click(function () {
-		$(this).removeClass('reach-xxx');
-		$(this).addClass('reachLeft');
-	});
-	// changes the divider to right
-	$('.gs-w.divider.reachLeft.change').click(function () {
-		$(this).removeClass('reachLeft');
-		$(this).addClass('reachRight');
-	});
-	// changes the divider to full
-	$('.gs-w.divider.reachRight.change').click(function () {
-		$(this).removeClass('reachRight');
-		$(this).addClass('full');
-	});
-	// changes the divider to nope
-	$('.gs-w.divider.full.change').click(function () {
-		$(this).removeClass('full');
-		$(this).addClass('nope');
-	});
-	// changes the divider to xxx
-	$('.gs-w.divider.nope.change').click(function () {
-		$(this).removeClass('nope');
-		$(this).addClass('reach-xxx');
-	});
-
-
-
-	// changes the divider to xxx
-	$('.gs-w.blocking.shuffle').click(function () {
+	// changes the blocking
+	$('.gs-w.blocking.blocking_change').click(function () {
 		$(this).addClass('box');
 		$(this).removeClass('blocking');
 	});
-
-	// changes the divider to xxx
-	$('.gs-w.box.shuffle').click(function () {
+	// changes the blocking
+	$('.gs-w.box.blocking_change').click(function () {
 		$(this).addClass('thru');
 		$(this).removeClass('box');
 	});
-
-	// changes the divider to xxx
-	$('.gs-w.thru.shuffle').click(function () {
+	// changes the blocking
+	$('.gs-w.thru.blocking_change').click(function () {
 		$(this).addClass('blocking');
 		$(this).removeClass('thru');
 	});
 
 
 
-	// changes the divider to xxx
-	$('.gs-w.thru.jumper').click(function () {
-		$(this).attr('data-sizex', '2');;
+	// changes the divider
+	$('ul.divider_change:not(.locked) .gs-w.divider.blocking').click(function () {
+		$(this).addClass('reachRight');
+		$(this).removeClass('blocking');
 	});
-	// changes the divider to xxx
-	$('.gs-w.box.jumper').click(function () {
-		$(this).attr('data-sizex', '2');;
+	// changes the divider
+	$('ul.divider_change:not(.locked) .gs-w.divider.reachRight').click(function () {
+		$(this).addClass('reachLeft');
+		$(this).removeClass('reachRight');
 	});
-	// changes the divider to xxx
-	$('.gs-w.blocking.jumper').click(function () {
-		$(this).attr('data-sizex', '2');;
+	// changes the divider
+	$('ul.divider_change:not(.locked) .gs-w.divider.reachLeft').click(function () {
+		$(this).addClass('full');
+		$(this).removeClass('reachLeft');
+	});
+	// changes the divider
+	$('ul.divider_change:not(.locked) .gs-w.divider.full').click(function () {
+		$(this).addClass('thru');
+		$(this).removeClass('full');
+	});
+	// changes the divider
+	$('ul.divider_change:not(.locked) .gs-w.divider.thru').click(function () {
+		$(this).addClass('blocking');
+		$(this).removeClass('thru');
 	});
 
 
-	/*
-	// changes the divider to xxx
-	$('.gs-w.grabage').click(function () {
-		$(this).addClass('gone');
-	});
-	// changes the divider to xxx
-	$('.gs-w.gone.grabage').click(function () {
-		$(this).addClass('nope');
-		$(this).removeClass('gone');
-	});
-	// changes the divider to xxx
-	$('.gs-w.nope.grabage').click(function () {
-		$(this).removeClass('nope');
-	});
-	*/
 
+	// changes the divider
+	$('.gs-w.blocking.spanner2_change').click(function () {
+		$(this).addClass('doubled');
+		$(this).removeClass('blocking');
+		$(this).attr('data-sizex','2');
+		$(this).next().addClass('trashed');
+		$(this).append('<div class="box"></div>');
+		$('.gs-w.spanner2_change.doubled .box:not(:first-child)').remove();
+	});
 
     setTimeout(test, 1);
 }
@@ -86,93 +63,34 @@ $(document).ready(function(){
 
 	// hides seralize btn after build
 	$('.js-seralize').click(function () {
-		$(this).hide();
-		$('.build').show();
+		// $(this).hide();
+		// $('.build').show();
+		// $('.lockDown').show();
 	});
 
-
-
-	$('.div_unlock').click(function () {
-		$(this).toggleClass('active');
-		$('.div_unlock span').toggleClass('icon-wrench').toggleClass('icon-cog');
-		$('.div').toggleClass('hide');
-		$('.gs-w.divider').toggleClass('change');
-	});
-	$('.div').click(function () {
-		$('.gs-w.divider').removeClass('reach-xxx');
-		$('.gs-w.divider').toggleClass('change');
-		$('.div_unlock').toggleClass('active');
-		$('.div_unlock span').removeClass('icon-wrench').removeClass('icon-cog');
-		$('.div_unlock span').addClass('icon-wrench');
-		$(this).toggleClass('hide');
-		$('.div, .div_unlock').addClass('locked');
-		$('.div_unlock').removeClass('div_unlock');
-		$(this).removeClass('div');
-	});
-	
 
 
 	$('.block_unlock').click(function () {
 		$(this).toggleClass('active');
-		$('.block_unlock span').toggleClass('icon-wrench').toggleClass('icon-cog');
-		$('.card').toggleClass('hide');
-		$('.gs-w:not(.divider)').toggleClass('shuffle');
+		$('.block_unlock span').toggleClass('icon-working icon-edit');
+		$('.gs-w:not(.divider)').toggleClass('blocking_change');
 	});
-	$('.card').click(function () {
-		$('.gs-w:not(.divider)').remove('blocking');
-		$('.gs-w:not(.divider)').toggleClass('shuffle');
-		$('.block_unlock').toggleClass('active');
-		$('.block_unlock span').removeClass('icon-wrench').removeClass('icon-cog');
-		$('.block_unlock span').addClass('icon-lock');
-		$(this).toggleClass('hide');
-		$('.card, .block_unlock').addClass('locked');
-		$('.block_unlock').removeClass('block_unlock');
-		$(this).removeClass('card');
+	$('.block_unlock.active').click(function () {
+		$('.gs-w.thru.blocking_change, .gs-w.box.blocking_change, .gs-w.blocking.blocking_change').removeClass('blocking_change');
 	});
 
-
-
-
-	$('.spanner_unlock').click(function () {
+	$('.div_unlock').click(function () {
 		$(this).toggleClass('active');
-		$('.spanner_unlock span').toggleClass('icon-wrench').toggleClass('icon-cog');
-		$('.span').toggleClass('hide');
-		$('.gs-w:not(.divider)').toggleClass('jumper');
+		$('.div_unlock span').toggleClass('icon-working').toggleClass('icon-edit');
+		$('.gridster ul').toggleClass('divider_change').toggleClass('locked');
 	});
-	$('.span').click(function () {
-		$('.gs-w:not(.divider)').removeClass('blocking');
-		$('.gs-w:not(.divider)').toggleClass('shuffle');
-		$('.spanner_unlock').toggleClass('active');
-		$('.spanner_unlock span').removeClass('icon-wrench').removeClass('icon-cog');
-		$('.spanner_unlock span').addClass('icon-lock');
-		$(this).toggleClass('hide');
-		$('.span .spanner_unlock').addClass('locked');
-		$('.spanner_unlock').removeClass('spanner_unlock');
-		$(this).removeClass('span');
-	});
-
-
-
-	/*
-	$('.trash_unlock').click(function () {
+	$('.spanner2_unlock').click(function () {
 		$(this).toggleClass('active');
-		$('.chuck').toggleClass('hide');
-		$('.gs-w').toggleClass('grabage');
+		$('.spanner2_unlock span').toggleClass('icon-working').toggleClass('icon-edit');
+		$('.gs-w:not(.divider)').toggleClass('spanner2_change');
 	});
-	$('.chuck').click(function () {
-		$('.gs-w').remove('.gone');
-		$('.gs-w').toggleClass('grabage');
-		$('.trash_unlock').toggleClass('active');
-		$('.trash_unlock span').removeClass('icon-remove');
-		$('.trash_unlock span').addClass('icon-lock');
-		$(this).toggleClass('hide');
-		$('.chuck .trash_unlock').addClass('locked');
-		$('.trash_unlock').removeClass('trash_unlock');
-		$(this).removeClass('chuck');
-	});
-	*/
-	
-
 
 	test();
 });
+
+

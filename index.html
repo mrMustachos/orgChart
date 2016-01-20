@@ -5,8 +5,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Demo » Serialize</title>
 	<link rel="stylesheet" type="text/css" href="./css/jquery.gridster.css">
-	<link rel="stylesheet" type="text/css" href="./css/demo2.css">
-	<link rel="stylesheet" type="text/css" href="./css/builder2.css">
+	<link rel="stylesheet" type="text/css" href="./css/demo.css">
+	<link rel="stylesheet" type="text/css" href="./css/builder.css">
 </head>
 
 <body>
@@ -35,10 +35,10 @@
 		<ul class="locked"></ul>
 	</div>
 
-	<script type="text/javascript" src="./js/jquery.js"></script>
-	<script type="text/javascript" src="./js/jquery.gridster.js" charset="utf-8"></script>
-	<script type="text/javascript" src="./js/jquery.scrollTo.min.js"></script>
-	<script type="text/javascript" src="./js/style2.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery.gridster.js" charset="utf-8"></script>
+	<!-- <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script> -->
+	<script type="text/javascript" src="js/style.js"></script>
 
 	<script type="text/javascript">
 		var gridster;
@@ -119,15 +119,14 @@
 				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 16, 1);
 				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 17, 1);
 			});
-
-			$('.js-seralize').on('click', function() {
-				gridster.remove_all_widgets();
-				$.each(serialization, function() {
-					gridster.add_widget('<li />', this.size_x, this.size_y, this.col, this.row);
-				});
-				$('li').addClass('nope').addClass('blocking');
+			
+			gridster.remove_all_widgets();
+			$.each(serialization, function() {
+				gridster.add_widget('<li />', this.size_x, this.size_y, this.col, this.row);
 			});
 
+			$('li').addClass('blocking nope');
+			
 		});
 	</script>
 
