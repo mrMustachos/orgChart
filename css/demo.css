@@ -52,7 +52,9 @@ body {
 .gridster .gs-w.box {
     background: #fff;
 }
-.gridster .gs-w.thru {
+.gridster .gs-w.thru,
+.gridster .gs-w.doubled,
+.gridster .gs-w.trashed {
     background: transparent;
 }
 

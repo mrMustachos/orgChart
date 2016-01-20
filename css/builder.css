@@ -84,6 +84,7 @@
     -ms-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     float: left;
+    text-decoration: none;
 }
 .build > div .btn:first-child {
     margin-left: 0;

@@ -19,11 +19,13 @@
 	<div class="controls">
 		<div class="build">
 			<div class="adding">
-				<!-- <span id="add_div" class="btn"><span class="icon-add"></span>Divider</span> -->
-				<span id="add_block" class="btn"><span class="icon-add"></span>Row</span>
+				<a id="add_div" class="btn"><span class="icon-add"></span>Divider</a>
+				<a id="add_block" class="btn"><span class="icon-add"></span>Row</a>
 			</div>
 			<div class="adjusters">
-				<span class="btn block_unlock"><span class="icon-edit"></span>Boxes</span>
+				<a class="btn block_unlock"><span class="icon-edit"></span>Boxes</a>
+				<a class="btn div_unlock"><span class="icon-edit"></span>Divider</a>
+				<a class="btn spanner2_unlock"><span class="icon-edit"></span>2x Spans</a>
 			</div>
 		</div>
 	</div>
@@ -34,77 +36,6 @@
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.gridster.js" charset="utf-8"></script>
 	<script type="text/javascript" src="js/style.js"></script>
-
-	<script type="text/javascript">
-		var gridster;
-
-		// same object than generated with gridster.serialize() method
-		var serialization = [
-
-			{ col: 1, row: 1, size_x: 1, size_y: 5 },
-			{ col: 2, row: 1, size_x: 1, size_y: 5 },
-			{ col: 3, row: 1, size_x: 1, size_y: 5 },
-			{ col: 4, row: 1, size_x: 1, size_y: 5 },
-			{ col: 5, row: 1, size_x: 1, size_y: 5 },
-			{ col: 6, row: 1, size_x: 1, size_y: 5 },
-			{ col: 7, row: 1, size_x: 1, size_y: 5 },
-			{ col: 8, row: 1, size_x: 1, size_y: 5 },
-			{ col: 9, row: 1, size_x: 1, size_y: 5 },
-			{ col: 10, row: 1, size_x: 1, size_y: 5 },
-			{ col: 11, row: 1, size_x: 1, size_y: 5 },
-			{ col: 12, row: 1, size_x: 1, size_y: 5 },
-			{ col: 13, row: 1, size_x: 1, size_y: 5 },
-			{ col: 14, row: 1, size_x: 1, size_y: 5 },
-			{ col: 15, row: 1, size_x: 1, size_y: 5 },
-			{ col: 16, row: 1, size_x: 1, size_y: 5 },
-			{ col: 17, row: 1, size_x: 1, size_y: 5 }
-
-		];
-
-		// sort serialization
-		serialization = Gridster.sort_by_row_and_col_asc(serialization);
-
-		$(function(){
-
-			gridster = $(".gridster ul").gridster({
-				widget_base_dimensions: [130, 5],
-				widget_margins: [5, 5],
-        		min_cols: 17,
-                resize: {
-                    enabled: false
-                }
-			}).data('gridster');
-
-			$('#add_block').on('click', function() {
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 1, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 2, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 3, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 4, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 5, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 6, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 7, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 8, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 9, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 10, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 11, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 12, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 13, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 14, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 15, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 16, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 17, 1);
-			});
-			
-			gridster.remove_all_widgets();
-			$.each(serialization, function() {
-				gridster.add_widget('<li class="blocking nope"></li>', this.size_x, this.size_y, this.col, this.row);
-			});
-
-			// $('li').addClass('blocking nope');
-
-		});
-	</script>
-
 
 </body>
 </html>
