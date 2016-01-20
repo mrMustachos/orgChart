@@ -41,23 +41,23 @@
 		// same object than generated with gridster.serialize() method
 		var serialization = [
 
-			{ col: 1, row: 1, size_x: 1, size_y: 5 },
-			{ col: 2, row: 1, size_x: 1, size_y: 5 },
-			{ col: 3, row: 1, size_x: 1, size_y: 5 },
-			{ col: 4, row: 1, size_x: 1, size_y: 5 },
-			{ col: 5, row: 1, size_x: 1, size_y: 5 },
-			{ col: 6, row: 1, size_x: 1, size_y: 5 },
-			{ col: 7, row: 1, size_x: 1, size_y: 5 },
-			{ col: 8, row: 1, size_x: 1, size_y: 5 },
-			{ col: 9, row: 1, size_x: 1, size_y: 5 },
-			{ col: 10, row: 1, size_x: 1, size_y: 5 },
-			{ col: 11, row: 1, size_x: 1, size_y: 5 },
-			{ col: 12, row: 1, size_x: 1, size_y: 5 },
-			{ col: 13, row: 1, size_x: 1, size_y: 5 },
-			{ col: 14, row: 1, size_x: 1, size_y: 5 },
-			{ col: 15, row: 1, size_x: 1, size_y: 5 },
-			{ col: 16, row: 1, size_x: 1, size_y: 5 },
-			{ col: 17, row: 1, size_x: 1, size_y: 5 }
+			{ col: 1, row: 1, size_x: 1, size_y: 5, col_alpha: A, row_number: 1 },
+			{ col: 2, row: 1, size_x: 1, size_y: 5, col_alpha: B, row_number: 2 },
+			{ col: 3, row: 1, size_x: 1, size_y: 5, col_alpha: C, row_number: 3 },
+			{ col: 4, row: 1, size_x: 1, size_y: 5, col_alpha: D, row_number: 4 },
+			{ col: 5, row: 1, size_x: 1, size_y: 5, col_alpha: E, row_number: 5 },
+			{ col: 6, row: 1, size_x: 1, size_y: 5, col_alpha: F, row_number: 6 },
+			{ col: 7, row: 1, size_x: 1, size_y: 5, col_alpha: G, row_number: 7 },
+			{ col: 8, row: 1, size_x: 1, size_y: 5, col_alpha: H, row_number: 8 },
+			{ col: 9, row: 1, size_x: 1, size_y: 5, col_alpha: I, row_number: 9 },
+			{ col: 10, row: 1, size_x: 1, size_y: 5, col_alpha: J, row_number: 10 },
+			{ col: 11, row: 1, size_x: 1, size_y: 5, col_alpha: K, row_number: 11 },
+			{ col: 12, row: 1, size_x: 1, size_y: 5, col_alpha: L, row_number: 12 },
+			{ col: 13, row: 1, size_x: 1, size_y: 5, col_alpha: M, row_number: 13 },
+			{ col: 14, row: 1, size_x: 1, size_y: 5, col_alpha: N, row_number: 14 },
+			{ col: 15, row: 1, size_x: 1, size_y: 5, col_alpha: O, row_number: 15 },
+			{ col: 16, row: 1, size_x: 1, size_y: 5, col_alpha: P, row_number: 16 },
+			{ col: 17, row: 1, size_x: 1, size_y: 5, col_alpha: Q, row_number: 17 }
 
 		];
 
@@ -76,48 +76,28 @@
 			}).data('gridster');
 
 			$('#add_block').on('click', function() {
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 1, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 2, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 3, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 4, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 5, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 6, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 7, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 8, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 9, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 10, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 11, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 12, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 13, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 14, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 15, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 16, 1);
-				gridster.add_widget('<li class="blocking"></li>', 1, 5, 17, 1);
-			});
-			
-			$('#add_div').on('click', function() {
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 1, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 2, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 3, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 4, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 5, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 6, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 7, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 8, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 9, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 10, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 11, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 12, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 13, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 14, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 15, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 16, 1);
-				gridster.add_widget('<li class="divider blocking"></li>', 1, 1, 17, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 1, 1, A, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 2, 1, B, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 3, 1, C, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 4, 1, D, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 5, 1, E, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 6, 1, F, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 7, 1, G, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 8, 1, H, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 9, 1, I, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 10, 1, J, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 11, 1, K, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 12, 1, L, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 13, 1, M, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 14, 1, N, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 15, 1, O, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 16, 1, P, 1);
+				gridster.add_widget('<li class="blocking"></li>', 1, 5, 17, 1, Q, 1);
 			});
 			
 			gridster.remove_all_widgets();
 			$.each(serialization, function() {
-				gridster.add_widget('<li class="blocking nope"></li>', this.size_x, this.size_y, this.col, this.row);
+				gridster.add_widget('<li class="blocking nope"></li>', this.size_x, this.size_y, this.col, this.row, this.col_alpha, this.row_number);
 			});
 
 			// $('li').addClass('blocking nope');
