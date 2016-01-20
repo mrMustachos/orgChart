@@ -17,8 +17,6 @@
 
 
 	<div class="controls">
-		<span class="btn js-seralize">Serialize</span>
-		<span class="btn lockDown"><span class="icon-lock"></span>Lock Down</span>
 		<div class="build">
 			<div class="adding">
 				<span id="add_div" class="btn"><span class="icon-add"></span>Divider</span>
@@ -26,18 +24,15 @@
 			</div>
 			<div class="adjusters">
 				<span class="btn block_unlock"><span class="icon-edit"></span>Boxes</span>
-				<span class="btn div_unlock"><span class="icon-edit"></span>Divider</span>
-				<span class="btn spanner2_unlock"><span class="icon-edit"></span>2x Spans</span>
 			</div>
 		</div>
 	</div>
 	<div class="gridster">
-		<ul class="locked"></ul>
+		<ul></ul>
 	</div>
 
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.gridster.js" charset="utf-8"></script>
-	<!-- <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script> -->
 	<script type="text/javascript" src="js/style.js"></script>
 
 	<script type="text/javascript">
@@ -126,7 +121,7 @@
 			});
 
 			$('li').addClass('blocking nope');
-			
+
 		});
 	</script>
 
