@@ -54,6 +54,7 @@ body {
 }
 .gridster .gs-w.thru,
 .gridster .gs-w.doubled,
+.gridster .gs-w.tripled,
 .gridster .gs-w.trashed {
     background: transparent;
 }
@@ -109,15 +110,41 @@ body {
 .reachRight.divider:before, .full.divider:before {
     left: 129px;
 }
-.gridster .gs-w.doubled .box {
+.reachRight.doubled.divider:before, .full.doubled.divider:before {
+    left: 269px;
+}
+.gridster .gs-w.doubled .gs-w,
+.gridster .gs-w.tripled .gs-w {
     width: 130px;
     height: 65px;
-    background: #fff;
     margin: 0 auto;
+    position: relative;
+}
+.gridster .gs-w.tripled .box {
+    left: -35px;
+}
+.gridster .gs-w.tripled .gs-w:nth-last-of-type(2) {
+    left: 70px;
+    float: left;
+}
+.gridster .gs-w.tripled .gs-w:nth-of-type(2) {
+    right: 70px;
+    float: right;
+}
+
+.gridster .gs-w.doubled .box,
+.gridster .gs-w.tripled .box {
+    background: #fff;
+}
+.gridster .gs-w.doubled .thru,
+.gridster .gs-w.tripled .thru {
+    background: transparent;
 }
 
 .gs-w.divider.thru:before,
 .gs-w.divider.blocking:before,
+.doubled:not(:empty).gs-w:after,
+.tripled:not(:empty).gs-w:after,
 .gs-w.nope:after {
     display: none !important;
 }
