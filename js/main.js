@@ -148,6 +148,7 @@ $(window).ready(function() {
 
 		$.each(blocks, function(i, widget){
 			// i = i+1;
+
 			// grid_canvas.add_widget.apply(grid_canvas, widget, positions).attr('id', 'li' + i)
 			grid_canvas.add_widget.apply(grid_canvas, widget, positions)
 			
@@ -179,11 +180,13 @@ $(window).ready(function() {
 				}
 			);
 		});
+		
 		$('.gs_w').each(function(i){
 			i = i+1;
 			$(this).attr('id', 'li');
 			$(this).attr('id', 'li' + i);
 		});
+
 	});
 
 	$('#add_div').on('click', function(e, i) {
