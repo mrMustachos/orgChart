@@ -83,9 +83,11 @@ $(window).ready(function() {
 
 
 				$.post(
+					/*
 					"process.php", {
 						"positions": positions
 					},
+					*/
 					function(data) {
 
 						// this is where you can check if your data is sent to the server or not.
@@ -152,7 +154,7 @@ $(window).ready(function() {
 			// grid_canvas.add_widget.apply(grid_canvas, widget, positions).attr('id', 'li' + i)
 			grid_canvas.add_widget.apply(grid_canvas, widget, positions)
 			
-			var positions = JSON.stringify(grid_canvas.serialize());
+			var positions = JSON.stringify(grid_canvas.serialize_changed());
 
 			// With HTML5, web pages can store data locally within the user's browser.
 			// Earlier, this was done with cookies. However, Web Storage is more secure and faster. 
@@ -164,9 +166,11 @@ $(window).ready(function() {
 
 
 			$.post(
+				/*
 				"process.php", {
 					"positions": positions
 				},
+				*/
 				function(data) {
 
 					// this is where you can check if your data is sent to the server or not.
@@ -193,12 +197,14 @@ $(window).ready(function() {
 		e.preventDefault();
 		$.each(dividers, function(i, widget){
 			grid_canvas.add_widget.apply(grid_canvas, widget, positions)
-			var positions = JSON.stringify(grid_canvas.serialize());
+			var positions = JSON.stringify(grid_canvas.serialize_changed());
 			localStorage.setItem('positions', positions);
 			$.post(
+				/*
 				"process.php", {
 					"positions": positions
 				},
+				*/
 				function(data) {
 					console.log(data);
 					if (data == 200)
@@ -215,16 +221,26 @@ $(window).ready(function() {
 		});
 	});
 
-
-	$('#seralize').on('click', function(e, i) {
+	$('#delete_top').on('click', function(e, i) {
 		e.preventDefault();
-		$.each(blocks, function(i, widget){
-			var positions = JSON.stringify(grid_canvas.serialize());
+
+		$('.gridster li[data-row=1]').addClass('undo');
+
+		$.each(dividers, function(i, widget){
+			var killer = $('.gridster li.undo'), index;
+
+			for (index = 0; index < killer.length; index++) {
+				grid_canvas.remove_widget(killer.eq(Math.min(index,16)));
+			}
+			
+			var positions = JSON.stringify(grid_canvas.serialize_changed());
 			localStorage.setItem('positions', positions);
 			$.post(
+				/*
 				"process.php", {
 					"positions": positions
 				},
+				*/
 				function(data) {
 					console.log(data);
 					if (data == 200)
@@ -234,18 +250,166 @@ $(window).ready(function() {
 				}
 			);
 		});
+		$('.gs_w').each(function(i){
+			i = i+1;
+			$(this).attr('id', 'li');
+			$(this).attr('id', 'li' + i);
+		});
+	});
 
-		$.each(dividers, function(i, widget){
+	$('#seralize').on('click', function(e, i) {
+		e.preventDefault();
+		$.each('.gs_w', function(i, widget){
 			var positions = JSON.stringify(grid_canvas.serialize());
 			localStorage.setItem('positions', positions);
 			$.post(
+				/*
 				"process.php", {
 					"positions": positions
 				},
+				*/
 				function(data) {
 					console.log(data);
 					if (data == 200)
-						console.log("Data successfully sent to the server");
+						// console.log("Data successfully sent to the server");
+						console.log
+					else
+						console.log
+				}
+			);
+		});
+	});
+
+
+
+	$('.block_unlock').on('click', function(e, i) {
+		e.preventDefault();
+		$.each('.gridster .gs_w:not(.divider)', function(i, widget){
+			$('.block_unlock').toggleClass('active');
+			$('.block_unlock span').toggleClass('icon-edit icon-working');
+			$('.gridster .gs_w:not(.divider)').toggleClass('box_unlocked');
+
+			var positions = JSON.stringify(grid_canvas.serialize_changed());
+			localStorage.setItem('positions', positions);
+			$.post(
+				/*
+				"process.php", {
+					"positions": positions
+				},
+				*/
+				function(data) {
+					console.log(data);
+					if (data == 200)
+						// console.log("Data successfully sent to the server");
+						console.log
+					else
+						console.log
+				}
+			);
+		});
+	});
+
+	$('.div_noped').on('click', function(e, i) {
+		e.preventDefault();
+		$.each('.gridster .gs_w', function(i, widget){
+			$('.div_noped').toggleClass('active');
+			$('.div_noped span').toggleClass('icon-nope icon-working');
+			$('.gridster .gs_w').toggleClass('noping');
+
+			var positions = JSON.stringify(grid_canvas.serialize_changed());
+			localStorage.setItem('positions', positions);
+			$.post(
+				/*
+				"process.php", {
+					"positions": positions
+				},
+				*/
+				function(data) {
+					console.log(data);
+					if (data == 200)
+						// console.log("Data successfully sent to the server");
+						console.log
+					else
+						console.log
+				}
+			);
+		});
+	});
+
+	$('.div_unlock').on('click', function(e, i) {
+		e.preventDefault();
+		$.each('.gridster .gs_w.divider', function(i, widget){
+			$('.div_unlock').toggleClass('active');
+			$('.div_unlock span').toggleClass('icon-edit icon-working');
+			$('.gridster .gs_w.divider').toggleClass('div_unlocked');
+
+			var positions = JSON.stringify(grid_canvas.serialize_changed());
+			localStorage.setItem('positions', positions);
+			$.post(
+				/*
+				"process.php", {
+					"positions": positions
+				},
+				*/
+				function(data) {
+					console.log(data);
+					if (data == 200)
+						// console.log("Data successfully sent to the server");
+						console.log
+					else
+						console.log
+				}
+			);
+		});
+	});
+
+	$('.spanner2_unlock').on('click', function(e, i) {
+		e.preventDefault();
+		$.each('.gridster .gs_w', function(i, widget){
+			$('.spanner2_unlock').toggleClass('active');
+			$('.spanner2_unlock span').toggleClass('icon-edit icon-working');
+			$('.gridster .gs_w').toggleClass('spanner2_create');
+
+			var positions = JSON.stringify(grid_canvas.serialize_changed());
+			localStorage.setItem('positions', positions);
+			$.post(
+				/*
+				"process.php", {
+					"positions": positions
+				},
+				*/
+				function(data) {
+					console.log(data);
+					if (data == 200)
+						// console.log("Data successfully sent to the server");
+						console.log
+					else
+						console.log
+				}
+			);
+		});
+	});
+
+	$('.spanner3_unlock').on('click', function(e, i) {
+		e.preventDefault();
+		$.each('.gridster .gs_w', function(i, widget){
+			$('.spanner3_unlock').toggleClass('active');
+			$('.spanner3_unlock span').toggleClass('icon-edit icon-working');
+			$('.gridster .gs_w').toggleClass('spanner3_create');
+
+			var positions = JSON.stringify(grid_canvas.serialize_changed());
+			localStorage.setItem('positions', positions);
+			$.post(
+				/*
+				"process.php", {
+					"positions": positions
+				},
+				*/
+				function(data) {
+					console.log(data);
+					if (data == 200)
+						// console.log("Data successfully sent to the server");
+						console.log
 					else
 						console.log
 				}

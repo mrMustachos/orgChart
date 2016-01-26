@@ -173,7 +173,9 @@ body {
 .gridster .gs_w.trashed {
     background: transparent;
 }
-.gridster .gs_w:after {
+.gridster .gs_w:after,
+.gridster .gs_w.doubled .box:after,
+.gridster .gs_w.tripled .box:after {
     content: "";
     background: #333;
     display: block;
@@ -260,6 +262,7 @@ body {
 .gs_w.divider.blocking:before,
 .doubled:not(:empty).gs_w:after,
 .tripled:not(:empty).gs_w:after,
+.gridster .gs_w:nth-child(-n+17):after,
 .gs_w.nope:after {
     display: none !important;
 }
