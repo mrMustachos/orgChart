@@ -16,17 +16,15 @@
 	<link rel="stylesheet" href="css/builder.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="js/jquery.gridster.with-extras.min.js"></script>
-	<script src="js/jquery.jquery.listnav-2.1.js"></script>
+	<script src="js/jquery.listnav-2.1.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/plugins.js"></script>
 
 	<script type="text/javascript">
-
 		function myfunction(){
 			localStorage.clear();
 			window.location.reload();
 		}
-
 		$(function(){
 			$('#nameList').listnav();
 			$('.ln-letters a.ln-disabled').each(function() {
@@ -34,7 +32,6 @@
 				$(this).replaceWith('<div class="empty '+ classes+'">' + $(this).text() + '</div>')
 			});
 		});
-
 	</script>
 
 </head>
@@ -47,56 +44,206 @@
 					<div class="shield"></div>
 					<div id="nameList-nav" class="listNav"></div>
 					<ul id="nameList" class="nameList">
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Odilia_Gaines" id="xOdilia_Gaines" name="Odilia Gaines"><label for="xOdilia_Gaines">Odilia Gaines</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Lauri_Cottrell" id="xLauri_Cottrell" name="Lauri Cottrell"><label for="xLauri_Cottrell">Lauri Cottrell</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Brianne_Acuna" id="xBrianne_Acuna" name="Brianne Acuna"><label for="xBrianne_Acuna">Brianne Acuna</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Nobuko_Archer" id="xNobuko_Archer" name="Nobuko Archer"><label for="xNobuko_Archer">Nobuko Archer</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Yelena_Loper" id="xYelena_Loper" name="Yelena Loper"><label for="xYelena_Loper">Yelena Loper</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Pearly_Sheridan" id="xPearly_Sheridan" name="Pearly Sheridan"><label for="xPearly_Sheridan">Pearly Sheridan</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Isidra_Strother" id="xIsidra_Strother" name="Isidra Strother"><label for="xIsidra_Strother">Isidra Strother</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Hsiu_Duggan" id="xHsiu_Duggan" name="Hsiu Duggan"><label for="xHsiu_Duggan">Hsiu Duggan</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Carroll_Neely" id="xCarroll_Neely" name="Carroll Neely"><label for="xCarroll_Neely">Carroll Neely</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Coreen_Meeker" id="xCoreen_Meeker" name="Coreen Meeker"><label for="xCoreen_Meeker">Coreen Meeker</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Raisa_Oshea" id="xRaisa_Oshea" name="Raisa Oshea"><label for="xRaisa_Oshea">Raisa Oshea</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Georgene_Griggs" id="xGeorgene_Griggs" name="Georgene Griggs"><label for="xGeorgene_Griggs">Georgene Griggs</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Loni_Crow" id="xLoni_Crow" name="Loni Crow"><label for="xLoni_Crow">Loni Crow</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Bennie_Kaye" id="xBennie_Kaye" name="Bennie Kaye"><label for="xBennie_Kaye">Bennie Kaye</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Issac_Betancourt" id="xIssac_Betancourt" name="Issac Betancourt"><label for="xIssac_Betancourt">Issac Betancourt</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Logan_Langdon" id="xLogan_Langdon" name="Logan Langdon"><label for="xLogan_Langdon">Logan Langdon</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Bernita_Schott" id="xBernita_Schott" name="Bernita Schott"><label for="xBernita_Schott">Bernita Schott</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Sherlyn_Talbot" id="xSherlyn_Talbot" name="Sherlyn Talbot"><label for="xSherlyn_Talbot">Sherlyn Talbot</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Carley_Woodall" id="xCarley_Woodall" name="Carley Woodall"><label for="xCarley_Woodall">Carley Woodall</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Ollie_Eaton" id="xOllie_Eaton" name="Ollie Eaton"><label for="xOllie_Eaton">Ollie Eaton</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Shayne_Bustamante" id="xShayne_Bustamante" name="Shayne Bustamante"><label for="xShayne_Bustamante">Shayne Bustamante</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Kathlyn_Bright" id="xKathlyn_Bright" name="Kathlyn Bright"><label for="xKathlyn_Bright">Kathlyn Bright</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Hyon_Shorter" id="xHyon_Shorter" name="Hyon Shorter"><label for="xHyon_Shorter">Hyon Shorter</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Thomasina_Dortch" id="xThomasina_Dortch" name="Thomasina Dortch"><label for="xThomasina_Dortch">Thomasina Dortch</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Ute_Hutchings" id="xUte_Hutchings" name="Ute Hutchings"><label for="xUte_Hutchings">Ute Hutchings</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Skye_Dunaway" id="xSkye_Dunaway" name="Skye Dunaway"><label for="xSkye_Dunaway">Skye Dunaway</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Lyndsey_Canady" id="xLyndsey_Canady" name="Lyndsey Canady"><label for="xLyndsey_Canady">Lyndsey Canady</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Thu_Bone" id="xThu_Bone" name="Thu Bone"><label for="xThu_Bone">Thu Bone</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Susana_Redd" id="xSusana_Redd" name="Susana Redd"><label for="xSusana_Redd">Susana Redd</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Dion_Ratliff" id="xDion_Ratliff" name="Dion Ratliff"><label for="xDion_Ratliff">Dion Ratliff</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Sharlene_Desantis" id="xSharlene_Desantis" name="Sharlene Desantis"><label for="xSharlene_Desantis">Sharlene Desantis</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Haley_Will" id="xHaley_Will" name="Haley Will"><label for="xHaley_Will">Haley Will</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Twana_Langlois" id="xTwana_Langlois" name="Twana Langlois"><label for="xTwana_Langlois">Twana Langlois</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Gino_Bourque" id="xGino_Bourque" name="Gino Bourque"><label for="xGino_Bourque">Gino Bourque</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Karlyn_Hutchins" id="xKarlyn_Hutchins" name="Karlyn Hutchins"><label for="xKarlyn_Hutchins">Karlyn Hutchins</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Iesha_Maynard" id="xIesha_Maynard" name="Iesha Maynard"><label for="xIesha_Maynard">Iesha Maynard</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Queenie_Lawler" id="xQueenie_Lawler" name="Queenie Lawler"><label for="xQueenie_Lawler">Queenie Lawler</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Ivy_Chesser" id="xIvy_Chesser" name="Ivy Chesser"><label for="xIvy_Chesser">Ivy Chesser</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Tarah_Canfield" id="xTarah_Canfield" name="Tarah Canfield"><label for="xTarah_Canfield">Tarah Canfield</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Magdalen_Short" id="xMagdalen_Short" name="Magdalen Short"><label for="xMagdalen_Short">Magdalen Short</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Joesph_Chu" id="xJoesph_Chu" name="Joesph Chu"><label for="xJoesph_Chu">Joesph Chu</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Hobert_Beaver" id="xHobert_Beaver" name="Hobert Beaver"><label for="xHobert_Beaver">Hobert Beaver</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Lamont_Kunz" id="xLamont_Kunz" name="Lamont Kunz"><label for="xLamont_Kunz">Lamont Kunz</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Brook_Winchester" id="xBrook_Winchester" name="Brook Winchester"><label for="xBrook_Winchester">Brook Winchester</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Rashida_Dix" id="xRashida_Dix" name="Rashida Dix"><label for="xRashida_Dix">Rashida Dix</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Truman_Lusk" id="xTruman_Lusk" name="Truman Lusk"><label for="xTruman_Lusk">Truman Lusk</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Zachery_Vera" id="xLoise_Garnett" name="Loise Garnett"><label for="xLoise_Garnett">Loise Garnett</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Ardella_Zielinski" id="xArdella_Zielinski" name="Ardella Zielinski"><label for="xArdella_Zielinski">Ardella Zielinski</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Zachery_Vera" id="xZachery_Vera" name="Zachery Vera"><label for="xZachery_Vera">Zachery Vera</label></li>
-						<li class="lablr"><input type="radio" class="radioBtnClass" value="Maire_Kozlowski" id="xMaire_Kozlowski" name="Maire Kozlowski"><label for="xMaire_Kozlowski">Maire Kozlowski</label></li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Odilia_Gaines" id="xOdilia_Gaines" name="Odilia Gaines">
+							<label for="xOdilia_Gaines">Odilia Gaines</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Lauri_Cottrell" id="xLauri_Cottrell" name="Lauri Cottrell">
+							<label for="xLauri_Cottrell">Lauri Cottrell</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Brianne_Acuna" id="xBrianne_Acuna" name="Brianne Acuna">
+							<label for="xBrianne_Acuna">Brianne Acuna</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Nobuko_Archer" id="xNobuko_Archer" name="Nobuko Archer">
+							<label for="xNobuko_Archer">Nobuko Archer</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Yelena_Loper" id="xYelena_Loper" name="Yelena Loper">
+							<label for="xYelena_Loper">Yelena Loper</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Pearly_Sheridan" id="xPearly_Sheridan" name="Pearly Sheridan">
+							<label for="xPearly_Sheridan">Pearly Sheridan</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Isidra_Strother" id="xIsidra_Strother" name="Isidra Strother">
+							<label for="xIsidra_Strother">Isidra Strother</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Hsiu_Duggan" id="xHsiu_Duggan" name="Hsiu Duggan">
+							<label for="xHsiu_Duggan">Hsiu Duggan</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Carroll_Neely" id="xCarroll_Neely" name="Carroll Neely">
+							<label for="xCarroll_Neely">Carroll Neely</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Coreen_Meeker" id="xCoreen_Meeker" name="Coreen Meeker">
+							<label for="xCoreen_Meeker">Coreen Meeker</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Raisa_Oshea" id="xRaisa_Oshea" name="Raisa Oshea">
+							<label for="xRaisa_Oshea">Raisa Oshea</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Georgene_Griggs" id="xGeorgene_Griggs" name="Georgene Griggs">
+							<label for="xGeorgene_Griggs">Georgene Griggs</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Loni_Crow" id="xLoni_Crow" name="Loni Crow">
+							<label for="xLoni_Crow">Loni Crow</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Bennie_Kaye" id="xBennie_Kaye" name="Bennie Kaye">
+							<label for="xBennie_Kaye">Bennie Kaye</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Issac_Betancourt" id="xIssac_Betancourt" name="Issac Betancourt">
+							<label for="xIssac_Betancourt">Issac Betancourt</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Logan_Langdon" id="xLogan_Langdon" name="Logan Langdon">
+							<label for="xLogan_Langdon">Logan Langdon</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Bernita_Schott" id="xBernita_Schott" name="Bernita Schott">
+							<label for="xBernita_Schott">Bernita Schott</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Sherlyn_Talbot" id="xSherlyn_Talbot" name="Sherlyn Talbot">
+							<label for="xSherlyn_Talbot">Sherlyn Talbot</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Carley_Woodall" id="xCarley_Woodall" name="Carley Woodall">
+							<label for="xCarley_Woodall">Carley Woodall</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Ollie_Eaton" id="xOllie_Eaton" name="Ollie Eaton">
+							<label for="xOllie_Eaton">Ollie Eaton</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Shayne_Bustamante" id="xShayne_Bustamante" name="Shayne Bustamante">
+							<label for="xShayne_Bustamante">Shayne Bustamante</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Kathlyn_Bright" id="xKathlyn_Bright" name="Kathlyn Bright">
+							<label for="xKathlyn_Bright">Kathlyn Bright</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Hyon_Shorter" id="xHyon_Shorter" name="Hyon Shorter">
+							<label for="xHyon_Shorter">Hyon Shorter</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Thomasina_Dortch" id="xThomasina_Dortch" name="Thomasina Dortch">
+							<label for="xThomasina_Dortch">Thomasina Dortch</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Ute_Hutchings" id="xUte_Hutchings" name="Ute Hutchings">
+							<label for="xUte_Hutchings">Ute Hutchings</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Skye_Dunaway" id="xSkye_Dunaway" name="Skye Dunaway">
+							<label for="xSkye_Dunaway">Skye Dunaway</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Lyndsey_Canady" id="xLyndsey_Canady" name="Lyndsey Canady">
+							<label for="xLyndsey_Canady">Lyndsey Canady</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Thu_Bone" id="xThu_Bone" name="Thu Bone">
+							<label for="xThu_Bone">Thu Bone</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Susana_Redd" id="xSusana_Redd" name="Susana Redd">
+							<label for="xSusana_Redd">Susana Redd</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Dion_Ratliff" id="xDion_Ratliff" name="Dion Ratliff">
+							<label for="xDion_Ratliff">Dion Ratliff</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Sharlene_Desantis" id="xSharlene_Desantis" name="Sharlene Desantis">
+							<label for="xSharlene_Desantis">Sharlene Desantis</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Haley_Will" id="xHaley_Will" name="Haley Will">
+							<label for="xHaley_Will">Haley Will</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Twana_Langlois" id="xTwana_Langlois" name="Twana Langlois">
+							<label for="xTwana_Langlois">Twana Langlois</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Gino_Bourque" id="xGino_Bourque" name="Gino Bourque">
+							<label for="xGino_Bourque">Gino Bourque</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Karlyn_Hutchins" id="xKarlyn_Hutchins" name="Karlyn Hutchins">
+							<label for="xKarlyn_Hutchins">Karlyn Hutchins</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Iesha_Maynard" id="xIesha_Maynard" name="Iesha Maynard">
+							<label for="xIesha_Maynard">Iesha Maynard</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Queenie_Lawler" id="xQueenie_Lawler" name="Queenie Lawler">
+							<label for="xQueenie_Lawler">Queenie Lawler</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Ivy_Chesser" id="xIvy_Chesser" name="Ivy Chesser">
+							<label for="xIvy_Chesser">Ivy Chesser</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Tarah_Canfield" id="xTarah_Canfield" name="Tarah Canfield">
+							<label for="xTarah_Canfield">Tarah Canfield</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Magdalen_Short" id="xMagdalen_Short" name="Magdalen Short">
+							<label for="xMagdalen_Short">Magdalen Short</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Joesph_Chu" id="xJoesph_Chu" name="Joesph Chu">
+							<label for="xJoesph_Chu">Joesph Chu</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Hobert_Beaver" id="xHobert_Beaver" name="Hobert Beaver">
+							<label for="xHobert_Beaver">Hobert Beaver</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Lamont_Kunz" id="xLamont_Kunz" name="Lamont Kunz">
+							<label for="xLamont_Kunz">Lamont Kunz</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Brook_Winchester" id="xBrook_Winchester" name="Brook Winchester">
+							<label for="xBrook_Winchester">Brook Winchester</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Rashida_Dix" id="xRashida_Dix" name="Rashida Dix">
+							<label for="xRashida_Dix">Rashida Dix</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Truman_Lusk" id="xTruman_Lusk" name="Truman Lusk">
+							<label for="xTruman_Lusk">Truman Lusk</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Zachery_Vera" id="xLoise_Garnett" name="Loise Garnett">
+							<label for="xLoise_Garnett">Loise Garnett</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Ardella_Zielinski" id="xArdella_Zielinski" name="Ardella Zielinski">
+							<label for="xArdella_Zielinski">Ardella Zielinski</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Zachery_Vera" id="xZachery_Vera" name="Zachery Vera">
+							<label for="xZachery_Vera">Zachery Vera</label>
+						</li>
+						<li class="lablr">
+							<input type="radio" class="radioBtnClass" value="Maire_Kozlowski" id="xMaire_Kozlowski" name="Maire Kozlowski">
+							<label for="xMaire_Kozlowski">Maire Kozlowski</label>
+						</li>
 					</ul>
 				</div>
 			</div>
