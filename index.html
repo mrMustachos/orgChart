@@ -21,11 +21,12 @@
 	<script src="js/plugins.js"></script>
 
 	<script type="text/javascript">
+
 		function myfunction(){
 			localStorage.clear();
 			window.location.reload();
 		}
-		
+
 		$(function(){
 			$('#nameList').listnav();
 			$('.ln-letters a.ln-disabled').each(function() {
@@ -33,6 +34,7 @@
 				$(this).replaceWith('<div class="empty '+ classes+'">' + $(this).text() + '</div>')
 			});
 		});
+
 	</script>
 
 </head>
@@ -43,6 +45,7 @@
 			<div class="headerHider">
 				<div class="nameBank hide">
 					<div class="shield"></div>
+					<div id="nameList-nav" class="listNav"></div>
 					<ul id="nameList" class="nameList">
 						<li class="lablr"><input type="radio" class="radioBtnClass" value="Odilia_Gaines" id="xOdilia_Gaines" name="Odilia Gaines"><label for="xOdilia_Gaines">Odilia Gaines</label></li>
 						<li class="lablr"><input type="radio" class="radioBtnClass" value="Lauri_Cottrell" id="xLauri_Cottrell" name="Lauri Cottrell"><label for="xLauri_Cottrell">Lauri Cottrell</label></li>
