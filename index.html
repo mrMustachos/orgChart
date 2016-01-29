@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="css/normalize_gridster.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/builder.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 	<script src="js/jquery.gridster.with-extras.min.js"></script>
 	<script src="js/jquery.listnav-2.1.js"></script>
 	<script src="js/main.js"></script>
@@ -25,19 +25,11 @@
 			localStorage.clear();
 			window.location.reload();
 		}
-		$(function(){
-			$('#nameList').listnav();
-			$('.ln-letters a.ln-disabled').each(function() {
-				var classes = $(this).attr('class');
-				$(this).replaceWith('<div class="empty '+ classes+'">' + $(this).text() + '</div>')
-			});
-		});
 	</script>
-
 </head>
+
 <body>
 	<section class="demo">
-
 		<div class="controls">
 			<div class="headerHider">
 				<div class="nameBank hide">
@@ -248,36 +240,50 @@
 				</div>
 			</div>
 			<div class="build">
-				<div class="adjusters deploy">
-					<span class="input_wrapper btn icon-reset"><input id="def_button" class="btn" type="button" value="Reset" onclick="myfunction()"></span>
-					<button id="tidy" class="btn"><span class="icon-tidy"></span>Tidy Up</button>
-					<button id="seralize" class="btn"><span class="icon-save"></span>Save</button>
-				</div>
-				<hr>
-				<div class="adding">
-					<button id="delete_top" class="btn"><span class="icon-clear"></span>Delete Last Row</button>
-					<button id="add_block" class="btn"><span class="icon-add"></span>Blocks</button>
-					<button id="add_div" class="btn"><span class="icon-add"></span>Dividers</button>
-				</div>
-				<div class="adjusters">
-					<button class="btn block_unlock"><span class="icon-edit"></span>Boxes</button>
-					<button class="btn div_unlock"><span class="icon-edit"></span>Divider</button>
-					<button class="btn div_noped"><span class="icon-nope"></span>Last</button>
-					<hr>
-					<button class="btn spanner2_unlock"><span class="icon-hop"></span>2x Spans</button>
-					<button class="btn spanner3_unlock"><span class="icon-hop"></span>3x Spans</button>
-					<hr>
-					<button class="btn namer_unlock"><span class="icon-name"></span>Add Names</button>
+				<div class="tab">
+					<ul class="tabs">
+						<li><a href="#">Build</a></li>
+						<li><a href="#">Modify</a></li>
+						<li><a href="#">Settings</a></li>
+					</ul>
+					<div class="tab_content">
+						<div class="tabs_item">
+							<span class="grouping tall tweak">
+								<button class="btn div_noped"><span class="icon-nope"></span>Trim</button>
+								<button class="btn spanner2_unlock"><span class="icon-hop"></span>2x Spans</button>
+								<button class="btn spanner3_unlock"><span class="icon-hop"></span>3x Spans</button>
+							</span>
+							<span class="grouping add">
+								<button id="add_block" class="btn create"><span class="icon-add"></span>Blocks</button>
+								<button id="add_div" class="btn create"><span class="icon-add"></span>Dividers</button>
+								<button id="delete_top" class="btn create"><span class="icon-clear"></span>Last</button>
+							</span>
+							<span class="grouping assign">
+								<button class="btn block_unlock"><span class="icon-edit"></span>Boxes</button>
+								<button class="btn div_unlock"><span class="icon-edit"></span>Divider</button>
+								<button class="btn namer_unlock"><span class="icon-name"></span>Name</button>
+							</span>
+						</div>
+						<div class="tabs_item">
+							<button id="insert_block" class="btn"><span class="icon-insert_block"></span>Insert Blocks</button>
+							<button id="insert_div" class="btn"><span class="icon-insert_divider"></span>Insert Dividers</button>
+							<button id="insert_col" class="btn"><span class="icon-edit"></span>Insert Column</button>
+						</div>
+						<div class="tabs_item">
+							<button id="seralize" class="btn"><span class="icon-save"></span>Save</button>
+							<button id="tidy" class="btn"><span class="icon-tidy"></span>Tidy Up</button>
+							<button id="deployr" class="btn"><span class="icon-deployr"></span>Deployr</button>
+							<button id="def_button" class="btn" onclick="myfunction()"><span class="icon-reset"></span>Reset</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
 		<div class="gridster ready">
 			<ul></ul>
 		</div>
-
 		<div class="content">
-			<p><textarea id="log"></textarea></p>
+			<p id="log"></p>
 		</div>
 	</section>
 </body>

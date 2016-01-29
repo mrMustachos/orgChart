@@ -1,5 +1,34 @@
 
 $(window).ready(function() {
+
+	// clean up name list
+	$(function(){
+		$('#nameList').listnav();
+		$('.ln-letters a.ln-disabled').each(function() {
+			var classes = $(this).attr('class');
+			$(this).replaceWith('<div class="empty '+ classes+'">' + $(this).text() + '</div>')
+		});
+	});
+
+	// tabbed buttons
+	(function ($) { 
+		$('.tab ul.tabs').addClass('active').find('> li:eq(0)').addClass('current');
+		
+		$('.tab ul.tabs li a').click(function (g) { 
+			var tab = $(this).closest('.tab'), 
+				index = $(this).closest('li').index();
+			
+			tab.find('ul.tabs > li').removeClass('current');
+			$(this).closest('li').addClass('current');
+			
+			tab.find('.tab_content').find('div.tabs_item').not('div.tabs_item:eq(' + index + ')').slideUp();
+			tab.find('.tab_content').find('div.tabs_item:eq(' + index + ')').slideDown();
+			
+			g.preventDefault();
+		} );
+	})(jQuery);
+
+
 	var localData = JSON.parse(localStorage.getItem('positions'));
 
 	if (localData != null) {
@@ -23,6 +52,7 @@ $(window).ready(function() {
 	}
 
 	var grid_canvas = $(".gridster > ul").gridster({
+		autogenerate_stylesheet: false,
 		widget_margins: [5, 5],
 		widget_base_dimensions: [130, 5],
 		min_cols: 17,
@@ -32,10 +62,11 @@ $(window).ready(function() {
 			return {
 				id: $($w).attr('id'),
 				class: $($w).attr('class'),
+				// htmlContent : $($w).html() 
 				col: wgd.col,
 				row: wgd.row,
 				size_x: wgd.size_x,
-				size_y: wgd.size_y,
+				size_y: wgd.size_y
 			};
 		},
 
@@ -58,46 +89,54 @@ $(window).ready(function() {
 			}
 		}
 	}).data('gridster');
-
+	
 	var blocks = [
-		['<li class="blocking"></li>', 1, 5, 1, 1],
-		['<li class="blocking"></li>', 1, 5, 2, 1],
-		['<li class="blocking"></li>', 1, 5, 3, 1],
-		['<li class="blocking"></li>', 1, 5, 4, 1],
-		['<li class="blocking"></li>', 1, 5, 5, 1],
-		['<li class="blocking"></li>', 1, 5, 6, 1],
-		['<li class="blocking"></li>', 1, 5, 7, 1],
-		['<li class="blocking"></li>', 1, 5, 8, 1],
-		['<li class="blocking"></li>', 1, 5, 9, 1],
-		['<li class="blocking"></li>', 1, 5, 10, 1],
-		['<li class="blocking"></li>', 1, 5, 11, 1],
-		['<li class="blocking"></li>', 1, 5, 12, 1],
-		['<li class="blocking"></li>', 1, 5, 13, 1],
-		['<li class="blocking"></li>', 1, 5, 14, 1],
-		['<li class="blocking"></li>', 1, 5, 15, 1],
-		['<li class="blocking"></li>', 1, 5, 16, 1],
-		['<li class="blocking"></li>', 1, 5, 17, 1]
+		{ col: 1, row: 1, size_x: 1, size_y: 5 },
+		{ col: 2, row: 1, size_x: 1, size_y: 5 },
+		{ col: 3, row: 1, size_x: 1, size_y: 5 },
+		{ col: 4, row: 1, size_x: 1, size_y: 5 },
+		{ col: 5, row: 1, size_x: 1, size_y: 5 },
+		{ col: 6, row: 1, size_x: 1, size_y: 5 },
+		{ col: 7, row: 1, size_x: 1, size_y: 5 },
+		{ col: 8, row: 1, size_x: 1, size_y: 5 },
+		{ col: 9, row: 1, size_x: 1, size_y: 5 },
+		{ col: 10, row: 1, size_x: 1, size_y: 5 },
+		{ col: 11, row: 1, size_x: 1, size_y: 5 },
+		{ col: 12, row: 1, size_x: 1, size_y: 5 },
+		{ col: 13, row: 1, size_x: 1, size_y: 5 },
+		{ col: 14, row: 1, size_x: 1, size_y: 5 },
+		{ col: 15, row: 1, size_x: 1, size_y: 5 },
+		{ col: 16, row: 1, size_x: 1, size_y: 5 },
+		{ col: 17, row: 1, size_x: 1, size_y: 5 }
 	];
+
+	// sort Blocks
+	blocks = grid_canvas.sort_by_row_and_col_asc(blocks);
 
 	var dividers = [
-		['<li class="divider blocking"></li>', 1, 1, 1, 1],
-		['<li class="divider blocking"></li>', 1, 1, 2, 1],
-		['<li class="divider blocking"></li>', 1, 1, 3, 1],
-		['<li class="divider blocking"></li>', 1, 1, 4, 1],
-		['<li class="divider blocking"></li>', 1, 1, 5, 1],
-		['<li class="divider blocking"></li>', 1, 1, 6, 1],
-		['<li class="divider blocking"></li>', 1, 1, 7, 1],
-		['<li class="divider blocking"></li>', 1, 1, 8, 1],
-		['<li class="divider blocking"></li>', 1, 1, 9, 1],
-		['<li class="divider blocking"></li>', 1, 1, 10, 1],
-		['<li class="divider blocking"></li>', 1, 1, 11, 1],
-		['<li class="divider blocking"></li>', 1, 1, 12, 1],
-		['<li class="divider blocking"></li>', 1, 1, 13, 1],
-		['<li class="divider blocking"></li>', 1, 1, 14, 1],
-		['<li class="divider blocking"></li>', 1, 1, 15, 1],
-		['<li class="divider blocking"></li>', 1, 1, 16, 1],
-		['<li class="divider blocking"></li>', 1, 1, 17, 1],
+		{ col: 1, row: 1, size_x: 1, size_y: 1 },
+		{ col: 2, row: 1, size_x: 1, size_y: 1 },
+		{ col: 3, row: 1, size_x: 1, size_y: 1 },
+		{ col: 4, row: 1, size_x: 1, size_y: 1 },
+		{ col: 5, row: 1, size_x: 1, size_y: 1 },
+		{ col: 6, row: 1, size_x: 1, size_y: 1 },
+		{ col: 7, row: 1, size_x: 1, size_y: 1 },
+		{ col: 8, row: 1, size_x: 1, size_y: 1 },
+		{ col: 9, row: 1, size_x: 1, size_y: 1 },
+		{ col: 10, row: 1, size_x: 1, size_y: 1 },
+		{ col: 11, row: 1, size_x: 1, size_y: 1 },
+		{ col: 12, row: 1, size_x: 1, size_y: 1 },
+		{ col: 13, row: 1, size_x: 1, size_y: 1 },
+		{ col: 14, row: 1, size_x: 1, size_y: 1 },
+		{ col: 15, row: 1, size_x: 1, size_y: 1 },
+		{ col: 16, row: 1, size_x: 1, size_y: 1 },
+		{ col: 17, row: 1, size_x: 1, size_y: 1 }
 	];
+
+	// sort Blocks
+	dividers = grid_canvas.sort_by_row_and_col_asc(dividers);
+
+	grid_canvas.generate_stylesheet({rows: 510, cols: 17});
 
 	$('#add_block').on('click', function(e, i) {
 		e.preventDefault();
@@ -112,7 +151,8 @@ $(window).ready(function() {
 			$('.nameBank').addClass('hide');
 
 			// button action
-			grid_canvas.add_widget.apply(grid_canvas, widget, positions)
+			// grid_canvas.add_widget.apply(grid_canvas, widget, positions)
+			grid_canvas.add_widget('<li class="blocking"></li>', this.size_x, this.size_y, this.col, this.row);
 			
 			var positions = JSON.stringify(grid_canvas.serialize_changed());
 			localStorage.setItem('positions', positions);
@@ -132,7 +172,8 @@ $(window).ready(function() {
 			$('.nameBank').addClass('hide');
 
 			// button action
-			grid_canvas.add_widget.apply(grid_canvas, widget, positions)
+			// grid_canvas.add_widget.apply(grid_canvas, widget, positions)
+			grid_canvas.add_widget('<li class="blocking"></li>', this.size_x, this.size_y, this.col, this.row);
 
 			var positions = JSON.stringify(grid_canvas.serialize_changed());
 			localStorage.setItem('positions', positions);
@@ -167,7 +208,8 @@ $(window).ready(function() {
 	$('#seralize').on('click', function(e, i) {
 		e.preventDefault();
 		var s = grid_canvas.serialize();
-		$('#log').val(JSON.stringify(s));
+		$('#log').empty().toggleClass('show');
+		$('#log').html(JSON.stringify(s));
 	});
 
 	$('.block_unlock').on('click', function(e, i) {
