@@ -98,7 +98,7 @@
 }
 .build {
 	float: right;
-	width: 545px;
+	width: 453px;
 }
 .build hr {
 	float: left;
@@ -226,7 +226,7 @@
 	display: inline-block;
 	margin-bottom: 10px;
 	float: left;
-	min-width: 306px;
+	max-width: 214px;
 }
 .grouping:last-child,
 .grouping.tall button:last-child {
@@ -243,8 +243,25 @@
 .grouping button {
 	min-width: 82px;
 }
-.grouping button:not(:last-child) {
+.grouping button {
 	min-width: 97px;
+}
+.grouping.name button {
+	width: 204px;
+}
+.grouping.name button:nth-child(2) {
+	width: 134px;
+}
+#delete_top {
+    min-width: 53px;
+    width: auto;
+    padding: 5px 10px;
+}
+#delete_top span {
+	position: relative;
+	top: -1px;
+	left: -1px;
+	padding: 0 1px;
 }
 .grouping.tall button {
 	clear: both;
