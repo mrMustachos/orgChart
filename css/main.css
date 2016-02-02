@@ -226,7 +226,7 @@ body {
 	float: left;
 }
 .gridster .gs_w.tripled .gs_w:nth-of-type(2) {
-	right: 70px;
+	left: -70px;
 	float: right;
 }
 
@@ -245,6 +245,16 @@ body {
 .tripled:not(:empty).gs_w:after,
 .gridster .gs_w:nth-child(-n+17):after,
 .gs_w.nope:after {
+	display: none !important;
+}
+.gridster .gs_w.doubled .spannerBlock.box:after,
+.gridster .gs_w.tripled .spannerBlock.box:after,
+.gridster .gs_w.doubled .spannerBlock.thru:after,
+.gridster .gs_w.tripled .spannerBlock.thru:after {
+	display: block !important;
+}
+.gridster .gs_w.doubled .spannerBlock.nope.box:after,
+.gridster .gs_w.tripled .spannerBlock.nope.box:after {
 	display: none !important;
 }
 
