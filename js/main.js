@@ -271,11 +271,17 @@ $(window).ready(function() {
 		e.preventDefault();
 
 		var chartSpanner3 = $('.gridster .blocking.gs_w');
+		var chartSpanner3Baby = $('.gridster .tripled.gs_w');
+		var chartSpanner3Child = $('.gridster .tripled.gs_w .spannerBlock.gs_w');
 		var spanner3LockBTN = $('.spanner3_unlock');
 		var spanner3iconToggle = $('.spanner3_unlock span');
 
 		$.each('.spanner3_unlock', function(event) {
 			chartSpanner3.addClass('spanner3_create');
+
+			chartSpanner3Baby.addClass('spanner3_create');
+			chartSpanner3Child.addClass('spanner3_create');
+
 			spanner3LockBTN.addClass('active');
 			spanner3iconToggle.removeClass('icon-hop').addClass('icon-working');
 			e.preventDefault();
@@ -284,6 +290,10 @@ $(window).ready(function() {
 		$(document).bindIf("mousedown", function() {
 			console.log("nope handled.");
 			chartSpanner3.removeClass('spanner3_create');
+
+			chartSpanner3Baby.removeClass('spanner3_create');
+			chartSpanner3Child.removeClass('spanner3_create');
+
 			spanner3LockBTN.removeClass('active');
 			spanner3iconToggle.addClass('icon-hop').removeClass('icon-working');
 		}, function() {

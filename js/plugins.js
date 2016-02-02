@@ -144,12 +144,13 @@ $(document).on('click', '.gridster .spanner3_create.blocking.gs_w:not(.divider)'
 	$(this).attr('data-sizex','3');
 	$(this).next().addClass('trashed');
 	$(this).next().next().addClass('trashed');
-	$(this).append('<div class="spannerBlock gs_w box"></div>');
+	$(this).append('<div class="spannerBlock spanner3_create gs_w box"></div>');
 });
 
 // tripled span for blocking (adds a 2nd box)
 $(document).on('click', '.gridster .spanner3_create.tripled.more.gs_w:not(.divider)', function(){
-	$(this).append('<div class="spannerBlock gs_w box"></div>');
+	$(this).addClass('blocking');
+	$(this).append('<div class="spannerBlock spanner3_create gs_w box"></div>');
 	$(this).removeClass('more');
 });
 
@@ -157,7 +158,7 @@ $(document).on('click', '.gridster .spanner3_create.tripled.more.gs_w:not(.divid
 $(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w:not(.divider)', function(){
 	$('.tripled .spannerBlock').remove();
 	$(this).addClass('blocking');
-	$(this).removeClass('tripled');
+	$(this).removeClass('tripled more');
 	$(this).attr('data-sizex','1');
 	$(this).next().removeClass('trashed');
 	$(this).next().next().removeClass('trashed');

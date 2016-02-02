@@ -151,6 +151,7 @@ body {
 .gridster .gs_w.thru,
 .gridster .gs_w.doubled,
 .gridster .gs_w.tripled,
+.gridster .gs_w.tripled.blocking,
 .gridster .gs_w.trashed {
 	background: transparent;
 }
