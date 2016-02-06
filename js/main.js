@@ -160,6 +160,7 @@ $(window).ready(function() {
 		$.each(blocks, function(i, widget){
 			grid_canvas.add_widget('<li class="blocking" blockcontent="holder"></li>', this.size_x, this.size_y, this.col, this.row);
 		});
+		$('#add_div, #edit_block, #seralize, #tidy, #deployr').prop("disabled", false);
 	});
 
 	$('#add_div').on('click', function(e, i) {
@@ -167,6 +168,7 @@ $(window).ready(function() {
 		$.each(dividers, function(i, widget){
 			grid_canvas.add_widget('<li class="divider blocking"></li>', this.size_x, this.size_y, this.col, this.row);
 		});
+		$('#edit_div').prop("disabled", false);
 	});
 
 	$('#edit_block').on('click', function(e, i) {

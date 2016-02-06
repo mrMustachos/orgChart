@@ -144,11 +144,9 @@
 	color: #f80046;
 	border-color: #f80046;
 }
-/*
-.build .btn:first-child {
-	margin-left: 0;
+button:disabled {
+	opacity: .25;
 }
-*/
 
 /*/ tabs /*/
 .tab {

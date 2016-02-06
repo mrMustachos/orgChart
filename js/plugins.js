@@ -27,6 +27,7 @@
 $(document).on('click', '.gridster .box_unlocked.blocking.gs_w:not(.divider)', function(){
 	$(this).addClass('box').append('<div class="presenter"><span class="remover icon-remove based"></span></div>');
 	$(this).removeClass('blocking');
+	$('#add_nope, #add_span2, #add_span3, #add_name').prop("disabled", false);
 });
 
 // switch from box to thru for the chart boxes
