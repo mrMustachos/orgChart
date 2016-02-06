@@ -91,6 +91,7 @@
 	width: 100%;
 	z-index: 100;
 	padding: 15px;
+	padding-bottom: 0;
 	top: 0;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -310,7 +311,7 @@ button:disabled {
 
 .headerHider {
 	width: 100%;
-	padding-right: 560px;
+	padding-right: 536px;
 }
 #nameBank, .shield {
 	width: 100%;
@@ -325,12 +326,13 @@ button:disabled {
 }
 .nameList, .shield {
 	height: 111px;
-	width: 2440px;
+	width: 1900px;
 	display: block;
 	overflow: scroll;
 	padding-left: 2px;
 	z-index: 101;
-	margin: 10px 0 0;
+	margin: 33px 0 0;
+	height: 121px;
 }
 .shield {
 	z-index: 102;
@@ -355,6 +357,8 @@ button:disabled {
 	width: 183px;
 	display: inline-block;
 	font-size: 14px;
+	float: left;
+	padding: 0 0 2px;
 }
 .lablr.used label {
 	opacity: .25;
@@ -408,25 +412,41 @@ button:disabled {
 }
 .ln-letters {
 	overflow: hidden;
+	position: fixed;
 }
 .ln-letters a,
 .ln-letters .empty {
 	font-size: 0.9em;
 	display: block;
 	float: left;
-	padding: 2px 6px;
-	border: 1px solid silver;
-	border-right: none;
+	padding: 2px 5px;
+	margin: 0 3px;
+	color: #3a3a3a;
 	text-decoration: none;
+	position: relative;
 }
-.ln-letters a.ln-last,
-.ln-letters .empty.ln-last {
-	border-right: 1px solid silver;
+.ln-letters a:after,
+.ln-letters .empty:after {
+	content: "•";
+	position: absolute;
+	right: -6px;
+	color: #c0c0c0;
+	font-weight: 200;
+	display: none;
+}
+.ln-letters a.ln-last:after,
+.ln-letters .empty.ln-last:after {
+	content: "";
 }
 .ln-letters a:hover,
 .ln-letters a.ln-selected,
 .ln-letters .empty.ln-selected {
-	background-color: #eaeaea;
+	color: #f80046;
+	font-weight: 600;
+	background-color: rgba(248,0,70,.1);
+}
+.ln-letters a:hover {
+	background-color: transparent;
 }
 .ln-letters a.ln-disabled,
 .ln-letters .empty.ln-disabled {
