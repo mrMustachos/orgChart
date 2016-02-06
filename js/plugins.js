@@ -25,14 +25,14 @@
 
 // switch from blocking to box for the chart boxes
 $(document).on('click', '.gridster .box_unlocked.blocking.gs_w:not(.divider)', function(){
-	$(this).addClass('box');
+	$(this).addClass('box').append('<div class="presenter"><span class="remover icon-remove based"></span></div>');
 	$(this).removeClass('blocking');
 });
 
 // switch from box to thru for the chart boxes
 $(document).on('click', '.gridster .box_unlocked.box.gs_w:not(.divider)', function(){
 	$(this).addClass('thru');
-	$(this).removeClass('box');
+	$(this).removeClass('box').empty();
 });
 
 // switch from thru to blocking for the chart boxes
@@ -164,55 +164,78 @@ $(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w:not(
 	$(this).next().next().removeClass('trashed');
 });
 
-
 ////// Let's Play The Name Game ///////////////////////////////////////////////////////////
 
 // selecting the box
 $(document).on('click', '.gridster .gs_w.box.nameDROP', function(){
+	var colShield = $(this).attr('data-col');
+	var rowShield = $(this).attr('data-row');
+
 	$('.gridster .gs_w.box').removeClass('name_holder');
 	$(this).toggleClass('name_holder');
-	$('.nameBank').removeClass('hide');
+	$('.gs_w.box.name_placed.nameDROP').removeClass('name_holder');
+	$('#nameBank').removeClass('hide');
 	$('.shield').hide();
 
 });
 
-// unselecting the box
-$(document).on('click', '.gridster .gs_w.box.nameDROP.name_holder', function(){
-	$('.gridster .gs_w.box').removeClass('name_holder');
+// stopping duplicate names when alread placed
+$(document).on('click', '.gridster .gs_w.box.name_placed.nameDROP', function(){
+	$('#nameBank').addClass('hide');
 	$('.shield').show();
 
 });
 
 // Add in name
 $(document).on('click', 'input[type=\'radio\'].radioBtnClass', function(){
+	var lablr = $(this).attr('value');
+	var named = $(this).attr('name');
 
-	if($("input[type='radio'].radioBtnClass").is(':checked')) {
-		var lablr = $("input[type='radio'].radioBtnClass:checked").attr('value');
-		var named = $("input[type='radio'].radioBtnClass:checked").attr('name');
+	$('.gridster .gs_w.box.nameDROP.name_holder .presenter').append(named);
+	$('.gridster .gs_w.box.nameDROP.name_holder .presenter .remover').removeClass('based').attr('blockcontent', lablr);
+	$('.gridster .gs_w.box.nameDROP.name_holder').addClass('name_placed').attr('blockcontent', lablr).removeClass('name_holder nameDROP');
 
-		$('.gridster .gs_w.box.nameDROP.name_holder').attr('id', lablr);
-		$(this).parent().parent().toggleClass('used');
+	if( $('.gridster .gs_w.box.nameDROP.name_holder') ) {
+
 		$(this).attr("disabled", true);
-		$('.gridster .gs_w.box.nameDROP.name_holder').append('<div class="presenter"></div>');
-		$('.name_holder .presenter').html(named);
-		$('.name_holder .presenter').prepend('<div class="remover icon-remove"></div>');
-		$('.gridster .gs_w.box.nameDROP.name_holder').addClass('namePlaced').removeClass('name_holder');
+		$(this).parent().addClass('used');
+	}
+	if( $('.gridster .gs_w.box.nameDROP') ) {
 		$('.shield').show();
 	}
 
 });
 
-// remove name
-$(document).on('click', '.gs_w.box.nameDROP.namePlaced .remover', function(){
+// remove name first added
+$(document).on('click', '.gs_w.box.name_placed .presenter .remover', function(event){
+	var namedChecked = $(event.target).attr('blockcontent');
 
-	$(this).each(function() {
-		var namedChecked = $(this).parent().parent().attr('id');
-		
-		$("input[value=" + namedChecked + "].radioBtnClass").prop('checked', false).removeAttr('disabled');
-		$("input[value=" + namedChecked + "].radioBtnClass").parent().parent().removeClass('used');
-		$('#' + namedChecked + ' .presenter').remove();
-		$('#' + namedChecked +':not(.radioBtnClass)').removeClass('namePlaced').removeAttr('id');
-
-	});
+	$("input[value=" + namedChecked + "].radioBtnClass").prop('checked', false).removeAttr('disabled');
+	$("input[value=" + namedChecked + "].radioBtnClass").parent().removeClass('used');
+	$('#' + namedChecked + ' .presenter').empty().append('<span class="remover icon-remove based" style="display: block;"></span>');
+	$('#' + namedChecked +':not(.radioBtnClass)').removeClass('name_placed').attr('blockcontent', 'holder').addClass('nameDROP');
+	$(this).removeAttr('blockcontent');
 
 });
+
+// remove name 2nd and furture times around
+$(document).on('click', '.gs_w.box.name_placed.nameDROP .presenter .remover', function(event){
+	
+	if ($(this).parent().parent().attr('blockcontent')){
+
+		var findval = $(this).parent().parent().attr('blockcontent');
+
+		var theInput = ("input[value=" + findval + "].radioBtnClass");
+		var theBlock = ("li[blockcontent=" + findval + "].gs_w.box.name_placed");
+		var theList = $(theInput).parent().parent().parent().attr('id');
+
+		$(theList).removeAttr('class');
+		$(theInput).prop('checked', false).removeAttr('disabled');
+		$(theInput).parent().removeClass('used');
+		$(theBlock).empty().append('<div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div>');
+		$(theBlock).removeClass('name_placed name_holder').attr('blockcontent', 'holder');
+
+	}
+
+});
+

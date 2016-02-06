@@ -173,12 +173,16 @@
 }
 .tabs li {
 	float: left;
-	line-height: 35px;
+	line-height: 33px;
 	padding: 0;
 	position: relative;
 	clear: left;
 	min-width: 90px;
 	margin-bottom: 2px;
+}
+.tabs li:last-child {
+	margin-bottom: 0;
+	min-width: 75px;
 }
 .tabs a {
 	background-color: #f9f9f9;
@@ -198,6 +202,19 @@
 	text-transform: uppercase;
 	font-size: 13px;
 	font-weight: 600;
+}
+.tabs li button {
+	width: 100%;
+	margin-left: 0;
+	border-left: 0;
+	border-radius: 0;
+	padding: 0;
+	height: 35px;
+	font-size: 13px;
+	text-transform: uppercase;
+}
+.icon-save {
+	padding-right: 5px;
 }
 .tab_content {
 	display: table;
@@ -253,9 +270,9 @@
 	width: 134px;
 }
 #delete_top {
-    min-width: 53px;
-    width: auto;
-    padding: 5px 10px;
+	min-width: 53px;
+	width: auto;
+	padding: 5px 10px;
 }
 #delete_top span {
 	position: relative;
@@ -297,13 +314,13 @@
 	width: 100%;
 	padding-right: 560px;
 }
-.nameBank, .shield {
+#nameBank, .shield {
 	width: 100%;
 	float: left;
 	overflow: scroll;
 	position: relative;
 }
-.nameBank:after {
+.name_shield:after, #nameBank:after {
 	content: "";
 	clear: both;
 	display: table;
@@ -320,13 +337,28 @@
 .shield {
 	z-index: 102;
 	position: absolute;
+	margin: 0;
+	height: 146px;
+	padding: 0;
+	left: -15px;
+}
+.name_shield {
+    z-index: 102;
+    width: 130px;
+    height: 65px;
+    display: inline-block;
+    position: relative;
+}
+.name_shield li {
+    top: 0;
+    left: 0;
 }
 .lablr {
 	width: 183px;
 	display: inline-block;
 	font-size: 14px;
 }
-.lablr.used {
+.lablr.used label {
 	opacity: .25;
 }
 .radioBtnClass {
@@ -348,7 +380,7 @@
 	position: absolute;
 	top: 5px;
 	left: 5px;
-	opacity: 0;
+	z-index: 200;
 	-moz-transition: all 0.3s ease-out;
 	-o-transition: all 0.3s ease-out;
 	-webkit-transition: all 0.3s ease-out;
@@ -360,12 +392,12 @@
 	border-color: #f80046;
 }
 .hide {
-	display: none;
+	display: none !important;
 }
-.gs_w.box.nameDROP .remover {
-	opacity: 1;
+.hide, .based {
+	opacity: 0;
 }
-.gs_w.box.nameDROP.namePlaced .remover {
+.gs_w.box.active .remover, .gs_w.box.quickOut .remover {
 	opacity: 1;
 }
 
