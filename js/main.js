@@ -56,18 +56,24 @@ $(window).ready(function() {
 
 	$('.reserve').remove();
 	$('.gridster .gs_w').empty();
+	$('.gridster li.doubled, .gridster li.divider.tripled').attr('data-sizex','2');
+	$('.gridster li.tripled').attr('data-sizex','3');
 
 	$(function(){
 		$('.gridster .gs_w').each(function() {
 			var fillIn = $(this).attr('htmlcontent');
 			var radioSilence = $(this).attr('blockcontent');
 
-			// not working yet
 			$("input[value=" + radioSilence + "].radioBtnClass").attr("disabled", true);
 			$("input[value=" + radioSilence + "].radioBtnClass").parent().addClass('used');
 
 			$(this).html(fillIn);
 			$(this).removeAttr('htmlcontent');
+
+			if ($('.gridster ul').has('li')) {
+				$('button').prop("disabled", false);
+			}
+
 		});
 	});
 
@@ -94,6 +100,13 @@ $(window).ready(function() {
 
 		draggable: {
 			stop: function(event, ui) {
+
+				$(".gridster li").removeAttr('id');
+				$(".gridster li").each(function(i) {
+					i = i + 1;
+					$(this).attr('id', 'li' + i);
+				});
+
 				var positions = JSON.stringify(grid_canvas.serialize());
 				localStorage.setItem('positions', positions);
 				$.post("process.php", {
@@ -160,7 +173,15 @@ $(window).ready(function() {
 		$.each(blocks, function(i, widget){
 			grid_canvas.add_widget('<li class="blocking" blockcontent="holder"></li>', this.size_x, this.size_y, this.col, this.row);
 		});
-		$('#add_div, #edit_block, #seralize, #tidy, #deployr').prop("disabled", false);
+
+		$('#add_div, #edit_block, #seralize, #tidy, #deployr, #add_span2, #add_span3').prop("disabled", false);
+
+		$(".gridster li").removeAttr('id');
+		$(".gridster li").each(function(i) {
+			i = i + 1;
+			$(this).attr('id', 'li' + i);
+		});
+
 	});
 
 	$('#add_div').on('click', function(e, i) {
@@ -168,7 +189,15 @@ $(window).ready(function() {
 		$.each(dividers, function(i, widget){
 			grid_canvas.add_widget('<li class="divider blocking"></li>', this.size_x, this.size_y, this.col, this.row);
 		});
+
 		$('#edit_div').prop("disabled", false);
+
+		$(".gridster li").removeAttr('id');
+		$(".gridster li").each(function(i) {
+			i = i + 1;
+			$(this).attr('id', 'li' + i);
+		});
+
 	});
 
 	$('#edit_block').on('click', function(e, i) {
@@ -372,6 +401,7 @@ $(window).ready(function() {
 	$('#seralize').on('click', function(e, i) {
 		e.preventDefault();
 
+		$('li.trashed').remove();
 		$(".gridster li").removeAttr('id');
 		$(".gridster li").each(function(i) {
 			i = i + 1;

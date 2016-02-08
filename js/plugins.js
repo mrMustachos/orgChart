@@ -27,7 +27,7 @@
 $(document).on('click', '.gridster .box_unlocked.blocking.gs_w:not(.divider)', function(){
 	$(this).addClass('box').append('<div class="presenter"><span class="remover icon-remove based"></span></div>');
 	$(this).removeClass('blocking');
-	$('#add_nope, #add_span2, #add_span3, #add_name').prop("disabled", false);
+	$('#add_nope, #add_name').prop("disabled", false);
 });
 
 // switch from box to thru for the chart boxes
@@ -102,16 +102,16 @@ $(document).on('click', '.gridster .noping.gs_w', function(){
 ////// 2x Spanner Action //////////////////////////////////////////////////////////////////
 
 // double span for blocking (adds in new box)
-$(document).on('click', '.gridster .spanner2_create.blocking.gs_w:not(.divider)', function(){
+$(document).on('click', '.gridster .spanner2_create.blocking.gs_w:not(.divider)', function(event){
 	$(this).addClass('doubled');
 	$(this).removeClass('blocking');
 	$(this).attr('data-sizex','2');
 	$(this).next().addClass('trashed');
-	$(this).append('<div class="spannerBlock gs_w box"></div>');
+	$(this).append('<div class="spannerBlock gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
 });
 
 // remove 2x Spanner (block)
-$(document).on('click', '.gridster .spanner2_create.doubled.gs_w:not(.divider)', function(){
+$(document).on('click', '.gridster .spanner2_create.doubled.gs_w:not(.divider)', function(event){
 	$('.doubled .spannerBlock').remove();
 	$(this).addClass('blocking');
 	$(this).removeClass('doubled');
@@ -120,7 +120,7 @@ $(document).on('click', '.gridster .spanner2_create.doubled.gs_w:not(.divider)',
 });
 
 // double span for divider (no box added)
-$(document).on('click', '.gridster .spanner2_create.divider.gs_w', function(){
+$(document).on('click', '.gridster .spanner2_create.divider.gs_w', function(event){
 	$(this).addClass('blocking');
 	$(this).removeClass('doubled thru reachRight reachLeft full');
 	$(this).attr('data-sizex','1');
@@ -128,7 +128,7 @@ $(document).on('click', '.gridster .spanner2_create.divider.gs_w', function(){
 });
 
 // double span for divider (no box added)
-$(document).on('click', '.gridster .spanner2_create.divider.blocking.gs_w', function(){
+$(document).on('click', '.gridster .spanner2_create.divider.blocking.gs_w', function(event){
 	$(this).addClass('doubled thru');
 	$(this).removeClass('blocking');
 	$(this).attr('data-sizex','2');
@@ -139,30 +139,88 @@ $(document).on('click', '.gridster .spanner2_create.divider.blocking.gs_w', func
 ////// 3x Spanner Action //////////////////////////////////////////////////////////////////
 
 // tripled span for blocking (adds 1 new box)
-$(document).on('click', '.gridster .spanner3_create.blocking.gs_w:not(.divider)', function(){
+$(document).on('click', '.gridster .spanner3_create.blocking.gs_w:not(.divider)', function(event){
 	$(this).addClass('tripled more');
 	$(this).removeClass('blocking');
 	$(this).attr('data-sizex','3');
 	$(this).next().addClass('trashed');
 	$(this).next().next().addClass('trashed');
-	$(this).append('<div class="spannerBlock spanner3_create gs_w box"></div>');
+	$(this).append('<div class="spannerBlock spanner3_create gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
 });
 
 // tripled span for blocking (adds a 2nd box)
-$(document).on('click', '.gridster .spanner3_create.tripled.more.gs_w:not(.divider)', function(){
+$(document).on('click', '.gridster .spanner3_create.tripled.more.gs_w:not(.divider)', function(event){
 	$(this).addClass('blocking');
-	$(this).append('<div class="spannerBlock spanner3_create gs_w box"></div>');
+	$(this).append('<div class="spannerBlock spanner3_create gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
 	$(this).removeClass('more');
 });
 
 // remove 3x Spanner (block)
-$(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w:not(.divider)', function(){
+$(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w:not(.divider)', function(event){
 	$('.tripled .spannerBlock').remove();
 	$(this).addClass('blocking');
 	$(this).removeClass('tripled more');
 	$(this).attr('data-sizex','1');
 	$(this).next().removeClass('trashed');
 	$(this).next().next().removeClass('trashed');
+});
+
+// tripled span for divider (adds 1 new box)
+$(document).on('click', '.gridster .spanner3_create.blocking.gs_w.divider', function(event){
+	$(this).addClass('tripled more');
+	$(this).removeClass('blocking');
+	$(this).attr('data-sizex','3');
+	$(this).next().addClass('trashed');
+	$(this).next().next().addClass('trashed');
+	$(this).append('<div class="spannerBlock gs_w blocking divider"></div>');
+});
+
+// tripled span for divider (adds a 2nd box)
+$(document).on('click', '.gridster .spanner3_create.tripled.more.gs_w.divider', function(event){
+	$(this).append('<div class="spannerBlock gs_w blocking divider"></div>');
+	$(this).removeClass('more');
+});
+
+// remove 3x Spanner (divider)
+$(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w.divider', function(event){
+	$('.tripled .spannerBlock').remove();
+	$(this).addClass('blocking');
+	$(this).removeClass('tripled more');
+	$(this).attr('data-sizex','1');
+	$(this).next().removeClass('trashed');
+	$(this).next().next().removeClass('trashed');
+});
+
+
+
+// switch from blocking to reachLeft for the chart boxes
+$(document).on('click', '.gridster .div_unlocked.blocking.divider.gs_w', function(){
+	$(this).addClass('reachLeft');
+	$(this).removeClass('blocking');
+});
+
+// switch from reachLeft to reachRight for the chart boxes
+$(document).on('click', '.gridster .div_unlocked.reachLeft.divider.gs_w', function(){
+	$(this).addClass('reachRight');
+	$(this).removeClass('reachLeft');
+});
+
+// switch from reachRight to full for the chart boxes
+$(document).on('click', '.gridster .div_unlocked.reachRight.divider.gs_w', function(){
+	$(this).addClass('full');
+	$(this).removeClass('reachRight');
+});
+
+// switch from full to thru for the chart boxes
+$(document).on('click', '.gridster .div_unlocked.full.divider.gs_w', function(){
+	$(this).addClass('thru');
+	$(this).removeClass('full');
+});
+
+// switch from thru to blocking for the chart boxes
+$(document).on('click', '.gridster .div_unlocked.thru.divider.gs_w', function(){
+	$(this).addClass('blocking');
+	$(this).removeClass('thru');
 });
 
 ////// Let's Play The Name Game ///////////////////////////////////////////////////////////
@@ -207,20 +265,8 @@ $(document).on('click', 'input[type=\'radio\'].radioBtnClass', function(){
 
 });
 
-// remove name first added
+// remove name
 $(document).on('click', '.gs_w.box.name_placed .presenter .remover', function(event){
-	var namedChecked = $(event.target).attr('blockcontent');
-
-	$("input[value=" + namedChecked + "].radioBtnClass").prop('checked', false).removeAttr('disabled');
-	$("input[value=" + namedChecked + "].radioBtnClass").parent().removeClass('used');
-	$('#' + namedChecked + ' .presenter').empty().append('<span class="remover icon-remove based" style="display: block;"></span>');
-	$('#' + namedChecked +':not(.radioBtnClass)').removeClass('name_placed').attr('blockcontent', 'holder').addClass('nameDROP');
-	$(this).removeAttr('blockcontent');
-
-});
-
-// remove name 2nd and furture times around
-$(document).on('click', '.gs_w.box.name_placed.nameDROP .presenter .remover', function(event){
 	
 	if ($(this).parent().parent().attr('blockcontent')){
 
@@ -228,13 +274,20 @@ $(document).on('click', '.gs_w.box.name_placed.nameDROP .presenter .remover', fu
 
 		var theInput = ("input[value=" + findval + "].radioBtnClass");
 		var theBlock = ("li[blockcontent=" + findval + "].gs_w.box.name_placed");
-		var theList = $(theInput).parent().parent().parent().attr('id');
+		var theSpanBlock = ("div[blockcontent=" + findval + "].gs_w.box.name_placed");
 
-		$(theList).removeAttr('class');
+		var theListVal = $(theInput).parent().parent().parent().attr('id');
+		var theList = $('#'+theListVal+'');
+
+		console.log(theListVal);
+
+		$(theList).attr('class', 'opposite');
 		$(theInput).prop('checked', false).removeAttr('disabled');
 		$(theInput).parent().removeClass('used');
 		$(theBlock).empty().append('<div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div>');
-		$(theBlock).removeClass('name_placed name_holder').attr('blockcontent', 'holder');
+		$(theSpanBlock).empty().append('<div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div>');
+		$(theBlock).removeClass('name_placed').removeClass('name_holder').attr('blockcontent', 'holder').addClass('nameDROP');
+		$(theSpanBlock).removeClass('name_placed').removeClass('name_holder').attr('blockcontent', 'holder').addClass('nameDROP');
 
 	}
 
