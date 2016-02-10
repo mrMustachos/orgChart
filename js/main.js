@@ -291,11 +291,13 @@ $(window).ready(function() {
 		e.preventDefault();
 
 		var chartSpanner2 = $('.gridster .blocking.gs_w');
+		var chartSpanner2Again = $('.gridster .doubled.gs_w');
 		var spanner2LockBTN = $('.spanner2_unlock');
 		var spanner2iconToggle = $('.spanner2_unlock span');
 
 		$.each('.spanner2_unlock', function(event) {
 			chartSpanner2.addClass('spanner2_create');
+			chartSpanner2Again.addClass('spanner2_create');
 			spanner2LockBTN.addClass('active');
 			spanner2iconToggle.removeClass('icon-hop').addClass('icon-working');
 			e.preventDefault();
@@ -304,6 +306,7 @@ $(window).ready(function() {
 		$(document).bindIf("mousedown", function() {
 			console.log("nope handled.");
 			chartSpanner2.removeClass('spanner2_create');
+			chartSpanner2Again.removeClass('spanner2_create');
 			spanner2LockBTN.removeClass('active');
 			spanner2iconToggle.addClass('icon-hop').removeClass('icon-working');
 		}, function() {

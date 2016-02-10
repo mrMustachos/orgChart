@@ -102,37 +102,57 @@ $(document).on('click', '.gridster .noping.gs_w', function(){
 ////// 2x Spanner Action //////////////////////////////////////////////////////////////////
 
 // double span for blocking (adds in new box)
-$(document).on('click', '.gridster .spanner2_create.blocking.gs_w:not(.divider)', function(event){
-	$(this).addClass('doubled');
-	$(this).removeClass('blocking');
-	$(this).attr('data-sizex','2');
-	$(this).next().addClass('trashed');
-	$(this).append('<div class="spannerBlock gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
+$(document).on('click', '.gridster .spanner2_create.gs_w:not(.divider)', function(event){
+	if ($(this).attr('id')){
+		var x2blockID = $(this).attr('id');
+		var x2theBlock = ('li#' + x2blockID + '');
+
+		$(x2theBlock).addClass('doubled');
+		$(x2theBlock).removeClass('blocking');
+		$(x2theBlock).attr('data-sizex','2');
+		$(x2theBlock).next().addClass('trashed');
+		$(x2theBlock).append('<div class="spannerBlock gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
+	}
 });
 
 // remove 2x Spanner (block)
 $(document).on('click', '.gridster .spanner2_create.doubled.gs_w:not(.divider)', function(event){
-	$('.doubled .spannerBlock').remove();
-	$(this).addClass('blocking');
-	$(this).removeClass('doubled');
-	$(this).attr('data-sizex','1');
-	$(this).next().removeClass('trashed');
+	if ($(this).attr('id')){
+		var x2blockID2 = $(this).attr('id');
+		var x2theBlock2 = ('li#' + x2blockID2 + '');
+
+		$(x2theBlock2).empty();
+		$(x2theBlock2).addClass('blocking');
+		$(x2theBlock2).removeClass('doubled');
+		$(x2theBlock2).attr('data-sizex','1');
+		$(x2theBlock2).next().removeClass('trashed');
+	}
 });
 
 // double span for divider (no box added)
 $(document).on('click', '.gridster .spanner2_create.divider.gs_w', function(event){
-	$(this).addClass('blocking');
-	$(this).removeClass('doubled thru reachRight reachLeft full');
-	$(this).attr('data-sizex','1');
-	$(this).next().removeClass('trashed');
+	if ($(this).attr('id')){
+		var x2dividerID = $(this).attr('id');
+		var x2thedivider = ('li#' + x2dividerID + '');
+
+		$(x2thedivider).addClass('blocking');
+		$(x2thedivider).removeClass('doubled thru reachRight reachLeft full');
+		$(x2thedivider).attr('data-sizex','1');
+		$(x2thedivider).next().removeClass('trashed');
+	}
 });
 
 // double span for divider (no box added)
 $(document).on('click', '.gridster .spanner2_create.divider.blocking.gs_w', function(event){
-	$(this).addClass('doubled thru');
-	$(this).removeClass('blocking');
-	$(this).attr('data-sizex','2');
-	$(this).next().addClass('trashed');
+	if ($(this).attr('id')){
+		var x2dividerID2 = $(this).attr('id');
+		var x2thedivider2 = ('li#' + x2dividerID2 + '');
+
+		$(x2thedivider2).addClass('doubled thru');
+		$(x2thedivider2).removeClass('blocking');
+		$(x2thedivider2).attr('data-sizex','2');
+		$(x2thedivider2).next().addClass('trashed');
+	}
 });
 
 
@@ -191,7 +211,7 @@ $(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w.divi
 	$(this).next().next().removeClass('trashed');
 });
 
-
+////// 3x spanner switching for boxes /////////////////////////////////////////////////////
 
 // switch from blocking to reachLeft for the chart boxes
 $(document).on('click', '.gridster .div_unlocked.blocking.divider.gs_w', function(){
