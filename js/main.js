@@ -375,10 +375,10 @@ $(window).ready(function() {
 
 		$(document).bindIf("mousedown", function(evt) {
 
-			if(evt.target.id == "nameList")
+			if(evt.target.id == "nameBank")
 				return;
 
-			if($(evt.target).closest('#nameList').length)
+			if($(evt.target).closest('#nameBank').length)
 				return; 
 					chartNamer.removeClass('nameDROP name_holder');
 					chartNamed.removeClass('nameDROP');
