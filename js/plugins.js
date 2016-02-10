@@ -160,55 +160,85 @@ $(document).on('click', '.gridster .spanner2_create.divider.blocking.gs_w', func
 
 // tripled span for blocking (adds 1 new box)
 $(document).on('click', '.gridster .spanner3_create.blocking.gs_w:not(.divider)', function(event){
-	$(this).addClass('tripled more');
-	$(this).removeClass('blocking');
-	$(this).attr('data-sizex','3');
-	$(this).next().addClass('trashed');
-	$(this).next().next().addClass('trashed');
-	$(this).append('<div class="spannerBlock spanner3_create gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
+	if ($(this).attr('id')){
+		var x3blockID = $(this).attr('id');
+		var x3theBlock = ('li#' + x3blockID + '');
+
+		$(x3theBlock).addClass('tripled more');
+		$(x3theBlock).removeClass('blocking');
+		$(x3theBlock).attr('data-sizex','3');
+		$(x3theBlock).next().addClass('trashed');
+		$(x3theBlock).next().next().addClass('trashed');
+		$(x3theBlock).append('<div class="spannerBlock spanner3_create gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
+	}
 });
 
 // tripled span for blocking (adds a 2nd box)
 $(document).on('click', '.gridster .spanner3_create.tripled.more.gs_w:not(.divider)', function(event){
-	$(this).addClass('blocking');
-	$(this).append('<div class="spannerBlock spanner3_create gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
-	$(this).removeClass('more');
+	if ($(this).attr('id')){
+		var x3blockID2 = $(this).attr('id');
+		var x3theBlock2 = ('li#' + x3blockID2 + '');
+
+		$(x3theBlock2).addClass('blocking');
+		$(x3theBlock2).append('<div class="spannerBlock spanner3_create gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
+		$(x3theBlock2).removeClass('more');
+	}
 });
 
 // remove 3x Spanner (block)
 $(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w:not(.divider)', function(event){
-	$('.tripled .spannerBlock').remove();
-	$(this).addClass('blocking');
-	$(this).removeClass('tripled more');
-	$(this).attr('data-sizex','1');
-	$(this).next().removeClass('trashed');
-	$(this).next().next().removeClass('trashed');
+	if ($(this).attr('id')){
+		var x3blockID3 = $(this).attr('id');
+		var x3theBlock3 = ('li#' + x3blockID3 + '');
+
+		$(x3theBlock3).empty();
+		$(x3theBlock3).addClass('blocking');
+		$(x3theBlock3).removeClass('tripled more');
+		$(x3theBlock3).attr('data-sizex','1');
+		$(x3theBlock3).next().removeClass('trashed');
+		$(x3theBlock3).next().next().removeClass('trashed');
+	}
 });
 
 // tripled span for divider (adds 1 new box)
 $(document).on('click', '.gridster .spanner3_create.blocking.gs_w.divider', function(event){
-	$(this).addClass('tripled more');
-	$(this).removeClass('blocking');
-	$(this).attr('data-sizex','3');
-	$(this).next().addClass('trashed');
-	$(this).next().next().addClass('trashed');
-	$(this).append('<div class="spannerBlock gs_w blocking divider"></div>');
+	if ($(this).attr('id')){
+		var x3dividerID = $(this).attr('id');
+		var x3thedivider = ('li#' + x3dividerID + '');
+
+		$(x3thedivider).addClass('tripled more');
+		$(x3thedivider).removeClass('blocking');
+		$(x3thedivider).attr('data-sizex','3');
+		$(x3thedivider).next().addClass('trashed');
+		$(x3thedivider).next().next().addClass('trashed');
+		$(x3thedivider).append('<div class="spannerBlock gs_w blocking divider"></div>');
+	}
 });
 
 // tripled span for divider (adds a 2nd box)
 $(document).on('click', '.gridster .spanner3_create.tripled.more.gs_w.divider', function(event){
-	$(this).append('<div class="spannerBlock gs_w blocking divider"></div>');
-	$(this).removeClass('more');
+	if ($(this).attr('id')){
+		var x3dividerID2 = $(this).attr('id');
+		var x3thedivider2 = ('li#' + x3dividerID2 + '');
+
+		$(x3thedivider2).append('<div class="spannerBlock gs_w blocking divider"></div>');
+		$(x3thedivider2).removeClass('more');
+	}
 });
 
 // remove 3x Spanner (divider)
 $(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w.divider', function(event){
-	$('.tripled .spannerBlock').remove();
-	$(this).addClass('blocking');
-	$(this).removeClass('tripled more');
-	$(this).attr('data-sizex','1');
-	$(this).next().removeClass('trashed');
-	$(this).next().next().removeClass('trashed');
+	if ($(this).attr('id')){
+		var x3dividerID3 = $(this).attr('id');
+		var x3thedivider3 = ('li#' + x3dividerID3 + '');
+
+		$(x3thedivider3).empty();
+		$(x3thedivider3).addClass('blocking');
+		$(x3thedivider3).removeClass('tripled more');
+		$(x3thedivider3).attr('data-sizex','1');
+		$(x3thedivider3).next().removeClass('trashed');
+		$(x3thedivider3).next().next().removeClass('trashed');
+	}
 });
 
 ////// 3x spanner switching for boxes /////////////////////////////////////////////////////
