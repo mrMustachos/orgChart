@@ -186,6 +186,7 @@ $(window).ready(function() {
 
 	////// add in a block row /////////////////////////////////////////////////////////////////
 
+	
 	$('#insert_block').on('click', function(e, i) {
 		e.preventDefault();
 
@@ -226,12 +227,13 @@ $(window).ready(function() {
 			$.each(blocks, function(i, widget){
 				grid_canvas.add_widget('<li class="divider blocking"></li>', this.size_x, this.size_y, this.col, rightHereBlock);
 			});
-			
+
 			$(".gridster li").removeAttr('id');
 			$(".gridster li").each(function(i) {
 				i = i + 1;
 				$(this).attr('id', 'li' + i);
 			});
+			
 		}
 
 	});
@@ -275,7 +277,7 @@ $(window).ready(function() {
 			var goodBye = $(this).attr('data-row');
 			var lineLeader = $('.gridster .removalPoint.first.gs_w[data-row='+goodBye+']').attr('id');
 			$(this).prepend('<div class="newtext">'+lineLeader+'</div>');
-			
+
 			var first = $('.newtext').text().replace(/[^0-9]/gi, '');
 			var firstIn = parseInt(first) - 1;
 			var lastOut = parseInt(firstIn) + 16;
