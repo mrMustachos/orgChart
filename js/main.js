@@ -184,6 +184,125 @@ $(window).ready(function() {
 
 	});
 
+	////// add in a block row /////////////////////////////////////////////////////////////////
+
+	$('#insert_block').on('click', function(e, i) {
+		e.preventDefault();
+
+		var insertBlock = $('.gridster .gs_w:not(.divider)');
+		var insertBlockLockBTN = $('.insertion_time');
+
+		$.each('.insertion_time', function(event) {
+			insertBlock.addClass('insertionPoint');
+			insertBlockLockBTN.addClass('active');
+			e.preventDefault();
+		});
+
+		$(document).bindIf("mousedown", function() {
+			console.log("Event handled.");
+			insertBlock.removeClass('insertionPoint');
+			insertBlockLockBTN.removeClass('active');
+		}, function() {
+			return (insertBlock.is(":visible"));
+		});
+
+		insertBlock.bind("mousedown", function(event) {
+			e.stopPropagation();
+		});
+
+	});
+
+	$(document).on('click', '.insertionPoint.gs_w:not(.divider)', function(event){
+		event.preventDefault();
+
+		if ($(this).attr('data-row')){
+
+			var backCut = $(this).attr('data-row');
+			var rightHereBlock = parseInt(backCut) + 5;
+
+			console.log(backCut);
+			console.log(rightHereBlock);
+
+			$.each(blocks, function(i, widget){
+				grid_canvas.add_widget('<li class="divider blocking"></li>', this.size_x, this.size_y, this.col, rightHereBlock);
+			});
+			
+			$(".gridster li").removeAttr('id');
+			$(".gridster li").each(function(i) {
+				i = i + 1;
+				$(this).attr('id', 'li' + i);
+			});
+		}
+
+	});
+
+	////// remove a block row /////////////////////////////////////////////////////////////////
+
+	$('#remove_block').on('click', function(e, i) {
+		e.preventDefault();
+
+		var removeBlock = $('.gridster .gs_w:not(.divider)');
+		var removeBlockFirst = $('.gridster .gs_w[data-col=1]');
+		var removeBlockLockBTN = $('.ejection_time');
+
+		$.each('.ejection_time', function(event) {
+			removeBlock.addClass('removalPoint');
+			removeBlockFirst.addClass('first');
+			removeBlockLockBTN.addClass('active');
+			e.preventDefault();
+		});
+
+		$(document).bindIf("mousedown", function() {
+			console.log("Event handled.");
+			removeBlock.removeClass('removalPoint');
+			removeBlockFirst.removeClass('first');
+			removeBlockLockBTN.removeClass('active');
+		}, function() {
+			return (removeBlock.is(":visible"));
+		});
+
+		removeBlock.bind("mousedown", function(event) {
+			e.stopPropagation();
+		});
+
+	});
+
+	$(document).on('click', '.removalPoint.gs_w:not(.divider)', function(event){
+		event.preventDefault();
+
+		if ($(this).attr('data-row')){
+
+			var goodBye = $(this).attr('data-row');
+			var lineLeader = $('.gridster .removalPoint.first.gs_w[data-row='+goodBye+']').attr('id');
+			$(this).prepend('<div class="newtext">'+lineLeader+'</div>');
+			
+			var first = $('.newtext').text().replace(/[^0-9]/gi, '');
+			var firstIn = parseInt(first) - 1;
+			var lastOut = parseInt(firstIn) + 16;
+
+			var things = $('.gridster li'), index;
+			for (index = firstIn; index < things.length; index++) {
+				grid_canvas.remove_widget( $('.gridster li').eq( Math.min(index,lastOut) ));
+			}
+			
+			$('.newtext').remove();
+
+			console.log(goodBye);
+			console.log(lineLeader);
+			console.log(firstIn);
+			console.log(lastOut);
+
+			$(".gridster li").removeAttr('id');
+			$(".gridster li").each(function(i) {
+				i = i + 1;
+				$(this).attr('id', 'li' + i);
+			});
+
+		}
+
+	});
+
+
 	$('#add_div').on('click', function(e, i) {
 		e.preventDefault();
 		$.each(dividers, function(i, widget){
