@@ -1,12 +1,12 @@
 @font-face {
-	font-family: 'icomoon';
-	src: url('fonts/icomoon.eot?4agn97');
-	src: url('fonts/icomoon.eot?4agn97#iefix') format('embedded-opentype'),
-		 url('fonts/icomoon.ttf?4agn97') format('truetype'),
-		 url('fonts/icomoon.woff?4agn97') format('woff'),
-		 url('fonts/icomoon.svg?4agn97#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?vpr23q');
+    src: url('fonts/icomoon.eot?vpr23q#iefix') format('embedded-opentype'),
+         url('fonts/icomoon.ttf?vpr23q') format('truetype'),
+         url('fonts/icomoon.woff?vpr23q') format('woff'),
+         url('fonts/icomoon.svg?vpr23q#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 [class^="icon-"], [class*=" icon-"] {
 	font-family: 'icomoon' !important;
@@ -19,6 +19,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
 .icon-add:before { content: "\e900"; }
 .icon-clear:before { content: "\e901"; }
 .icon-deployr:before { content: "\e902"; }
@@ -29,11 +30,13 @@
 .icon-lock:before { content: "\e907"; }
 .icon-name:before { content: "\e908"; }
 .icon-nope:before { content: "\e909"; }
-.icon-remove:before { content: "\e90a"; }
-.icon-reset:before { content: "\e90b"; }
-.icon-save:before { content: "\e90c"; }
-.icon-tidy:before { content: "\e90d"; }
-.icon-working:before { content: "\e90e"; }
+.icon-remove_block:before { content: "\e90a"; }
+.icon-remove_divider:before { content: "\e90b"; }
+.icon-remove:before { content: "\e90c"; }
+.icon-reset:before { content: "\e90d"; }
+.icon-save:before { content: "\e90e"; }
+.icon-tidy:before { content: "\e90f"; }
+.icon-working:before { content: "\e910"; }
 
 .icon-reset:before {
 	font-size: 15px;
@@ -164,7 +167,6 @@ button:disabled {
 	color: #888;
 	-webkit-font-smoothing: antialiased;
 }
-
 .tabs {
 	display: table;
 	position: relative;
@@ -269,6 +271,15 @@ button:disabled {
 .grouping.name button:nth-child(2) {
 	width: 134px;
 }
+#insert_div, #insert_block {
+	min-width: 142px;
+}
+#remove_block, #remove_div {
+	min-width: 160px;
+}
+#insert_div, #remove_div {
+	margin-top: 11px;
+}
 #delete_top {
 	min-width: 53px;
 	width: auto;
@@ -291,9 +302,6 @@ button:disabled {
 	background: #3a3a3a;
 	border-color: #3a3a3a;
 }
-
-
-
 .trashed {
 	display: none !important;
 }
@@ -307,9 +315,6 @@ button:disabled {
 .gs_w.box.nameDROP.name_holder {
 	background: url('../images/typing.gif')no-repeat center center #fff;
 }
-
-
-
 .headerHider {
 	width: 100%;
 	padding-right: 536px;
@@ -344,15 +349,15 @@ button:disabled {
 	left: -15px;
 }
 .name_shield {
-    z-index: 102;
-    width: 130px;
-    height: 65px;
-    display: inline-block;
-    position: relative;
+	z-index: 102;
+	width: 130px;
+	height: 65px;
+	display: inline-block;
+	position: relative;
 }
 .name_shield li {
-    top: 0;
-    left: 0;
+	top: 0;
+	left: 0;
 }
 .lablr {
 	width: 183px;

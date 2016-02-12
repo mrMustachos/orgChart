@@ -225,7 +225,7 @@ $(window).ready(function() {
 			console.log(rightHereBlock);
 
 			$.each(blocks, function(i, widget){
-				grid_canvas.add_widget('<li class="divider blocking"></li>', this.size_x, this.size_y, this.col, rightHereBlock);
+				grid_canvas.add_widget('<li class="blocking" blockcontent="holder"></li>', this.size_x, this.size_y, this.col, rightHereBlock);
 			});
 
 			$(".gridster li").removeAttr('id');
@@ -320,6 +320,137 @@ $(window).ready(function() {
 		});
 
 	});
+
+
+
+
+
+
+
+	////// add in a div row /////////////////////////////////////////////////////////////////
+
+	
+	$('#insert_div').on('click', function(e, i) {
+		e.preventDefault();
+
+		var insertBlock_div = $('.gridster .gs_w:not(.divider)');
+		var insertBlock_divLockBTN = $('.insertion_time_div');
+
+		$.each('.insertion_time_div', function(event) {
+			insertBlock_div.addClass('insertionPoint_div');
+			insertBlock_divLockBTN.addClass('active');
+			e.preventDefault();
+		});
+
+		$(document).bindIf("mousedown", function() {
+			console.log("Event handled.");
+			insertBlock_div.removeClass('insertionPoint_div');
+			insertBlock_divLockBTN.removeClass('active');
+		}, function() {
+			return (insertBlock_div.is(":visible"));
+		});
+
+		insertBlock_div.bind("mousedown", function(event) {
+			e.stopPropagation();
+		});
+
+	});
+
+	$(document).on('click', '.insertionPoint_div.gs_w:not(.divider)', function(event){
+		event.preventDefault();
+
+		if ($(this).attr('data-row')){
+
+			var backCutDiv = $(this).attr('data-row');
+			var rightHereDiv = parseInt(backCutDiv);
+
+			console.log(backCutDiv);
+			console.log(rightHereDiv);
+
+			$.each(dividers, function(i, widget){
+				grid_canvas.add_widget('<li class="divider blocking"></li>', this.size_x, this.size_y, this.col, rightHereDiv);
+			});
+
+			$(".gridster li").removeAttr('id');
+			$(".gridster li").each(function(i) {
+				i = i + 1;
+				$(this).attr('id', 'li' + i);
+			});
+			
+		}
+
+	});
+
+	////// remove a div row /////////////////////////////////////////////////////////////////
+
+	$('#remove_div').on('click', function(e, i) {
+		e.preventDefault();
+
+		var removeDiv = $('.gridster .gs_w.divider');
+		var removeDivFirst = $('.gridster .gs_w[data-col=1]');
+		var removeDivLockBTN = $('.ejection_time_div');
+
+		$.each('.ejection_time_div', function(event) {
+			removeDiv.addClass('removalPointDiv');
+			removeDivFirst.addClass('first');
+			removeDivLockBTN.addClass('active');
+			e.preventDefault();
+		});
+
+		$(document).bindIf("mousedown", function() {
+			console.log("Event handled.");
+			removeDiv.removeClass('removalPointDiv');
+			removeDivFirst.removeClass('first');
+			removeDivLockBTN.removeClass('active');
+		}, function() {
+			return (removeDiv.is(":visible"));
+		});
+
+		removeDiv.bind("mousedown", function(event) {
+			e.stopPropagation();
+		});
+
+	});
+
+	$(document).on('click', '.removalPointDiv.gs_w.divider', function(event){
+		event.preventDefault();
+
+		if ($(this).attr('data-row')){
+
+			var goodByeDiv = $(this).attr('data-row');
+			var lineLeaderDiv = $('.gridster .removalPointDiv.first.gs_w[data-row='+goodByeDiv+']').attr('id');
+			$(this).prepend('<div class="newtext">'+lineLeaderDiv+'</div>');
+
+			var firstDiv = $('.newtext').text().replace(/[^0-9]/gi, '');
+			var firstDivIn = parseInt(firstDiv) - 1;
+			var lastOutDiv = parseInt(firstDivIn) + 16;
+
+			var things = $('.gridster li'), index;
+			for (index = firstDivIn; index < things.length; index++) {
+				grid_canvas.remove_widget( $('.gridster li').eq( Math.min(index,lastOutDiv) ));
+			}
+			
+			$('.newtext').remove();
+
+			console.log(goodByeDiv);
+			console.log(lineLeaderDiv);
+			console.log(firstDivIn);
+			console.log(lastOutDiv);
+
+			$(".gridster li").removeAttr('id');
+			$(".gridster li").each(function(i) {
+				i = i + 1;
+				$(this).attr('id', 'li' + i);
+			});
+
+		}
+
+	});
+
+
+
+
+
 
 	$('#edit_block').on('click', function(e, i) {
 		e.preventDefault();
