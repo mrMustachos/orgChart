@@ -131,7 +131,14 @@ body {
 .gridster ul {
 	background-color: #EFEFEF;
 	margin: 0 auto;
+}
+
+.seventeen.gridster ul {
 	width: 2380px;
+}
+
+.thirtySix.gridster ul {
+	width: 5040px;
 }
 
 .gridster li {
@@ -152,14 +159,17 @@ body {
 .gridster .gs_w.doubled,
 .gridster .gs_w.tripled,
 .gridster .gs_w.tripled.blocking,
-.gridster .gs_w.trashed {
+.gridster .gs_w.trashed,
+.gridster .gs_w.connector {
 	background: transparent;
 }
 .gridster .gs_w:after,
 .gridster .gs_w.doubled .box:after,
 .gridster .gs_w.tripled .box:after,
 .gridster .gs_w.doubled .blocking:after,
-.gridster .gs_w.tripled .blocking:after {
+.gridster .gs_w.tripled .blocking:after,
+.gridster .gs_w.connector:after,
+.gridster .gs_w.tripled.connector:after {
 	content: "";
 	background: #333;
 	display: block;
@@ -172,13 +182,40 @@ body {
 	-webkit-transform: translate(-50%,0);
 	transform: translate(-50%,0);
 }
-/*
-.gridster .gs_w.tripled.divider.more:after {
-	left: calc(50% - 35px);
+.gridster .gs_w.connector:after,
+.gridster .gs_w.tripled .connector:after {
+	width: 150px;
+	height: 5px;
+	bottom: 30px;
 }
-*/
+.gridster .gs_w.connector.halfedRight:after {
+	width: 210px;
+	left: 81%;
+}
+.gridster .gs_w.connector.halfedLeft:after {
+	width: 205px;
+	left: 22%;
+}
+.gridster .gs_w.tripled .connector:after {
+	left: 115%;
+	width: 245px;
+}
+.spannerBlock.spanner3_create.gs_w.box_unlocked.connector:nth-of-type(2).connector:after {
+	width: 5px;
+	height: 40px;
+}
 .gridster .gs_w.thru:after {
 	height: 75px;
+}
+.gridster .gs_w.thru.halfedLeft:after {
+	height: 15px;
+	bottom: 20px;
+}
+.gridster .gs_w.tripled .gs_w:nth-of-type(2):after {
+	height: 40px;
+	bottom: 0;
+	width: 5px;
+	left: -40px;
 }
 .gridster .gs_w.divider.thru:after {
 	height: 15px;
@@ -267,8 +304,8 @@ body {
 	left: 130px;
 }
 .spannerBlock.full.divider:nth-last-of-type(2):before {
-    left: -69px;
-    width: 209px;
+	left: -69px;
+	width: 209px;
 }
 .gridster .gs_w.doubled .gs_w,
 .gridster .gs_w.tripled .gs_w,
@@ -295,17 +332,26 @@ body {
 	left: 70px;
 	float: left;
 }
+.gridster .gs_w.tripled .thru.gs_w:nth-of-type(2) {
+	top: -30px;
+	height: 40px;
+	left: -175px;
+}
 .gridster .gs_w.tripled .gs_w:nth-of-type(2) {
 	left: -70px;
 	float: right;
 }
-
+.gridster .gs_w.tripled .connector.gs_w:nth-of-type(2) {
+	bottom: 30px;
+	height: 40px;
+}
 .gridster .gs_w.doubled .box,
 .gridster .gs_w.tripled .box {
 	background: #fff;
 }
 .gridster .gs_w.doubled .thru,
-.gridster .gs_w.tripled .thru {
+.gridster .gs_w.tripled .thru,
+.gridster .gs_w.tripled .connection {
 	background: transparent;
 }
 
@@ -313,7 +359,8 @@ body {
 .gs_w.divider.blocking:before,
 .doubled:not(:empty).gs_w:after,
 .tripled:not(:empty).gs_w:after,
-.gridster .gs_w:nth-child(-n+17):after,
+.seventeen.gridster .gs_w:nth-child(-n+17):after,
+.thirtySix.gridster .gs_w:nth-child(-n+36):after,
 .gridster .gs_w.tripled:not(.full):before,
 .gridster .gs_w.tripled:not(.reachLeft):before,
 .gs_w.nope:after {
@@ -322,6 +369,7 @@ body {
 .gridster .gs_w.doubled .spannerBlock.box:after,
 .gridster .gs_w.tripled .spannerBlock.box:after,
 .gridster .gs_w.doubled .spannerBlock.thru:after,
+.gridster .gs_w.tripled .spannerBlock.connector:after,
 .gridster .gs_w.tripled .spannerBlock.thru:after,
 .gridster .gs_w.doubled .spannerBlock.blocking:after,
 .gridster .gs_w.tripled .spannerBlock.reachLeft:after,

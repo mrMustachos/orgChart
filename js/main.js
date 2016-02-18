@@ -59,6 +59,16 @@ $(window).ready(function() {
 	$('.gridster li.doubled, .gridster li.divider.tripled').attr('data-sizex','2');
 	$('.gridster li.tripled').attr('data-sizex','3');
 
+	$('.gridster li.stepped').each(function() {
+		var magicNumber = $(this).attr('data-row');
+		var pullUp = parseInt(magicNumber) - 3;
+
+		console.log(magicNumber);
+		console.log(pullUp);
+		$(this).attr('data-row', pullUp);	
+
+	});
+
 	$(function(){
 		$('.gridster .gs_w').each(function() {
 			var fillIn = $(this).attr('htmlcontent');
@@ -68,13 +78,14 @@ $(window).ready(function() {
 			$("input[value=" + radioSilence + "].radioBtnClass").parent().addClass('used');
 
 			$(this).html(fillIn);
-			$(this).removeAttr('htmlcontent');
+			// $(this).removeAttr('htmlcontent');
 
 			if ($('.gridster ul').has('li')) {
-				$('button').prop("disabled", false);
+				$('button:not(#tidy)').prop("disabled", false);
 			}
 
 		});
+
 	});
 
 
@@ -82,7 +93,8 @@ $(window).ready(function() {
 		autogenerate_stylesheet: false,
 		widget_margins: [5, 5],
 		widget_base_dimensions: [130, 5],
-		min_cols: 17,
+		avoid_overlapped_widgets: false,
+		min_cols: 36,
 		shift_larger_widgets_down: false,
 		
 		serialize_params: function($w, wgd) {
@@ -137,7 +149,26 @@ $(window).ready(function() {
 		{ col: 14, row: 1, size_x: 1, size_y: 5 },
 		{ col: 15, row: 1, size_x: 1, size_y: 5 },
 		{ col: 16, row: 1, size_x: 1, size_y: 5 },
-		{ col: 17, row: 1, size_x: 1, size_y: 5 }
+		{ col: 17, row: 1, size_x: 1, size_y: 5 },
+		{ col: 18, row: 1, size_x: 1, size_y: 5 },
+		{ col: 19, row: 1, size_x: 1, size_y: 5 },
+		{ col: 20, row: 1, size_x: 1, size_y: 5 },
+		{ col: 21, row: 1, size_x: 1, size_y: 5 },
+		{ col: 22, row: 1, size_x: 1, size_y: 5 },
+		{ col: 23, row: 1, size_x: 1, size_y: 5 },
+		{ col: 24, row: 1, size_x: 1, size_y: 5 },
+		{ col: 25, row: 1, size_x: 1, size_y: 5 },
+		{ col: 26, row: 1, size_x: 1, size_y: 5 },
+		{ col: 27, row: 1, size_x: 1, size_y: 5 },
+		{ col: 28, row: 1, size_x: 1, size_y: 5 },
+		{ col: 29, row: 1, size_x: 1, size_y: 5 },
+		{ col: 30, row: 1, size_x: 1, size_y: 5 },
+		{ col: 31, row: 1, size_x: 1, size_y: 5 },
+		{ col: 32, row: 1, size_x: 1, size_y: 5 },
+		{ col: 33, row: 1, size_x: 1, size_y: 5 },
+		{ col: 34, row: 1, size_x: 1, size_y: 5 },
+		{ col: 35, row: 1, size_x: 1, size_y: 5 },
+		{ col: 36, row: 1, size_x: 1, size_y: 5 }
 	];
 
 	// sort Blocks
@@ -160,13 +191,32 @@ $(window).ready(function() {
 		{ col: 14, row: 1, size_x: 1, size_y: 1 },
 		{ col: 15, row: 1, size_x: 1, size_y: 1 },
 		{ col: 16, row: 1, size_x: 1, size_y: 1 },
-		{ col: 17, row: 1, size_x: 1, size_y: 1 }
+		{ col: 17, row: 1, size_x: 1, size_y: 1 },
+		{ col: 18, row: 1, size_x: 1, size_y: 1 },
+		{ col: 19, row: 1, size_x: 1, size_y: 1 },
+		{ col: 20, row: 1, size_x: 1, size_y: 1 },
+		{ col: 21, row: 1, size_x: 1, size_y: 1 },
+		{ col: 22, row: 1, size_x: 1, size_y: 1 },
+		{ col: 23, row: 1, size_x: 1, size_y: 1 },
+		{ col: 24, row: 1, size_x: 1, size_y: 1 },
+		{ col: 25, row: 1, size_x: 1, size_y: 1 },
+		{ col: 26, row: 1, size_x: 1, size_y: 1 },
+		{ col: 27, row: 1, size_x: 1, size_y: 1 },
+		{ col: 28, row: 1, size_x: 1, size_y: 1 },
+		{ col: 29, row: 1, size_x: 1, size_y: 1 },
+		{ col: 30, row: 1, size_x: 1, size_y: 1 },
+		{ col: 31, row: 1, size_x: 1, size_y: 1 },
+		{ col: 32, row: 1, size_x: 1, size_y: 1 },
+		{ col: 33, row: 1, size_x: 1, size_y: 1 },
+		{ col: 34, row: 1, size_x: 1, size_y: 1 },
+		{ col: 35, row: 1, size_x: 1, size_y: 1 },
+		{ col: 36, row: 1, size_x: 1, size_y: 1 }
 	];
 
 	// sort Blocks
 	dividers = grid_canvas.sort_by_row_and_col_asc(dividers);
 
-	grid_canvas.generate_stylesheet({rows: 510, cols: 17});
+	grid_canvas.generate_stylesheet({rows: 620, cols: 36});
 
 	$('#add_block').on('click', function(e, i) {
 		e.preventDefault();
@@ -174,7 +224,7 @@ $(window).ready(function() {
 			grid_canvas.add_widget('<li class="blocking" blockcontent="holder"></li>', this.size_x, this.size_y, this.col, this.row);
 		});
 
-		$('#add_div, #edit_block, #seralize, #tidy, #deployr, #add_span2, #add_span3').prop("disabled", false);
+		$('#add_div, #edit_block, #seralize, #deployr, #add_span2, #add_span3').prop("disabled", false);
 
 		$(".gridster li").removeAttr('id');
 		$(".gridster li").each(function(i) {
@@ -280,7 +330,7 @@ $(window).ready(function() {
 
 			var first = $('.newtext').text().replace(/[^0-9]/gi, '');
 			var firstIn = parseInt(first) - 1;
-			var lastOut = parseInt(firstIn) + 16;
+			var lastOut = parseInt(firstIn) + 35;
 
 			var things = $('.gridster li'), index;
 			for (index = firstIn; index < things.length; index++) {
@@ -321,15 +371,8 @@ $(window).ready(function() {
 
 	});
 
-
-
-
-
-
-
 	////// add in a div row /////////////////////////////////////////////////////////////////
 
-	
 	$('#insert_div').on('click', function(e, i) {
 		e.preventDefault();
 
@@ -423,7 +466,7 @@ $(window).ready(function() {
 
 			var firstDiv = $('.newtext').text().replace(/[^0-9]/gi, '');
 			var firstDivIn = parseInt(firstDiv) - 1;
-			var lastOutDiv = parseInt(firstDivIn) + 16;
+			var lastOutDiv = parseInt(firstDivIn) + 35;
 
 			var things = $('.gridster li'), index;
 			for (index = firstDivIn; index < things.length; index++) {
@@ -447,10 +490,89 @@ $(window).ready(function() {
 
 	});
 
+	////// add in a half step to rows /////////////////////////////////////////////////////////////////
 
+	
+	$('#half_step').on('click', function(e, i) {
+		e.preventDefault();
 
+		var stepUpBlock = $('.gridster .gs_w');
+		var stepUpBlockLockBTN = $('.stepUpTime');
 
+		$.each('.stepUpTime', function(event) {
+			stepUpBlock.addClass('stepUpPoint');
+			stepUpBlockLockBTN.addClass('active');
+			e.preventDefault();
+		});
 
+		$(document).bindIf("mousedown", function() {
+			console.log("Event handled.");
+			stepUpBlock.removeClass('stepUpPoint');
+			stepUpBlockLockBTN.removeClass('active');
+		}, function() {
+			return (stepUpBlock.is(":visible"));
+		});
+
+		stepUpBlock.bind("mousedown", function(event) {
+			e.stopPropagation();
+		});
+
+	});
+
+	$(document).on('click', '.stepUpPoint.gs_w', function(event){
+		event.preventDefault();
+
+		var currentClick = $(this).attr('data-row');
+		var minArray = parseInt(currentClick);
+
+		console.log(currentClick);
+
+		$(this).each(function() {
+
+			var array = $('.gridster .gs_w').map(function() {
+				return $(this).data('row');
+			});
+
+			function ArrNoDupe(a) {
+				var temp = {};
+				for (var i = 0; i < a.length; i++)
+					temp[a[i]] = true;
+				var r = [];
+				for (var k in temp)
+					r.push(parseInt(k));
+				return r;
+			}
+			array = ArrNoDupe(array);
+
+			console.log(array);
+
+			var refinedArray = $.map(array, function(n) {
+				return n > minArray ? n + 0 : null;
+			});
+
+			console.log(refinedArray);
+
+			var valueToFind = refinedArray;
+
+			$('.gridster .gs_w').each(function() {
+				var infoData = $(this).data('row');
+				
+				for (i = 0; i < valueToFind.length; i++) {
+					if (valueToFind[i] == infoData) {
+
+						var addingValue = parseInt(infoData) - 3;
+						$(this).removeAttr('data-row');
+						$(this).attr('data-row', addingValue);
+						$(this).removeData('row');
+						$(this).addClass('stepped');
+
+					}
+				}
+
+			});
+		});
+
+	});
 
 	$('#edit_block').on('click', function(e, i) {
 		e.preventDefault();
@@ -656,7 +778,6 @@ $(window).ready(function() {
 	$('#seralize').on('click', function(e, i) {
 		e.preventDefault();
 
-		$('li.trashed').remove();
 		$(".gridster li").removeAttr('id');
 		$(".gridster li").each(function(i) {
 			i = i + 1;
@@ -675,4 +796,42 @@ $(window).ready(function() {
 		});
 
 	});
+
+	$('#tidy').on('click', function(e, i) {
+		e.preventDefault();
+
+		$('li.trashed').remove();
+		$('li.blocking').remove();
+		$(".gridster li").removeAttr('id');
+		$(".gridster li").each(function(i) {
+			i = i + 1;
+			$(this).attr('id', 'li' + i);
+		});
+
+	});
+
+	$('#deployr').on('click', function(e, i) {
+		e.preventDefault();
+
+		$(".gridster li").removeAttr('id');
+		$(".gridster li").each(function(i) {
+			i = i + 1;
+			$(this).attr('id', 'li' + i);
+		});
+
+		var positions = JSON.stringify(grid_canvas.serialize());
+		localStorage.setItem('positions', positions);
+		
+		$.post("process.php", {
+			"positions": positions
+		}, function(data) {
+			console.log(data);
+			if (data == 200) console.log("Data successfully sent to the server");
+			else console.log
+		});
+
+		$('#tidy').prop("disabled", false);
+
+	});
+
 });
