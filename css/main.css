@@ -160,7 +160,9 @@ body {
 .gridster .gs_w.tripled,
 .gridster .gs_w.tripled.blocking,
 .gridster .gs_w.trashed,
-.gridster .gs_w.connector {
+.gridster .gs_w.connector,
+.gridster .gs_w.connectorRight,
+.gridster .gs_w.connectorLeft {
 	background: transparent;
 }
 .gridster .gs_w:after,
@@ -186,6 +188,9 @@ body {
 .gridster .gs_w.tripled .connector:after {
 	width: 150px;
 	height: 5px;
+	bottom: 15px;
+}
+.gridster .gs_w[data-row="1"].connector:after {
 	bottom: 30px;
 }
 .gridster .gs_w.connector.halfedRight:after {
@@ -197,8 +202,10 @@ body {
 	left: 22%;
 }
 .gridster .gs_w.tripled .connector:after {
-	left: 115%;
-	width: 245px;
+	left: 23%;
+	width: 5px;
+	height: 30px;
+	bottom: -10px;
 }
 .spannerBlock.spanner3_create.gs_w.box_unlocked.connector:nth-of-type(2).connector:after {
 	width: 5px;
@@ -206,6 +213,21 @@ body {
 }
 .gridster .gs_w.thru:after {
 	height: 75px;
+}
+.gridster .gs_w.thru.connector:after,
+.gridster .gs_w.thru.connectorLeft:after,
+.gridster .gs_w.thru.connectorRight:after {
+	width: 5px;
+	bottom: -10px;
+	height: 30px;
+}
+.gridster .gs_w.thru.stepped:after {
+	height: 60px;
+	bottom: -40px;
+}
+.gridster .gs_w.stepped .spannerBlock.box.connector:after {
+	bottom: -40px;
+	height: 40px;
 }
 .gridster .gs_w.thru.halfedLeft:after {
 	height: 15px;
@@ -251,13 +273,56 @@ body {
 .gridster .gs_w.divider.full {
 	background: #333;
 }
-.divider:before {
+.divider:before,
+.gridster .gs_w.tripled .thru.connector:before,
+.gridster .gs_w.tripled .thru.connectorLeft:before,
+.gridster .gs_w.tripled .thru.connectorRight:before,
+.gridster .gs_w.thru.connector:before,
+.gridster .gs_w.thru.connectorLeft:before,
+.gridster .gs_w.thru.connectorRight:before,
+.gridster .gs_w.doubled .box.connector:before,
+.gridster .gs_w.doubled .box.connectorLeft:before,
+.gridster .gs_w.doubled .box.connectorRight:before {
 	content: "";
 	display: block;
 	height: 5px;
 	width: 12px;
 	background: #333;
 	position: absolute;
+}
+.gridster .gs_w.tripled .thru.connector:before,
+.gridster .gs_w.tripled .thru.connectorLeft:before,
+.gridster .gs_w.tripled .thru.connectorRight:before {
+	left: 22%;
+	bottom: 15px;
+	width: 245px;
+}
+.gridster .gs_w.tripled .thru.connectorRight:before {
+	left: 50%;
+}
+.gridster .gs_w.tripled .thru.connectorLeft:before {
+	left: -90%;
+	width: 184px;
+}
+.gridster .gs_w.doubled .box.connector:before,
+.gridster .gs_w.doubled .box.connectorLeft:before,
+.gridster .gs_w.doubled .box.connectorRight:before {
+	left: -62%;
+	bottom: 15px;
+	width: 81px;
+}
+.gridster .gs_w.doubled .box.connectorRight:before {
+	left: 100%;
+}
+.gridster .gs_w.thru.connector:before,
+.gridster .gs_w.thru.connectorRight:before,
+.gridster .gs_w.thru.connectorLeft:before {
+	bottom: 15px;
+	left: 50%;
+	width: 75px;
+}
+.gridster .gs_w.thru.connectorLeft:before {
+	left: -8%;
 }
 .reachLeft.divider:before {
 	left: -11px;
@@ -328,6 +393,9 @@ body {
 .gridster .gs_w.tripled .thru {
 	left: -35px;
 }
+.gridster .gs_w.tripled .thru.connector {
+	left: 0;
+}
 .gridster .gs_w.tripled .gs_w:nth-last-of-type(2) {
 	left: 70px;
 	float: left;
@@ -376,7 +444,10 @@ body {
 .gridster .gs_w.tripled .spannerBlock.reachRight:after,
 .gridster .gs_w.tripled .spannerBlock.full:after,
 .gridster .gs_w.tripled .spannerBlock.thru:after,
-.tripled:not(:empty) .spannerBlock.blocking:after {
+.tripled:not(:empty) .spannerBlock.blocking:after,
+.gridster .gs_w.tripled .thru.connector:before,
+.gridster .gs_w.tripled .thru.connectorLeft:before,
+.gridster .gs_w.tripled .thru.connectorRight:before {
 	display: block !important;
 }
 .gridster .gs_w.doubled .spannerBlock.nope.box:after,

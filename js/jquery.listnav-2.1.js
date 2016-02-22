@@ -160,6 +160,9 @@
 				// click handler for letters: shows/hides relevant LI's
 				//
 				$('a', $letters).click(function() {
+					$("#nameList li").removeClass('refined');
+					$('.lablr').prependTo($('#nameList'));
+					$('.li_group').remove();
 					$('a.ln-selected', $letters).removeClass('ln-selected');
 
 					var letter = $(this).attr('class').split(' ')[0];
@@ -167,17 +170,36 @@
 					if (letter == 'all') {
 						$list.children().show();
 						$list.children('.ln-no-match').hide();
+
+						var lis = $("#nameList li");
+						for(var i = 0; i < lis.length; i+=6) {
+							lis.slice(i, i+6).wrapAll("<li class='li_group'><ul></ul></li>");
+						}
+
 						isAll = true;
 					} else {
 						if (isAll) {
 							$list.children().hide();
+
+							// var lis = $("#nameList li");
+							// for(var i = 0; i < lis.length; i+=6) {
+							// 	lis.slice(i, i+6).wrapAll("<li class='li_group'><ul></ul></li>");
+							// }
+
 							isAll = false;
 						} else if (prevLetter != '') $list.children('.ln-' + prevLetter).hide();
 
 						var count = getLetterCount(this);
 						if (count > 0) {
 							$list.children('.ln-no-match').hide(); // in case it's showing
-							$list.children('.ln-' + letter).show();
+							$list.children('.ln-' + letter).show().addClass('refined');
+
+
+							var lis = $("#nameList li.refined");
+							for(var i = 0; i < lis.length; i+=6) {
+								lis.slice(i, i+6).wrapAll("<li class='li_group'><ul></ul></li>");
+							}
+
 						}
 						else $list.children('.ln-no-match').show();
 

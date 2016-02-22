@@ -53,8 +53,13 @@ $(document).on('click', '.gridster .box_unlocked.doubled.gs_w:not(.divider) .box
 
 // switch from thru to box for 2x spanner boxe
 $(document).on('click', '.gridster .box_unlocked.doubled.gs_w:not(.divider) .thru', function(){
+	$(this).addClass('blocking');
+	$(this).removeClass('thru');
+});
+// switch from thru to box for 2x spanner boxe
+$(document).on('click', '.gridster .box_unlocked.doubled.gs_w:not(.divider) .blocking', function(){
 	$(this).addClass('box');
-	$(this).removeClass('thru blocking');
+	$(this).removeClass('blocking');
 });
 
 
@@ -343,3 +348,162 @@ $(document).on('click', '.gs_w.box.name_placed .presenter .remover', function(ev
 
 });
 
+
+////// Connector Box switching ///////////////////////////////////////////////////////////
+
+// add to blocking
+$(document).on('click', '.blocking.connectionPoint.gs_w:not(.divider)', function(event){
+
+	if ($(this).attr('id')){
+
+		var connectorBlockingID = $(this).attr('id');
+		var connectorBlocking = ('li#' + connectorBlockingID + '');
+
+		console.log(connectorBlockingID);
+		console.log(connectorBlocking);
+
+		$(connectorBlocking).addClass('connector connectionBlocking');
+		$(connectorBlocking).removeClass('blocking');
+	}
+
+});
+
+// remove from blocking
+$(document).on('click', '.connector.connectionBlocking.connectionPoint.gs_w:not(.divider)', function(event){
+
+	if ($(this).attr('id')){
+
+		var connectorBlockingRemoveID = $(this).attr('id');
+		var connectorBlockingRemove = ('li#' + connectorBlockingRemoveID + '');
+
+		console.log(connectorBlockingRemoveID);
+		console.log(connectorBlockingRemove);
+
+		$(connectorBlockingRemove).addClass('blocking');
+		$(connectorBlockingRemove).removeClass('connector connectionBlocking');
+	}
+
+});
+
+
+// add to top level thru (Right)
+$(document).on('click', '.thru.connectionPoint.gs_w:not(.divider)', function(event){
+
+	if ($(this).attr('id')){
+
+		var connectorThruID = $(this).attr('id');
+		var connectorThru = ('li#' + connectorThruID + '');
+
+		$(connectorThru).addClass('connectorRight');
+	}
+
+});
+
+// add to top level thru (Left)
+$(document).on('click', '.connectorRight.thru.connectionPoint.gs_w:not(.divider)', function(event){
+
+	if ($(this).attr('id')){
+
+		var connectorThru2ID = $(this).attr('id');
+		var connectorThru2 = ('li#' + connectorThru2ID + '');
+
+		$(connectorThru2).addClass('connectorLeft');
+		$(connectorThru2).removeClass('connectorRight');
+	}
+
+});
+
+// remove to top level thru
+$(document).on('click', '.connectorLeft.thru.connectionPoint.gs_w:not(.divider)', function(event){
+
+	if ($(this).attr('id')){
+
+		var connectorThruRemoveID = $(this).attr('id');
+		var connectorThruRemove = ('li#' + connectorThruRemoveID + '');
+
+		$(connectorThruRemove).removeClass('connectorLeft connectorRight');
+	}
+
+});
+
+
+// add to 2nd level thru (right)
+$(document).on('click', '.gridster .spannerBlock.spanner3_create.gs_w.thru.connectionPoint', function(event){
+
+	if ($(this).parent().attr('id')){
+
+		var connectorThruSpannerID = $(this).parent().attr('id');
+		var connectorThruSpanner = ('li#' + connectorThruSpannerID + ' .spannerBlock.thru.connectionPoint');
+
+		$(connectorThruSpanner).addClass('connectorRight');
+	}
+
+});
+
+// add to 2nd level thru (left)
+$(document).on('click', '.gridster .connectorRight.spannerBlock.spanner3_create.gs_w.thru.connectionPoint', function(event){
+
+	if ($(this).parent().attr('id')){
+
+		var connectorThruSpanner2ID = $(this).parent().attr('id');
+		var connectorThruSpanner2 = ('li#' + connectorThruSpanner2ID + ' .spannerBlock.thru.connectionPoint');
+
+		$(connectorThruSpanner2).addClass('connectorLeft');
+		$(connectorThruSpanner2).removeClass('connectorRight');
+	}
+
+});
+
+// Remove 2nd level thru
+$(document).on('click', '.gridster .connectorLeft.spannerBlock.spanner3_create.gs_w.thru.connectionPoint', function(event){
+
+	if ($(this).parent().attr('id')){
+
+		var connectorThruSpannerRemoveID = $(this).parent().attr('id');
+		var connectorThruSpannerRemove = ('li#' + connectorThruSpannerRemoveID + ' .spannerBlock.thru.connectionPoint');
+
+		$(connectorThruSpannerRemove).removeClass('connectorRight connectorLeft');
+	}
+
+});
+
+
+// Add 2nd level box (right)
+$(document).on('click', '.gridster .spannerBlock.gs_w.box.connectionPoint', function(event){
+
+	if ($(this).parent().attr('id')){
+
+		var connectorBoxSpannerID = $(this).parent().attr('id');
+		var connectorBoxSpanner = ('li#' + connectorBoxSpannerID + ' .spannerBlock.box.connectionPoint');
+
+		$(connectorBoxSpanner).addClass('connectorRight');
+	}
+
+});
+
+// Add 2nd level box (left)
+$(document).on('click', '.gridster .connectorRight.spannerBlock.gs_w.box.connectionPoint', function(event){
+
+	if ($(this).parent().attr('id')){
+
+		var connectorBoxSpanner2ID = $(this).parent().attr('id');
+		var connectorBoxSpanner2 = ('li#' + connectorBoxSpanner2ID + ' .spannerBlock.box.connectionPoint');
+
+		$(connectorBoxSpanner2).addClass('connectorLeft');
+		$(connectorBoxSpanner2).removeClass('connectorRight');
+	}
+
+});
+
+// Remove 2nd level box
+$(document).on('click', '.gridster .connectorLeft.spannerBlock.gs_w.box.connectionPoint', function(event){
+
+	if ($(this).parent().attr('id')){
+
+		var connectorBoxSpannerRemoveID = $(this).parent().attr('id');
+		var connectorBoxSpannerRemove = ('li#' + connectorBoxSpannerRemoveID + ' .spannerBlock.box.connectionPoint');
+
+		$(connectorBoxSpannerRemove).removeClass('connectorRight connectorLeft');
+	}
+
+});

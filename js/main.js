@@ -7,6 +7,12 @@ $(window).ready(function() {
 			var classes = $(this).attr('class');
 			$(this).replaceWith('<div class="empty '+ classes+'">' + $(this).text() + '</div>')
 		});
+		
+		var lis = $("#nameList li");
+		for(var i = 0; i < lis.length; i+=6) {
+			lis.slice(i, i+6).wrapAll("<li class='li_group'><ul></ul></li>");
+		}
+
 	});
 
 	// tabbed buttons
@@ -56,18 +62,18 @@ $(window).ready(function() {
 
 	$('.reserve').remove();
 	$('.gridster .gs_w').empty();
-	$('.gridster li.doubled, .gridster li.divider.tripled').attr('data-sizex','2');
-	$('.gridster li.tripled').attr('data-sizex','3');
+	// $('.gridster li.doubled, .gridster li.divider.tripled').attr('data-sizex','2');
+	// $('.gridster li.tripled').attr('data-sizex','3');
 
-	$('.gridster li.stepped').each(function() {
-		var magicNumber = $(this).attr('data-row');
-		var pullUp = parseInt(magicNumber) - 3;
+	// $('.gridster li.stepped').each(function() {
+	// 	var magicNumber = $(this).attr('data-row');
+	// 	var pullUp = parseInt(magicNumber) - 3;
 
-		console.log(magicNumber);
-		console.log(pullUp);
-		$(this).attr('data-row', pullUp);	
+	// 	console.log(magicNumber);
+	// 	console.log(pullUp);
+	// 	$(this).attr('data-row', pullUp);	
 
-	});
+	// });
 
 	$(function(){
 		$('.gridster .gs_w').each(function() {
@@ -81,7 +87,7 @@ $(window).ready(function() {
 			// $(this).removeAttr('htmlcontent');
 
 			if ($('.gridster ul').has('li')) {
-				$('button:not(#tidy)').prop("disabled", false);
+				$('button:not(#deployr)').prop("disabled", false);
 			}
 
 		});
@@ -103,10 +109,14 @@ $(window).ready(function() {
 				class: $($w).attr('class'),
 				htmlContent: $($w).html(),
 				blockContent: $($w).attr('blockContent'),
-				col: wgd.col,
-				row: wgd.row,
-				size_x: wgd.size_x,
-				size_y: wgd.size_y,
+				col: $($w).attr('data-col'),
+				row: $($w).attr('data-row'),
+				size_x: $($w).attr('data-sizex'),
+				size_y: $($w).attr('data-sizey'),
+				// col: wgd.col,
+				// row: wgd.row,
+				// size_x: wgd.size_x,
+				// size_y: wgd.size_y,
 			};
 		}/*,
 
@@ -224,7 +234,7 @@ $(window).ready(function() {
 			grid_canvas.add_widget('<li class="blocking" blockcontent="holder"></li>', this.size_x, this.size_y, this.col, this.row);
 		});
 
-		$('#add_div, #edit_block, #seralize, #deployr, #add_span2, #add_span3').prop("disabled", false);
+		$('#add_div, #edit_block, #remove_div, #remove_block, #insert_div, #insert_block, #block_connectors, #half_step, #half_stepRemove, #seralize, #archive, #add_span2, #add_span3').prop("disabled", false);
 
 		$(".gridster li").removeAttr('id');
 		$(".gridster li").each(function(i) {
@@ -497,10 +507,12 @@ $(window).ready(function() {
 		e.preventDefault();
 
 		var stepUpBlock = $('.gridster .gs_w');
+		var stepUpIconBlock = $('.stepUpTime span');
 		var stepUpBlockLockBTN = $('.stepUpTime');
 
 		$.each('.stepUpTime', function(event) {
 			stepUpBlock.addClass('stepUpPoint');
+			stepUpIconBlock.toggleClass('icon-add icon-working');
 			stepUpBlockLockBTN.addClass('active');
 			e.preventDefault();
 		});
@@ -508,6 +520,7 @@ $(window).ready(function() {
 		$(document).bindIf("mousedown", function() {
 			console.log("Event handled.");
 			stepUpBlock.removeClass('stepUpPoint');
+			stepUpIconBlock.toggleClass('icon-add icon-working');
 			stepUpBlockLockBTN.removeClass('active');
 		}, function() {
 			return (stepUpBlock.is(":visible"));
@@ -526,6 +539,7 @@ $(window).ready(function() {
 		var minArray = parseInt(currentClick);
 
 		console.log(currentClick);
+		$('.stepUpPoint.gs_w[data-row='+currentClick+']').addClass('stepped');
 
 		$(this).each(function() {
 
@@ -556,6 +570,7 @@ $(window).ready(function() {
 
 			$('.gridster .gs_w').each(function() {
 				var infoData = $(this).data('row');
+
 				
 				for (i = 0; i < valueToFind.length; i++) {
 					if (valueToFind[i] == infoData) {
@@ -564,12 +579,129 @@ $(window).ready(function() {
 						$(this).removeAttr('data-row');
 						$(this).attr('data-row', addingValue);
 						$(this).removeData('row');
-						$(this).addClass('stepped');
+						// $(this).addClass('stepped');
 
 					}
 				}
 
 			});
+		});
+
+	});
+
+////// Remove half step to rows /////////////////////////////////////////////////////////////////
+
+	
+	$('#half_stepRemove').on('click', function(e, i) {
+		e.preventDefault();
+
+		var stepUpRemoveBlock = $('.gridster .gs_w');
+		var stepUpRemoveIconBlock = $('.stepDownTime span');
+		var stepUpRemoveBlockLockBTN = $('.stepDownTime');
+
+		$.each('.stepDownTime', function(event) {
+			stepUpRemoveBlock.addClass('stepUpRemovePoint');
+			stepUpRemoveIconBlock.toggleClass('icon-clear icon-working');
+			stepUpRemoveBlockLockBTN.addClass('active');
+			e.preventDefault();
+		});
+
+		$(document).bindIf("mousedown", function() {
+			console.log("Event handled.");
+			stepUpRemoveBlock.removeClass('stepUpRemovePoint');
+			stepUpRemoveIconBlock.toggleClass('icon-clear icon-working');
+			stepUpRemoveBlockLockBTN.removeClass('active');
+		}, function() {
+			return (stepUpRemoveBlock.is(":visible"));
+		});
+
+		stepUpRemoveBlock.bind("mousedown", function(event) {
+			e.stopPropagation();
+		});
+
+	});
+
+	$(document).on('click', '.stepUpRemovePoint.gs_w', function(event){
+		event.preventDefault();
+
+		var currentClickRemove = $(this).attr('data-row');
+		var minArrayRemove = parseInt(currentClickRemove);
+
+		console.log(currentClickRemove);
+		$('.stepUpRemovePoint.gs_w[data-row='+currentClickRemove+']').removeClass('stepped');
+
+		$(this).each(function() {
+
+			var arrayRemove = $('.gridster .gs_w').map(function() {
+				return $(this).data('row');
+			});
+
+			function ArrNoDupeRemove(a) {
+				var temp = {};
+				for (var i = 0; i < a.length; i++)
+					temp[a[i]] = true;
+				var r = [];
+				for (var k in temp)
+					r.push(parseInt(k));
+				return r;
+			}
+			arrayRemove = ArrNoDupeRemove(arrayRemove);
+
+			console.log(arrayRemove);
+
+			var refinedArrayRemove = $.map(arrayRemove, function(n) {
+				return n > minArrayRemove ? n + 0 : null;
+			});
+
+			console.log(refinedArrayRemove);
+
+			var valueToFindRemove = refinedArrayRemove;
+
+			$('.gridster .gs_w').each(function() {
+				var infoDataRemove = $(this).data('row');
+
+				
+				for (i = 0; i < valueToFindRemove.length; i++) {
+					if (valueToFindRemove[i] == infoDataRemove) {
+
+						var removingRemove = parseInt(infoDataRemove) + 3;
+						$(this).removeAttr('data-row');
+						$(this).attr('data-row', removingRemove);
+						$(this).removeData('row');
+						// $(this).addClass('stepped');
+
+					}
+				}
+
+			});
+		});
+
+	});
+
+	////// add in a div connecters //////////////////////////////////////////////////////////
+
+	$('#block_connectors').on('click', function(e, i) {
+		e.preventDefault();
+
+		var connectionBlock = $('.gridster .gs_w:not(.divider)');
+		var connectionBlockLockBTN = $('.saftyLine');
+
+		$.each('.saftyLine', function(event) {
+			connectionBlock.addClass('connectionPoint');
+			connectionBlockLockBTN.addClass('active');
+			e.preventDefault();
+		});
+
+		$(document).bindIf("mousedown", function() {
+			console.log("Event handled.");
+			connectionBlock.removeClass('connectionPoint');
+			connectionBlockLockBTN.removeClass('active');
+		}, function() {
+			return (connectionBlock.is(":visible"));
+		});
+
+		connectionBlock.bind("mousedown", function(event) {
+			e.stopPropagation();
 		});
 
 	});
@@ -797,20 +929,21 @@ $(window).ready(function() {
 
 	});
 
-	$('#tidy').on('click', function(e, i) {
+	$('#deployr').on('click', function(e, i) {
 		e.preventDefault();
 
 		$('li.trashed').remove();
 		$('li.blocking').remove();
+		$('.gridster li').removeAttr('htmlcontent');
 		$(".gridster li").removeAttr('id');
-		$(".gridster li").each(function(i) {
-			i = i + 1;
-			$(this).attr('id', 'li' + i);
-		});
+		// $(".gridster li").each(function(i) {
+		// 	i = i + 1;
+		// 	$(this).attr('id', 'li' + i);
+		// });
 
 	});
 
-	$('#deployr').on('click', function(e, i) {
+	$('#archive').on('click', function(e, i) {
 		e.preventDefault();
 
 		$(".gridster li").removeAttr('id');
@@ -830,7 +963,7 @@ $(window).ready(function() {
 			else console.log
 		});
 
-		$('#tidy').prop("disabled", false);
+		$('#deployr').prop("disabled", false);
 
 	});
 
