@@ -174,7 +174,7 @@ $(document).on('click', '.gridster .spanner3_create.blocking.gs_w:not(.divider)'
 		$(x3theBlock).attr('data-sizex','3');
 		$(x3theBlock).next().addClass('trashed');
 		$(x3theBlock).next().next().addClass('trashed');
-		$(x3theBlock).append('<div class="spannerBlock spanner3_create gs_w box first" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
+		$(x3theBlock).append('<div class="spannerBlock spanner3_create gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
 	}
 });
 
@@ -185,7 +185,7 @@ $(document).on('click', '.gridster .spanner3_create.tripled.more.gs_w:not(.divid
 		var x3theBlock2 = ('li#' + x3blockID2 + '');
 
 		$(x3theBlock2).addClass('blocking');
-		$(x3theBlock2).append('<div class="spannerBlock spanner3_create gs_w box second" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
+		$(x3theBlock2).append('<div class="spannerBlock spanner3_create gs_w box" blockcontent="holder"><div class="presenter"><span class="remover icon-remove based" style="display: none;"></span></div></div>');
 		$(x3theBlock2).removeClass('more');
 	}
 });
@@ -246,7 +246,7 @@ $(document).on('click', '.gridster .spanner3_create.tripled:not(.more).gs_w.divi
 	}
 });
 
-////// 3x spanner switching for dividers //////////////////////////////////////////////////
+////// 3x spanner switching for boxes /////////////////////////////////////////////////////
 
 // switch from blocking to reachLeft for the chart boxes
 $(document).on('click', '.gridster .div_unlocked.blocking.divider.gs_w', function(){
@@ -277,53 +277,6 @@ $(document).on('click', '.gridster .div_unlocked.thru.divider.gs_w', function(){
 	$(this).addClass('blocking');
 	$(this).removeClass('thru');
 });
-
-////// 3x spanner switching for boxes /////////////////////////////////////////////////////
-
-// switch from box to thru for 3x spanner boxes
-$(document).on('click', '.gridster .box_unlocked.tripled.gs_w:not(.divider) .box.first', function(){
-	$(this).addClass('thru');
-	$(this).removeClass('box');
-});
-
-// switch from thru to box for 3x spanner boxe
-$(document).on('click', '.gridster .box_unlocked.tripled.gs_w:not(.divider) .thru.first', function(){
-	$(this).addClass('blocking');
-	$(this).removeClass('thru');
-});
-// switch from thru to box for 3x spanner boxe
-$(document).on('click', '.gridster .box_unlocked.tripled.gs_w:not(.divider) .blocking.first', function(){
-	$(this).addClass('box');
-	$(this).removeClass('blocking');
-});
-
-// switch from box to thru for 3x spanner boxes
-$(document).on('click', '.gridster .box_unlocked.tripled.gs_w:not(.divider) .box.second', function(){
-	$(this).addClass('thru');
-	$(this).removeClass('box');
-});
-
-// switch from thru to box for 3x spanner boxe
-$(document).on('click', '.gridster .box_unlocked.tripled.gs_w:not(.divider) .thru.second', function(){
-	$(this).addClass('blocking');
-	$(this).removeClass('thru');
-});
-// switch from thru to box for 3x spanner boxe
-$(document).on('click', '.gridster .box_unlocked.tripled.gs_w:not(.divider) .blocking.second', function(){
-	$(this).addClass('box');
-	$(this).removeClass('blocking');
-});
-
-
-
-
-
-
-
-
-
-
-
 
 ////// Let's Play The Name Game ///////////////////////////////////////////////////////////
 
@@ -554,5 +507,3 @@ $(document).on('click', '.gridster .connectorLeft.spannerBlock.gs_w.box.connecti
 	}
 
 });
-
-

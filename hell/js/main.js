@@ -31,8 +31,8 @@ $(window).ready(function() {
 
 			g.preventDefault();
 		} );
-
 	})(jQuery);
+
 
 	var localData = JSON.parse(localStorage.getItem('positions'));
 
@@ -100,7 +100,7 @@ $(window).ready(function() {
 		widget_margins: [5, 5],
 		widget_base_dimensions: [130, 5],
 		avoid_overlapped_widgets: false,
-		min_cols: 35,
+		min_cols: 36,
 		shift_larger_widgets_down: false,
 		
 		serialize_params: function($w, wgd) {
@@ -177,7 +177,8 @@ $(window).ready(function() {
 		{ col: 32, row: 1, size_x: 1, size_y: 5 },
 		{ col: 33, row: 1, size_x: 1, size_y: 5 },
 		{ col: 34, row: 1, size_x: 1, size_y: 5 },
-		{ col: 35, row: 1, size_x: 1, size_y: 5 }
+		{ col: 35, row: 1, size_x: 1, size_y: 5 },
+		{ col: 36, row: 1, size_x: 1, size_y: 5 }
 	];
 
 	// sort Blocks
@@ -218,13 +219,14 @@ $(window).ready(function() {
 		{ col: 32, row: 1, size_x: 1, size_y: 1 },
 		{ col: 33, row: 1, size_x: 1, size_y: 1 },
 		{ col: 34, row: 1, size_x: 1, size_y: 1 },
-		{ col: 35, row: 1, size_x: 1, size_y: 1 }
+		{ col: 35, row: 1, size_x: 1, size_y: 1 },
+		{ col: 36, row: 1, size_x: 1, size_y: 1 }
 	];
 
 	// sort Blocks
 	dividers = grid_canvas.sort_by_row_and_col_asc(dividers);
 
-	grid_canvas.generate_stylesheet({rows: 620, cols: 35});
+	grid_canvas.generate_stylesheet({rows: 620, cols: 36});
 
 	$('#add_block').on('click', function(e, i) {
 		e.preventDefault();
@@ -338,7 +340,7 @@ $(window).ready(function() {
 
 			var first = $('.newtext').text().replace(/[^0-9]/gi, '');
 			var firstIn = parseInt(first) - 1;
-			var lastOut = parseInt(firstIn) + 34;
+			var lastOut = parseInt(firstIn) + 35;
 
 			var things = $('.gridster li'), index;
 			for (index = firstIn; index < things.length; index++) {
@@ -474,7 +476,7 @@ $(window).ready(function() {
 
 			var firstDiv = $('.newtext').text().replace(/[^0-9]/gi, '');
 			var firstDivIn = parseInt(firstDiv) - 1;
-			var lastOutDiv = parseInt(firstDivIn) + 34;
+			var lastOutDiv = parseInt(firstDivIn) + 35;
 
 			var things = $('.gridster li'), index;
 			for (index = firstDivIn; index < things.length; index++) {
@@ -704,12 +706,10 @@ $(window).ready(function() {
 
 	});
 
-	////// change the type of block /////////////////////////////////////////////////////////
-
 	$('#edit_block').on('click', function(e, i) {
 		e.preventDefault();
 
-		var chartBlock = $('.gridster .gs_w:not(.divider, .tripled)');
+		var chartBlock = $('.gridster .gs_w:not(.divider)');
 		var blockLockBTN = $('.block_unlock');
 		var blockIconToggle = $('.block_unlock span');
 
@@ -963,80 +963,8 @@ $(window).ready(function() {
 			else console.log
 		});
 
-		var blockPositions = $($("style")[1]).html();
-
 		$('#deployr').prop("disabled", false);
-		$('.printout, .cssPos').remove();
-		$('.gridster').after('<textarea class="printout" /textarea>');
-		$('.printout').after('<textarea class="roundTwo" /textarea>');
-		$('.printout').after('<div class="working" /div>');
-		$('.printout').after('<textarea class="cssPos"></textarea>');
-		$('.printout').html(positions);
 
-		$('.cssPos').html(''+blockPositions+'<style type="text/css"> '+blockPositions+'</style>').before('<h2 class="printoutHeader">CSS Placement</h2>');
-
-		
-		$('.printout').contents().filter(function() {
-
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('\\"') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('"') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf(',') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('htmlContent":"<') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('[{id') >= 0;
-
-		}).each(function() {
-
-			this.nodeValue = this.nodeValue.replace(/\\"\b/g, "\\•");
-			this.nodeValue = this.nodeValue.replace(/\"\b/g, "");
-			this.nodeValue = this.nodeValue.replace(/\,\b/g, ", ");
-			this.nodeValue = this.nodeValue.replace(/\htmlContent":"<\b/g, "htmlContent: \"<");
-			this.nodeValue = this.nodeValue.replace(/\, htmlContent":"", \b/g, ", htmlContent: \"\", ");
-			this.nodeValue = this.nodeValue.replace(/\[{id\b/g, "var serialization = [ { id");
-
-		});
-		
-		
-		var keepWorking = $('.printout').html();
-		$('.roundTwo').html(positions).before('<h2 class="printoutHeader">JSON Output Raw</h2>');
-		$('.working').html(keepWorking).before('<h2 class="printoutHeader">JSON Output Clean</h2>');
-
-		$('.working').contents().filter(function() {
-
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('•') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('id":') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf(', class":') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf(', blockContent":') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf(', col":') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('", row":') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('", size_x":') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('", size_y":') >= 0;
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('"},{ id') >= 0;
-
-		}).each(function() {
-
-			this.nodeValue = this.nodeValue.replace(/\•\b/g, "\"");
-			this.nodeValue = this.nodeValue.replace(/\id":\b/g, " id: \"");
-			this.nodeValue = this.nodeValue.replace(/\, class":\b/g, ", class: \"");
-			this.nodeValue = this.nodeValue.replace(/\, blockContent":\b/g, ", blockContent: \"");
-			this.nodeValue = this.nodeValue.replace(/\, col":\b/g, ", col: ");
-			this.nodeValue = this.nodeValue.replace(/\", row":\b/g, ", row: ");
-			this.nodeValue = this.nodeValue.replace(/\", size_x":\b/g, ", size_x: ");
-			this.nodeValue = this.nodeValue.replace(/\", size_y":\b/g, ", size_y: ");
-			this.nodeValue = this.nodeValue.replace(/\"},{ id\b/g, " }, { id");
-
-		});
-
-		$(".working").text(function () {
-			return $(this).text().replace("5\"}]", "5 } ];"); 
-		});
-
-		$(".roundTwo").text(function () {
-			return $(this).text().replace("[", "var json = [");
-		});
-		$(".roundTwo").text(function () {
-			return $(this).text().replace("}]", "}];");
-		});
-		
 	});
 
 });
