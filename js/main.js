@@ -968,7 +968,7 @@ $(window).ready(function() {
 		$('#deployr').prop("disabled", false);
 		$('.printout, .cssPos').remove();
 		$('.gridster').after('<textarea class="printout" /textarea>');
-		$('.printout').after('<textarea class="roundTwo" /textarea>');
+		$('.printout').after('<div class="roundTwo" /div>');
 		$('.printout').after('<div class="working" /div>');
 		$('.printout').after('<textarea class="cssPos"></textarea>');
 		$('.printout').html(positions);
@@ -999,6 +999,7 @@ $(window).ready(function() {
 		var keepWorking = $('.printout').html();
 		$('.roundTwo').html(positions).before('<h2 class="printoutHeader">JSON Output Raw</h2>');
 		$('.working').html(keepWorking).before('<h2 class="printoutHeader">JSON Output Clean</h2>');
+		console.log(positions);
 
 		$('.working').contents().filter(function() {
 

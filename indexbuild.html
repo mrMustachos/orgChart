@@ -21,6 +21,13 @@
 	<!-- <script src="js/wow.js"></script> -->
 	<script src="js/redrop.js"></script>
 
+	<script type="text/javascript">
+		function myfunction(){
+			localStorage.clear();
+			window.location.reload();
+		}
+	</script>
+
 </head>
 
 <body>
@@ -29,6 +36,7 @@
 			<ul></ul>
 		</div>
 	</div>
-
+	<button id="def_button" class="btn" onclick="myfunction()"><span class="icon-reset"></span>Reset</button>
+	
 </body>
 </html>
