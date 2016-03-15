@@ -1,0 +1,465 @@
+@import "compass";
+@import "normalize";
+@import "mixins";
+@import "gridsterDefault";
+@import "icons";
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic,600italic,700italic,800italic);
+
+
+// ==========
+// Taking Care of CSS 
+// ==========
+
+body {
+	font-family: 'Open Sans', Helvetica, 'Helvetica Neue', Arial, sans-serif;
+	color: $primary-font-color;
+	background-color: $primary-body-color;
+	font-size: 14px;
+	line-height: 1.2;
+	font-weight: 400;
+}
+a {
+	transition: background-color .15s ease,color .15s ease,border-color .15s ease,opacity .15s ease;
+	text-decoration: none;
+	color: $primary-font-color;
+	&:hover {
+		color: $pinky;
+	}
+}
+
+ul, ol {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+}
+
+::selection {
+    background: #b3d4fc;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.04); border-radius: 5px; }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 5px; }
+
+
+// ==========
+// Layouts
+// ==========
+
+.wrapper {
+	position: relative;
+}
+
+.site-header {
+	@include cf;
+	background: rgba(30,33,38,.95);
+	border-top: 5px solid $pinky;
+	padding: 0 1.25em;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 200;
+	
+	$nav-height: 32px;
+
+	.logo, nav {
+		height: $nav-height;
+		line-height: $nav-height;
+		margin: 10px 0;
+	}
+	.logo {
+		float: left;
+		img {
+			height: $nav-height;
+		}
+	}
+	nav {
+		float: right;
+		li {
+			float: left;
+			.menu-link {
+				padding-top: 4px;
+			}
+			a {
+				color: #fff;
+				padding: 5px 10px;
+				&:hover {
+					color: $pinky;
+				}
+				.threeLines {
+					padding-left: 4px;
+					font-size: 16px;
+				}
+				.icon {
+					position: relative;
+					top: 4px;
+				}
+			}
+			.menu-link.active {
+				color: $pinky;
+				&:hover {
+					color: #fff;
+				}
+			}
+			&:last-child {
+				a {
+					padding-right: 0;
+				}
+			}
+		}
+	}
+}
+.chart {
+    margin-top: 77px;
+}
+
+/*/ gridster /*/
+
+.gridster * {
+  margin:0;
+  padding:0;
+}
+
+.gridster {
+    margin: 0 auto;
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+}
+
+.gridster ul {
+    margin: 0 auto;
+}
+
+.gridster li {
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 100%;
+}
+
+.gridster .gs_w {
+    background: #DDD;
+    cursor: pointer;
+}
+.gridster .gs_w.box {
+    background: #fff;
+}
+.gridster .gs_w.thru,
+.gridster .gs_w.doubled,
+.gridster .gs_w.tripled,
+.gridster .gs_w.tripled.blocking,
+.gridster .gs_w.trashed,
+.gridster .gs_w.connector,
+.gridster .gs_w.connectorRight,
+.gridster .gs_w.connectorLeft,
+.gridster .gs_w.tripled .reachRight.gs_w:nth-last-of-type(2) {
+    background: transparent;
+}
+.gridster .gs_w:after,
+.gridster .gs_w.doubled .box:after,
+.gridster .gs_w.tripled .box:after,
+.gridster .gs_w.doubled .blocking:after,
+.gridster .gs_w.tripled .blocking:after,
+.gridster .gs_w.connector:after,
+.gridster .gs_w.tripled.connector:after {
+    content: "";
+    background: #000;
+    display: block;
+    width: 5px;
+    height: 10px;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    -ms-transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+}
+.gridster .gs_w.doubled.stepped .spannerBlock.gs_w:after {
+    height: 40px;
+    bottom: -40px;
+}
+.gridster .gs_w.connector:after,
+.gridster .gs_w.tripled .connector:after {
+    width: 150px;
+    height: 5px;
+    bottom: 15px;
+}
+.gridster .gs_w.middled.connector:after {
+    bottom: 30px;
+}
+.gridster .gs_w[data-row="1"].connector:after,
+.gridster .gs_w[data-row="1"].connector:not(.stepped):after {
+    bottom: 30px;
+}
+.gridster .gs_w.connector.halfedRight:after {
+    width: 210px;
+    left: 81%;
+}
+.gridster .gs_w.connector.halfedLeft:after {
+    width: 205px;
+    left: 22%;
+}
+.gridster .gs_w.tripled .connector:after {
+    left: 23%;
+    width: 5px;
+    height: 30px;
+    bottom: -10px;
+}
+.spannerBlock.spanner3_create.gs_w.box_unlocked.connector:nth-of-type(2).connector:after {
+    width: 5px;
+    height: 40px;
+}
+.gridster .gs_w.thru:after {
+    height: 75px;
+}
+.gridster .gs_w.thru.connector:after,
+.gridster .gs_w.thru.connectorLeft:after,
+.gridster .gs_w.thru.connectorRight:after {
+    width: 5px;
+    bottom: -10px;
+    height: 30px;
+}
+.gridster .gs_w.thru.stepped:after {
+    height: 60px;
+    bottom: -40px;
+}
+.gridster .gs_w.stepped .spannerBlock.box.connector:after {
+    bottom: -40px;
+    height: 40px;
+}
+.gridster .gs_w.thru.halfedLeft:after {
+    height: 15px;
+    bottom: 20px;
+}
+.gridster .gs_w.tripled .gs_w:nth-of-type(2):after {
+    bottom: 0;
+    width: 5px;
+    left: -40px;
+}
+.gridster .gs_w.divider.thru:after {
+    height: 15px;
+}
+.gridster .gs_w.tripled .gs_w.divider:nth-of-type(2):after {
+    left: 66px;
+    bottom: -10px;
+}
+.gridster .gs_w.tripled .gs_w:nth-of-type(2):after {
+    left: 51%;
+    bottom: -10px;
+}
+.gridster .gs_w.reachRight:after,
+.gridster .gs_w.reachLeft:after {
+    height: 15px;
+}
+.gridster .gs_w.divider.reachLeft {
+    background: -moz-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 50.001%, rgba(0,0,0,0) 100%);
+    background: -webkit-linear-gradient(left, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(0,0,0,0) 50.001%,rgba(0,0,0,0) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 50%,rgba(0,0,0,0) 50.001%,rgba(0,0,0,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#00333333',GradientType=1 );
+}
+.gridster .gs_w.divider.reachRight {
+    background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 50.001%, rgba(0,0,0,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,1) 50.001%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,1) 50.001%,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00333333', endColorstr='#333333',GradientType=1 );
+}
+.gridster .gs_w.divider.reachLeft.spannerBlock {
+    background: -moz-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 52.001%, rgba(0,0,0,0) 100%);
+    background: -webkit-linear-gradient(left, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 52%,rgba(0,0,0,0) 52.001%,rgba(0,0,0,0) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(0,0,0,1) 52%,rgba(0,0,0,0) 52.001%,rgba(0,0,0,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#00333333',GradientType=1 );
+}
+.gridster .gs_w.divider.reachRight.spannerBlock {
+    background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 49.25%, rgba(0,0,0,1) 49.251%, rgba(0,0,0,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 49.25%,rgba(0,0,0,1) 49.251%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 49.25%,rgba(0,0,0,1) 49.251%,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00333333', endColorstr='#333333',GradientType=1 );
+}
+.gridster .gs_w.divider.full {
+    background: #000;
+}
+.divider:before,
+.gridster .gs_w.tripled .thru.connector:before,
+.gridster .gs_w.tripled .thru.connectorLeft:before,
+.gridster .gs_w.tripled .thru.connectorRight:before,
+.gridster .gs_w.thru.connector:before,
+.gridster .gs_w.thru.connectorLeft:before,
+.gridster .gs_w.thru.connectorRight:before,
+.gridster .gs_w.doubled .box.connector:before,
+.gridster .gs_w.doubled .box.connectorLeft:before,
+.gridster .gs_w.doubled .box.connectorRight:before {
+    content: "";
+    display: block;
+    height: 5px;
+    width: 12px;
+    background: #000;
+    position: absolute;
+}
+.gridster .gs_w.tripled .thru.connector:before,
+.gridster .gs_w.tripled .thru.connectorLeft:before,
+.gridster .gs_w.tripled .thru.connectorRight:before {
+    left: 22%;
+    bottom: 15px;
+    width: 245px;
+}
+.gridster .gs_w.tripled .thru.connectorRight:before {
+    left: 50%;
+}
+.gridster .gs_w.tripled .thru.connectorLeft:before {
+    left: -90%;
+    width: 184px;
+}
+.gridster .gs_w.doubled .box.connector:before,
+.gridster .gs_w.doubled .box.connectorLeft:before,
+.gridster .gs_w.doubled .box.connectorRight:before {
+    left: -62%;
+    bottom: 15px;
+    width: 81px;
+}
+.gridster .gs_w.doubled .box.connectorRight:before {
+    left: 100%;
+}
+.gridster .gs_w.thru.connector:before,
+.gridster .gs_w.thru.connectorRight:before,
+.gridster .gs_w.thru.connectorLeft:before {
+    bottom: 15px;
+    left: 50%;
+    width: 135px;
+}
+.gridster .gs_w.thru.connectorLeft:before {
+    left: -8%;
+}
+.reachLeft.divider:before {
+    left: -11px;
+}
+.spannerBlock.reachLeft.divider:before {
+    left: -104px;
+    width: 104px;
+}
+.gridster .gs_w.tripled .spannerBlock.reachLeft.divider.gs_w:nth-last-of-type(2):before {
+    left: -69px;
+    width: 69px;
+}
+.gridster .gs_w.tripled .spannerBlock.reachLeft.divider.gs_w:nth-of-type(2):before {
+    left: -11px;
+    width: 11px;
+}
+.reachRight.divider:before, .full.divider:before {
+    left: 129px;
+}
+.reachRight.doubled.divider:before,
+.full.doubled.divider:before,
+.reachRight.tripled.divider:before,
+.full.tripled.divider:before {
+    left: 269px;
+}
+.spannerBlock.reachRight.divider:before {
+    left: 130px;
+    width: 185px;
+}
+.gridster .gs_w.tripled .spannerBlock.reachRight.divider.gs_w:nth-last-of-type(2):before {
+    left: 65px;
+    width: 100px;
+}
+.gridster .gs_w.tripled .spannerBlock.reachRight.divider.gs_w:nth-of-type(2):before {
+    left: 130px;
+    width: 80px;
+}
+.spannerBlock.full.divider:before {
+    left: -104px;
+    width: 419px;
+}
+.gridster .gs_w.tripled .gs_w.full.divider:nth-of-type(2):before {
+    width: 80px;
+    left: 130px;
+}
+.spannerBlock.full.divider:nth-last-of-type(2):before {
+    left: -69px;
+    width: 209px;
+}
+.gridster .gs_w.doubled .gs_w,
+.gridster .gs_w.tripled .gs_w,
+.gridster .gs_w.doubled .gs_w.divider,
+.gridster .gs_w.tripled .gs_w.divider {
+    width: 130px;
+    height: 65px;
+    margin: 0 auto;
+    position: relative;
+}
+.gridster .gs_w.doubled .gs_w.divider,
+.gridster .gs_w.tripled .gs_w.divider {
+    height: 5px;
+}
+.gridster .gs_w.tripled .blocking,
+.gridster .gs_w.tripled .box,
+.gridster .gs_w.tripled .reachLeft,
+.gridster .gs_w.tripled .reachRight,
+.gridster .gs_w.tripled .full,
+.gridster .gs_w.tripled .thru {
+    left: -35px;
+}
+.gridster .gs_w.tripled .thru.connector {
+    left: 0;
+}
+.gridster .gs_w.tripled .gs_w:nth-last-of-type(2) {
+    left: 70px;
+    float: left;
+}
+.gridster .gs_w.tripled .gs_w:nth-of-type(2) {
+    float: right;
+}
+.gridster .gs_w.tripled .connector.gs_w:nth-of-type(2) {
+    bottom: 30px;
+    height: 40px;
+}
+.gridster .gs_w.doubled .box,
+.gridster .gs_w.tripled .box {
+    background: #fff;
+}
+.gridster .gs_w.doubled .thru,
+.gridster .gs_w.tripled .thru,
+.gridster .gs_w.tripled .connection {
+    background: transparent;
+}
+
+.gs_w.divider.thru:before,
+.gs_w.divider.blocking:before,
+.doubled:not(:empty).gs_w:after,
+.tripled:not(:empty).gs_w:after,
+.seventeen.gridster .gs_w:nth-child(-n+17):after,
+.gridster .gs_w.tripled:not(.full):before,
+.gridster .gs_w.tripled:not(.reachLeft):before,
+.gs_w.nope:after {
+    display: none !important;
+}
+.gridster .gs_w.doubled .spannerBlock.box:after,
+.gridster .gs_w.tripled .spannerBlock.box:after,
+.gridster .gs_w.doubled .spannerBlock.thru:after,
+.gridster .gs_w.tripled .spannerBlock.connector:after,
+.gridster .gs_w.tripled .spannerBlock.thru:after,
+.gridster .gs_w.doubled .spannerBlock.blocking:after,
+.gridster .gs_w.tripled .spannerBlock.reachLeft:after,
+.gridster .gs_w.tripled .spannerBlock.reachRight:after,
+.gridster .gs_w.tripled .spannerBlock.full:after,
+.gridster .gs_w.tripled .spannerBlock.thru:after,
+.tripled:not(:empty) .spannerBlock.blocking:after,
+.gridster .gs_w.tripled .thru.connector:before,
+.gridster .gs_w.tripled .thru.connectorLeft:before,
+.gridster .gs_w.tripled .thru.connectorRight:before {
+    display: block !important;
+}
+.gridster .gs_w.doubled .spannerBlock.nope.box:after,
+.gridster .gs_w.tripled .spannerBlock.nope.box:after {
+    display: none !important;
+}
