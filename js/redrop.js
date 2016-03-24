@@ -144,6 +144,12 @@ $(window).ready(function() {
 			});
 		});
 	}
+	var resetChartHeight = function () {
+		var chartHeight = $('.gridster ul').height();
+			chartHeight = chartHeight+'px';
+
+		$('.gridster ul').removeAttr('style').css({'position': 'relative', 'height': chartHeight});
+	}
 	function maxRow(selector) {
 		// var min=null, max=null;
 		var max=null;
@@ -485,6 +491,36 @@ $(window).ready(function() {
 			chartBottom();
 			setColumns();
 
+			// var spannerFind = $('.gridster li');
+			// spannerFind.each(function() {
+			// 	var classValueGet = $(this).map(function() {
+			// 		return $(this).data('row');
+			// 	}).get();
+
+			// 	console.log(classValueGet.join('|'));
+
+
+			// 	// // var dataList = $(".list").map(function() {
+			// 	// // 	return $(this).data("id");
+			// 	// // }).get();
+
+			// 	// // console.log(dataList.join('|'));
+
+			// 	// $('.gridster .gs_w').each(function() {
+			// 	// 	var rowDataGet = $(this).data('row');
+
+			// 	// 	for (i = 0; i < colValueGet.length; i++) {
+			// 	// 		if (colValueGet[i] == rowDataGet) {
+			// 	// 			var trueRowGet = parseInt(rowDataGet);
+
+			// 	// 			$(this).removeAttr('data-truerow');
+			// 	// 			result = $(this).attr('data-truerow', trueRowGet);
+			// 	// 			$(this).removeData('row');
+			// 	// 		}
+			// 	// 	}
+			// 	// });
+			// });
+
 		} else {
 
 			var json = value;
@@ -502,7 +538,8 @@ $(window).ready(function() {
 			// resetIDs();
 			// chartBottom();
 			fixColumns();
-
+			resetChartHeight();
+			
 		}
 
 	});
