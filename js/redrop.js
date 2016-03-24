@@ -67,6 +67,7 @@ $(window).ready(function() {
 				htmlContent: $($w).html(),
 				blockContent: $($w).attr('blockContent'),
 				true_row: $($w).attr('data-truerow'),
+				span_row: $($w).attr('data-spanpush'),
 				col: $($w).attr('data-col'),
 				row: $($w).attr('data-row'),
 				size_x: $($w).attr('data-sizex'),
@@ -139,6 +140,30 @@ $(window).ready(function() {
 						$(this).removeAttr('data-truerow');
 						result = $(this).attr('data-truerow', trueRowGet);
 						$(this).removeData('row');
+					}
+				}
+			});
+		});
+	}
+	var setSpans = function () {
+
+		var spannerFix = $('.gridster .gs_w');
+		
+		spannerFix.each(function() {
+			var spanValueGet = $(this).map(function() {
+				return $(this).data('spanpush');
+			});
+
+			$('.gridster .gs_w').each(function() {
+				var spanDataGet = $(this).data('spanpush');
+
+				for (i = 0; i < spanValueGet.length; i++) {
+					if (spanValueGet[i] == spanDataGet) {
+						var spannerGet = parseInt(spanDataGet);
+
+						// $(this).removeAttr('data-spanpush');
+						$(this).removeAttr('style').css({'display': 'list-item', 'left': spannerGet+'px'});
+						$(this).removeData('spanpush');
 					}
 				}
 			});
@@ -481,45 +506,16 @@ $(window).ready(function() {
 				} else {
 					colID = json[i].col;
 				}
-				grid_canvas.add_widget('<li id="'+json[i]['id']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, colID, json[i].row);
+				grid_canvas.add_widget('<li id="'+json[i]['id']+'" data-spanpush="'+json[i]['span_row']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, colID, json[i].row);
 
 			}
 			fixOrder();
+			setSpans();
 			
 			// for now
 			resetIDs();
 			chartBottom();
 			setColumns();
-
-			// var spannerFind = $('.gridster li');
-			// spannerFind.each(function() {
-			// 	var classValueGet = $(this).map(function() {
-			// 		return $(this).data('row');
-			// 	}).get();
-
-			// 	console.log(classValueGet.join('|'));
-
-
-			// 	// // var dataList = $(".list").map(function() {
-			// 	// // 	return $(this).data("id");
-			// 	// // }).get();
-
-			// 	// // console.log(dataList.join('|'));
-
-			// 	// $('.gridster .gs_w').each(function() {
-			// 	// 	var rowDataGet = $(this).data('row');
-
-			// 	// 	for (i = 0; i < colValueGet.length; i++) {
-			// 	// 		if (colValueGet[i] == rowDataGet) {
-			// 	// 			var trueRowGet = parseInt(rowDataGet);
-
-			// 	// 			$(this).removeAttr('data-truerow');
-			// 	// 			result = $(this).attr('data-truerow', trueRowGet);
-			// 	// 			$(this).removeData('row');
-			// 	// 		}
-			// 	// 	}
-			// 	// });
-			// });
 
 		} else {
 
@@ -532,14 +528,13 @@ $(window).ready(function() {
 				} else {
 					colID = json[i].col;
 				}
-				grid_canvas.add_widget('<li id="'+json[i]['id']+'" data-truerow="'+json[i]['true_row']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, json[i].col, json[i].row);
+				grid_canvas.add_widget('<li id="'+json[i]['id']+'" data-spanpush="'+json[i]['span_row']+'" data-truerow="'+json[i]['true_row']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, json[i].col, json[i].row);
 			}
 			fixOrder();
-			// resetIDs();
-			// chartBottom();
 			fixColumns();
 			resetChartHeight();
-			
+			setSpans();
+
 		}
 
 	});
@@ -893,7 +888,7 @@ $(window).ready(function() {
 		if ($(this).hasClass('doubled')) {
 			event.preventDefault();
 
-			$(this).removeAttr('style').css('display', 'list-item');
+			$(this).removeAttr('style').css('display', 'list-item').removeAttr('data-spanpush');
 
 			var currentClick = $(this).attr('data-col');
 				currentClick = parseInt(currentClick);
@@ -969,8 +964,8 @@ $(window).ready(function() {
 		}
 		// Add
 		else {
-
 			event.preventDefault();
+
 			var oneOver = $(this).attr('id');
 				oneOver = oneOver.replace('li', '');
 				oneOver = parseInt(oneOver);
@@ -980,10 +975,11 @@ $(window).ready(function() {
 			var doubledPush = $(this).css('left');
 				doubledPush = doubledPush.replace('px', '');
 				doubledPush = parseInt(doubledPush) + 70;
-				doubledPush = doubledPush+ 'px';
+			var inlinePush = doubledPush+ 'px';
+				
 
 			grid_canvas.remove_widget($(toBeRemoved), true, function(){
-				$(originalOne).addClass('doubled').css({'display': 'list-item', 'left': doubledPush});
+				$(originalOne).addClass('doubled').css({'display': 'list-item', 'left': inlinePush}).attr('data-spanpush', doubledPush);
 				if ($(originalOne).hasClass('tile')) {
 					$(originalOne).addClass('box').removeClass('blocking');
 				}
@@ -1064,8 +1060,10 @@ $(window).ready(function() {
 
 			event.preventDefault();
 			var tripledPushRight = parseInt(baseCSS) + 70;
-				tripledPushRight = tripledPushRight+ 'px';
-			$(originalOne).addClass('right').removeClass('center bookmark').css({'display': 'list-item', 'left': tripledPushRight});
+				// tripledPushRight = tripledPushRight+ 'px';
+			var inlineTripledPushRight = tripledPushRight+ 'px';
+
+			$(originalOne).addClass('right').removeClass('center bookmark').css({'display': 'list-item', 'left': inlineTripledPushRight}).attr('data-spanpush', tripledPushRight);
 
 		}
 		// change to single Left
@@ -1074,8 +1072,10 @@ $(window).ready(function() {
 			event.preventDefault();
 			$(originalOne).addClass('left').removeClass('right bookmark').removeAttr('style').css('display', 'list-item');
 			var tripledPushLeft = parseInt(baseCSS) - 140;
-				tripledPushLeft = tripledPushLeft+ 'px';
-			$(originalOne).removeAttr('style').css({'display': 'list-item', 'left': tripledPushLeft});
+				// tripledPushLeft = tripledPushLeft+ 'px';
+			var inlineTripledPushLeft = tripledPushLeft+ 'px';
+
+			$(originalOne).removeAttr('style').css({'display': 'list-item', 'left': inlineTripledPushLeft}).attr('data-spanpush', tripledPushLeft);
 
 		}
 		// change to doubled
@@ -1083,18 +1083,19 @@ $(window).ready(function() {
 
 			event.preventDefault();
 			var tripledPushLeft = baseCSS+ 'px';
-			$(originalOne).addClass('first').removeClass('left bookmark').removeAttr('style').css({'display': 'list-item', 'left': tripledPushLeft});
+			$(originalOne).addClass('first').removeClass('left bookmark').removeAttr('style').css({'display': 'list-item', 'left': tripledPushLeft}).attr('data-spanpush', baseCSS);
 
 			if ($(this).hasClass('tile')) {
 				var clickClassTile = clickClass.replace('left', 'second');
 				var tripledSecondPushLeft = parseInt(baseCSS) + 140;
-					tripledSecondPushLeft = tripledSecondPushLeft+ 'px';
+					// tripledSecondPushLeft = tripledSecondPushLeft+ 'px';
+				var inlineTripledSecondPushLeft = tripledSecondPushLeft+ 'px';
 				
 				var widgetsTile = [
 					['<li class="'+clickClassTile+'" blockcontent="holder" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
 				];
 				$.each(widgetsTile, function(i, widget){
-					grid_canvas.add_widget.apply(grid_canvas, widget).css('left', tripledSecondPushLeft);
+					grid_canvas.add_widget.apply(grid_canvas, widget).css('left', inlineTripledSecondPushLeft).attr('data-spanpush', tripledSecondPushLeft);
 				});
 
 				var cutter2x = $(clickThisID).attr('id');
@@ -1107,14 +1108,16 @@ $(window).ready(function() {
 				});
 			}
 			else {
-				var clickClassDivider = clickClass.replace('left', 'second');
+				var clickClassTile = clickClass.replace('left', 'second');
 				var tripledSecondPushLeft = parseInt(baseCSS) + 140;
-					tripledSecondPushLeft = tripledSecondPushLeft+ 'px';
+					// tripledSecondPushLeft = tripledSecondPushLeft+ 'px';
+				var inlineTripledSecondPushLeft = tripledSecondPushLeft+ 'px';
+
 				var widgetsDivider = [
 					['<li class="'+clickClassDivider+'" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
 				];
 				$.each(widgetsDivider, function(i, widget){
-					grid_canvas.add_widget.apply(grid_canvas, widget).css('left', tripledSecondPushLeft);
+					grid_canvas.add_widget.apply(grid_canvas, widget).css('left', inlineTripledSecondPushLeft).attr('data-spanpush', tripledSecondPushLeft);
 				});
 
 				var cutter2x = $(clickThisID).attr('id');
@@ -1134,7 +1137,7 @@ $(window).ready(function() {
 			event.preventDefault();
 			var tripledPushLeft = baseCSS+ 'px';
 
-			$(originalOne).removeClass('bookmark tripled first').removeAttr('style').css('display', 'list-item');
+			$(originalOne).removeClass('bookmark tripled first').removeAttr('style').removeAttr('data-spanpush').css('display', 'list-item');
 
 			var mainColGrabber = $(originalOne).attr('data-col');
 			var afterColGrabber = parseInt(mainColGrabber) + 1;
