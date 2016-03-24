@@ -22,10 +22,9 @@ $(window).ready(function() {
 		for(var i = 0; i < lis.length; i+=6) {
 			lis.slice(i, i+6).wrapAll("<li class='li_group'><ul></ul></li>");
 		}
-
 	});
+	$("#nameBank").hide().removeAttr('class');
 
-	// $("#nameBank").hide();
 
 	////// Tabbed Buttons /////////////////////////////////////////////////////////////////////
 
@@ -44,7 +43,6 @@ $(window).ready(function() {
 
 			g.preventDefault();
 		} );
-
 	})(jQuery);
 
 	////// Initiate Gridster //////////////////////////////////////////////////////////////////
@@ -57,7 +55,8 @@ $(window).ready(function() {
 		// },
 		widget_margins: [5, 5],
 		widget_base_dimensions: [130, 5],
-		avoid_overlapped_widgets: false,
+		// avoid_overlapped_widgets: false,
+		// autogenerate_stylesheet: false,
 		min_cols: 35,
 		shift_larger_widgets_down: false,
 		
@@ -67,6 +66,7 @@ $(window).ready(function() {
 				class: $($w).attr('class'),
 				htmlContent: $($w).html(),
 				blockContent: $($w).attr('blockContent'),
+				true_row: $($w).attr('data-truerow'),
 				col: $($w).attr('data-col'),
 				row: $($w).attr('data-row'),
 				size_x: $($w).attr('data-sizex'),
@@ -75,6 +75,8 @@ $(window).ready(function() {
 		}
 	}).data('gridster');
 
+	////// Set Quick Calls ////////////////////////////////////////////////////////////////////
+
 	var resetIDs = function () {
 		$(".gridster li").removeAttr('id');
 		$(".gridster li").each(function(i) {
@@ -82,9 +84,88 @@ $(window).ready(function() {
 			$(this).attr('id', 'li' + i);
 		});
 	}
+	var fixOrder = function () {
+		$('li.gs_w[data-col="01"]').attr('data-col','1');
+		$('li.gs_w[data-col="02"]').attr('data-col','2');
+		$('li.gs_w[data-col="03"]').attr('data-col','3');
+		$('li.gs_w[data-col="04"]').attr('data-col','4');
+		$('li.gs_w[data-col="05"]').attr('data-col','5');
+		$('li.gs_w[data-col="06"]').attr('data-col','6');
+		$('li.gs_w[data-col="07"]').attr('data-col','7');
+		$('li.gs_w[data-col="08"]').attr('data-col','8');
+		$('li.gs_w[data-col="09"]').attr('data-col','9');
+	}
+	var fixColumns = function () {
 
-	////// Save Progress //////////////////////////////////////////////////////////////////////
+		var saftyValueGet = $('.gridster li[data-col="1"]');
+		
+		saftyValueGet.each(function() {
+			var colValueNew = $(this).map(function() {
+				return $(this).data('truerow');
+			});
 
+			$('.gridster .gs_w').each(function() {
+				var rowDataNew = $(this).data('truerow');
+
+				for (i = 0; i < colValueNew.length; i++) {
+					if (colValueNew[i] == rowDataNew) {
+						var trueRowNew = parseInt(rowDataNew);
+
+						$(this).removeAttr('data-truerow');
+						$(this).removeAttr('data-row');
+						result = $(this).attr('data-row', trueRowNew);
+						$(this).removeData('truerow');
+					}
+				}
+			});
+		});
+	}
+	var setColumns = function () {
+
+		var saftyRowValue = $('.gridster li[data-col="1"]');
+		
+		saftyRowValue.each(function() {
+			var colValueGet = $(this).map(function() {
+				return $(this).data('row');
+			});
+
+			$('.gridster .gs_w').each(function() {
+				var rowDataGet = $(this).data('row');
+
+				for (i = 0; i < colValueGet.length; i++) {
+					if (colValueGet[i] == rowDataGet) {
+						var trueRowGet = parseInt(rowDataGet);
+
+						$(this).removeAttr('data-truerow');
+						result = $(this).attr('data-truerow', trueRowGet);
+						$(this).removeData('row');
+					}
+				}
+			});
+		});
+	}
+	function maxRow(selector) {
+		// var min=null, max=null;
+		var max=null;
+
+		$(selector).each(function() {
+			var row = parseInt($(this).attr('data-row'), 10);
+			if (isNaN(row)) { return; }
+			// if ((min===null) || (row < min)) { min = row; }
+			if ((max===null) || (row > max)) { max = row; }
+		});
+
+		// return [min, max];
+		return [max];
+	}
+	var chartBottom = function () {
+		maxRow('.gridster li');
+		var bottomRow = maxRow('.gridster li');
+			bottomRow = 'li.gs_w[data-row="'+ bottomRow +'"]';
+			bottomRow = $(bottomRow);
+
+		bottomRow.addClass('nope');
+	}
 	var saveGrid = function () {
 		resetIDs();
 		localforage.setItem('griddata', grid_canvas.serialize(), function(err, result) { 
@@ -93,23 +174,10 @@ $(window).ready(function() {
 			console.log(result.value);
 		});
 	}
-
-	$('#seralize').on('click', function(e, i) {
-		e.preventDefault();
-		saveGrid();
-	});
-
-	////// Clear Back to Default //////////////////////////////////////////////////////////////
-
 	var clearGrid = function () {
 		localforage.clear();
 		window.location.reload();
 	}
-
-	$('#def_button').on('click', function(e, i) {
-		e.preventDefault();
-		clearGrid();
-	});
 
 	////// Gridster Build /////////////////////////////////////////////////////////////////////
 
@@ -399,27 +467,60 @@ $(window).ready(function() {
 				{"id":"li279","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"1","size_x":"1","size_y":"5"},
 				{"id":"li280","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"1","size_x":"1","size_y":"5"}
 			];
-			json = grid_canvas.sort_by_row_and_col_asc(json);
-
 			for(i=0; i<json.length; i++) {
-				grid_canvas.sort_by_row_and_col_asc(json);
-				grid_canvas.add_widget('<li id="'+json[i]['id']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i]['size_x'], json[i]['size_y'], json[i]['col'], json[i]['row']);
+
+				// add a leading zero to fix the build out
+				if(json[i].col < 10) {
+					colID = '0'+json[i].col;
+				} else {
+					colID = json[i].col;
+				}
+				grid_canvas.add_widget('<li id="'+json[i]['id']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, colID, json[i].row);
+
 			}
+			fixOrder();
+			
+			// for now
 			resetIDs();
+			chartBottom();
+			setColumns();
 
 		} else {
 
 			var json = value;
-			json = grid_canvas.sort_by_row_and_col_asc(json);
-
 			for(i=0; i<json.length; i++) {
-				grid_canvas.add_widget('<li id="'+json[i]['id']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i]['size_x'], json[i]['size_y'], json[i]['col'], json[i]['row']);
-				json = grid_canvas.sort_by_row_and_col_asc(json);
+
+				// add a leading zero to fix the build out
+				if(json[i].col < 10) {
+					colID = '0'+json[i].col;
+				} else {
+					colID = json[i].col;
+				}
+				grid_canvas.add_widget('<li id="'+json[i]['id']+'" data-truerow="'+json[i]['true_row']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, json[i].col, json[i].row);
 			}
-			resetIDs();
-		
+			fixOrder();
+			// resetIDs();
+			// chartBottom();
+			fixColumns();
+
 		}
 
+	});
+
+	////// Save Progress //////////////////////////////////////////////////////////////////////
+
+	$('#seralize').on('click', function(e, i) {
+		e.preventDefault();
+		chartBottom();
+		setColumns();
+		saveGrid();
+	});
+
+	////// Clear Back to Default //////////////////////////////////////////////////////////////
+
+	$('#def_button').on('click', function(e, i) {
+		e.preventDefault();
+		clearGrid();
 	});
 	
 	////// Create a Tile Row //////////////////////////////////////////////////////////////////
@@ -461,7 +562,6 @@ $(window).ready(function() {
 		{ col: 34, row: 1, size_x: 1, size_y: 5 },
 		{ col: 35, row: 1, size_x: 1, size_y: 5 }
 	];
-
 	$('#add_block').on('click', function(e, i) {
 		e.preventDefault();
 		$.each(blocks, function(i, widget){
@@ -472,7 +572,6 @@ $(window).ready(function() {
 		resetIDs();
 
 		// $('#add_div, #edit_block, #remove_div, #remove_block, #insert_div, #insert_block, #block_connectors, #half_step, #half_stepRemove, #seralize, #archive, #add_span2, #add_span3').prop("disabled", false);
-
 	});
 
 	////// Create a Divider Row ///////////////////////////////////////////////////////////////
@@ -514,7 +613,6 @@ $(window).ready(function() {
 		{ col: 34, row: 1, size_x: 1, size_y: 1 },
 		{ col: 35, row: 1, size_x: 1, size_y: 1 }
 	];
-
 	$('#add_div').on('click', function(e, i) {
 		e.preventDefault();
 		$.each(dividers, function(i, widget){
@@ -527,7 +625,7 @@ $(window).ready(function() {
 
 	////// Nav BTN Unlock State Variables /////////////////////////////////////////////////////
 
-	var saftyZones = $(".gridster, #nameBank").not('activeChart');
+	var saftyZones = $(".gridster ul, #nameBank");
 	var level2 = $("#nameBank");
 
 	// This is a variable to determine if the given event handler is active or
@@ -628,11 +726,37 @@ $(window).ready(function() {
 		$(this).removeClass('reachLeft');
 	});
 
+	////// Remove the Down Connector //////////////////////////////////////////////////////////
+
+	$("#add_nope").click(function(event) {
+
+		var grabber = $('.gridster .gs_w');
+		var clickedID = $(this).attr('id');
+			clickedID = '#'+ clickedID;
+		var navBTN = $(clickedID);
+		var navBTNicon = $(clickedID+' span');
+
+		grabber.addClass('nope_unlocked');
+		navBTN.addClass('active');
+		navBTNicon.removeClass('icon-nope').addClass('icon-working');
+
+		isHandlerActive = true;
+
+		event.preventDefault();
+
+	});
+
+	////// Nope Action ////////////////////////////////////////////////////////////////////////
+
+	$(document).on('click', '.gridster .nope_unlocked.gs_w', function(){
+		$(this).toggleClass('nope');
+	});
+
 	////// Name That Block ////////////////////////////////////////////////////////////////////
 
 	$("#add_name").click(function(event) {
 
-		var nameTileGrabber = $('.gridster .gs_w.tile.box');
+		var nameTileGrabber = $('.gridster .gs_w.tile.box:not(.name_placed)');
 		var clickedID = $(this).attr('id');
 			clickedID = '#'+ clickedID;
 		var navBTN = $(clickedID);
@@ -641,11 +765,11 @@ $(window).ready(function() {
 		nameTileGrabber.addClass('name_unlocked');
 		navBTN.addClass('active');
 		navBTNicon.removeClass('icon-name').addClass('icon-working');
+		$('.remover').show();
 	
 		isHandlerActive = true;
 
 		event.preventDefault();
-
 	});
 
 	////// Put a Name On It ///////////////////////////////////////////////////////////////////
@@ -655,14 +779,402 @@ $(window).ready(function() {
 		if ($('.gridster .tile.gs_w.box').hasClass('name_unlocked')) {
 			
 			var chartID = $('.gridster');
+			var namerHider = $('.headerHider .nameShield');
 
 			level2.show();
 			$(this).addClass('name_holder');
 			chartID.addClass('activeChart').removeClass('passiveChart');
+			chartID.prepend('<div class="gridShield"></div>');
+			namerHider.remove();
 
 			isHandlerActive = true;
+			event.preventDefault();
+		}
+	});
+
+	// Add in name
+	$(document).on('click', 'input[type=\'radio\'].radioBtnClass', function(){
+		var lablr = $(this).attr('value');
+		var named = $(this).attr('name');
+
+		$('.gridster .gs_w.tile.box.name_unlocked.name_holder .nameBox').append('<span class="remover icon-remove" blockcontent="'+lablr+'"></span><span>'+named+'</span>');
+		$('.gridster .gs_w.tile.box.name_unlocked.name_holder').addClass('name_placed').attr('blockcontent', lablr).removeClass('name_holder');
+
+		if($('.gridster .gs_w.tile.box.name_unlocked.name_holder')) {
+
+			$(this).attr("disabled", true);
+			$(this).parent().addClass('used');
+		}
+
+		$('.gridster .gridShield').remove();
+		$('.headerHider').prepend('<div class="nameShield"></div>');
+	});
+
+	// remove name
+	$(document).on('click', '.gs_w.tile.box.name_placed .nameBox .remover', function(event){
+		
+		if ($(this).attr('blockcontent')){
+
+			var findval = $(this).attr('blockcontent');
+
+			var theInput = ("input[value=" + findval + "].radioBtnClass");
+			var theBlock = ("li[blockcontent=" + findval + "].gs_w.box.name_placed");
+
+			$(theInput).prop('checked', false).removeAttr('disabled');
+			$(theInput).parent().removeClass('used');
+			$(theBlock).empty().append('<div class="nameBox"></div>');
+			$(theBlock).removeClass('name_placed').addClass('name_unlocked').attr('blockcontent', 'holder');
+
+		}
+	});
+
+	////// Add in a Double Block Spanner //////////////////////////////////////////////////////
+
+	$("#add_span2").click(function(event) {
+
+		var grabber = $('.gridster .gs_w');
+		var clickedID = $(this).attr('id');
+			clickedID = '#'+ clickedID;
+		var navBTN = $(clickedID);
+		var navBTNicon = $(clickedID+' span');
+
+		grabber.addClass('span2_unlocked');
+		navBTN.addClass('active');
+		navBTNicon.removeClass('icon-hop').addClass('icon-working');
+
+		isHandlerActive = true;
+
+		event.preventDefault();
+
+	});
+
+	////// Cycle Through 2x Spanner States ////////////////////////////////////////////////////
+
+	$(document).on('click', '.gridster li.gs_w.span2_unlocked', function(){
+
+		// Remove
+		if ($(this).hasClass('doubled')) {
+			event.preventDefault();
+
+			$(this).removeAttr('style').css('display', 'list-item');
+
+			var currentClick = $(this).attr('data-col');
+				currentClick = parseInt(currentClick);
+				currentClick = '.gs_w.span2_unlocked[data-col="' +currentClick+'"]';
+
+			var clickID = $(this).addClass('bookmark');
+				clickID = $(clickID).attr('id');
+				clickID = clickID.replace('li', '');
+
+			var clickThisID = parseInt(clickID);
+				clickThisID = '#li' +clickThisID;
+				
+			var clickNextID = parseInt(clickID) + 1;
+				clickNextID = 'li' +clickNextID;
+
+			var clickClass = $(clickThisID).attr('class');
+				clickClass = clickClass.replace(' gs_w', '');
+				clickClass = clickClass.replace(' doubled', '');
+				clickClass = clickClass.replace(' bookmark', '');
+
+			var clickCol = $(clickThisID).attr('data-col');
+				clickCol = parseInt(clickCol) + 1;
+
+			var clickRow = $(clickThisID).attr('data-row');
+				clickRow = parseInt(clickRow);
+
+			var clickXsize = $(clickThisID).attr('data-sizex');
+				clickXsize = parseInt(clickXsize);
+
+			var clickYsize = $(clickThisID).attr('data-sizey');
+				clickYsize = parseInt(clickYsize);
+
+			if ($(this).hasClass('tile')) {
+
+				$(this).addClass('blocking').removeClass('box');
+				var clickClassTile = clickClass.replace('box', 'blocking');
+				var widgetsTile = [
+					['<li class="'+clickClassTile+'" blockcontent="holder" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
+				];
+				$.each(widgetsTile, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget);
+				});
+
+				var cutter2x = $(clickThisID).attr('id');
+					cutter2x = cutter2x.replace('li', '');
+					cutter2x = parseInt(cutter2x) + 1;
+					cutter2x = '#li' +cutter2x;
+
+				$('.gridster ul').each(function () {
+					$(this).find(cutter2x).insertAfter($(this).find(clickThisID));
+				});
+
+			}
+			else {
+				var widgetsDivider = [
+					['<li class="'+clickClass+'" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
+				];
+				$.each(widgetsDivider, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget);
+				});
+
+				var cutter2x = $(clickThisID).attr('id');
+					cutter2x = cutter2x.replace('li', '');
+					cutter2x = parseInt(cutter2x) + 1;
+					cutter2x = '#li' +cutter2x;
+
+				$('.gridster ul').each(function () {
+					$(this).find(cutter2x).insertAfter($(this).find(clickThisID));
+				});
+			}
+
+			$(clickThisID).removeClass('doubled bookmark');
+		}
+		// Add
+		else {
 
 			event.preventDefault();
+			var oneOver = $(this).attr('id');
+				oneOver = oneOver.replace('li', '');
+				oneOver = parseInt(oneOver);
+			var originalOne = '#li' +oneOver;
+			var toBeRemoved = oneOver + 1;
+				toBeRemoved = '#li' +toBeRemoved;
+			var doubledPush = $(this).css('left');
+				doubledPush = doubledPush.replace('px', '');
+				doubledPush = parseInt(doubledPush) + 70;
+				doubledPush = doubledPush+ 'px';
+
+			grid_canvas.remove_widget($(toBeRemoved), true, function(){
+				$(originalOne).addClass('doubled').css({'display': 'list-item', 'left': doubledPush});
+				if ($(originalOne).hasClass('tile')) {
+					$(originalOne).addClass('box').removeClass('blocking');
+				}
+			});
+		}
+	});
+
+	////// Add in a Tripled Block Spanner //////////////////////////////////////////////////////
+
+	$("#add_span3").click(function(event) {
+
+		var grabber = $('.gridster .gs_w');
+		var clickedID = $(this).attr('id');
+			clickedID = '#'+ clickedID;
+		var navBTN = $(clickedID);
+		var navBTNicon = $(clickedID+' span');
+
+		grabber.addClass('span3_unlocked');
+		navBTN.addClass('active');
+		navBTNicon.removeClass('icon-hop').addClass('icon-working');
+
+		isHandlerActive = true;
+
+		event.preventDefault();
+	});
+
+	////// Cycle Through 3x Spanner States ////////////////////////////////////////////////////
+
+	$(document).on('click', '.gridster li.gs_w.span3_unlocked', function(){
+
+		var origin = $(this).attr('id');
+			origin = origin.replace('li', '');
+			origin = parseInt(origin);
+
+		var originalOne = '#li' +origin;
+
+		var oneOver = origin + 1;
+			oneOver = '#li' +oneOver;
+
+		var oneBack = origin - 1;
+			oneBack = '#li' +oneBack;
+
+		var baseCSS = $(originalOne).css('left');
+			baseCSS = baseCSS.replace('px', '');
+
+		var currentClick = $(originalOne).attr('data-col');
+			currentClick = parseInt(currentClick);
+			currentClick = '.gs_w.span2_unlocked[data-col="' +currentClick+'"]';
+
+		var clickID = $(originalOne).addClass('bookmark');
+			clickID = $(clickID).attr('id');
+			clickID = clickID.replace('li', '');
+
+		var clickThisID = parseInt(clickID);
+			clickThisID = '#li' +clickThisID;
+			
+		var clickNextID = parseInt(clickID) + 1;
+			clickNextID = 'li' +clickNextID;
+
+		var clickClass = $(clickThisID).attr('class');
+			clickClass = clickClass.replace(' gs_w', '');
+			clickClass = clickClass.replace(' doubled', '');
+			clickClass = clickClass.replace(' bookmark', '');
+
+		var clickCol = $(clickThisID).attr('data-col');
+			clickCol = parseInt(clickCol) + 1;
+
+		var clickRow = $(clickThisID).attr('data-row');
+			clickRow = parseInt(clickRow);
+
+		var clickXsize = $(clickThisID).attr('data-sizex');
+			clickXsize = parseInt(clickXsize);
+		var clickYsize = $(clickThisID).attr('data-sizey');
+			clickYsize = parseInt(clickYsize);
+
+		// change to single right
+		if ($(this).hasClass('tripled') && $(this).hasClass('center')) {
+
+			event.preventDefault();
+			var tripledPushRight = parseInt(baseCSS) + 70;
+				tripledPushRight = tripledPushRight+ 'px';
+			$(originalOne).addClass('right').removeClass('center bookmark').css({'display': 'list-item', 'left': tripledPushRight});
+
+		}
+		// change to single Left
+		else if ($(this).hasClass('tripled') && $(this).hasClass('right')) {
+
+			event.preventDefault();
+			$(originalOne).addClass('left').removeClass('right bookmark').removeAttr('style').css('display', 'list-item');
+			var tripledPushLeft = parseInt(baseCSS) - 140;
+				tripledPushLeft = tripledPushLeft+ 'px';
+			$(originalOne).removeAttr('style').css({'display': 'list-item', 'left': tripledPushLeft});
+
+		}
+		// change to doubled
+		else if ($(this).hasClass('tripled') && $(this).hasClass('left')) {
+
+			event.preventDefault();
+			var tripledPushLeft = baseCSS+ 'px';
+			$(originalOne).addClass('first').removeClass('left bookmark').removeAttr('style').css({'display': 'list-item', 'left': tripledPushLeft});
+
+			if ($(this).hasClass('tile')) {
+				var clickClassTile = clickClass.replace('left', 'second');
+				var tripledSecondPushLeft = parseInt(baseCSS) + 140;
+					tripledSecondPushLeft = tripledSecondPushLeft+ 'px';
+				
+				var widgetsTile = [
+					['<li class="'+clickClassTile+'" blockcontent="holder" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
+				];
+				$.each(widgetsTile, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget).css('left', tripledSecondPushLeft);
+				});
+
+				var cutter2x = $(clickThisID).attr('id');
+					cutter2x = cutter2x.replace('li', '');
+					cutter2x = parseInt(cutter2x) + 1;
+					cutter2x = '#li' +cutter2x;
+
+				$('.gridster ul').each(function () {
+					$(this).find(cutter2x).insertAfter($(this).find(clickThisID));
+				});
+			}
+			else {
+				var clickClassDivider = clickClass.replace('left', 'second');
+				var tripledSecondPushLeft = parseInt(baseCSS) + 140;
+					tripledSecondPushLeft = tripledSecondPushLeft+ 'px';
+				var widgetsDivider = [
+					['<li class="'+clickClassDivider+'" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
+				];
+				$.each(widgetsDivider, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget).css('left', tripledSecondPushLeft);
+				});
+
+				var cutter2x = $(clickThisID).attr('id');
+					cutter2x = cutter2x.replace('li', '');
+					cutter2x = parseInt(cutter2x) + 1;
+					cutter2x = '#li' +cutter2x;
+
+				$('.gridster ul').each(function () {
+					$(this).find(cutter2x).insertAfter($(this).find(clickThisID));
+				});
+			}
+
+		}
+		// back to default
+		else if ($(this).hasClass('tripled') && $(this).hasClass('first')) {
+
+			event.preventDefault();
+			var tripledPushLeft = baseCSS+ 'px';
+
+			$(originalOne).removeClass('bookmark tripled first').removeAttr('style').css('display', 'list-item');
+
+			var mainColGrabber = $(originalOne).attr('data-col');
+			var afterColGrabber = parseInt(mainColGrabber) + 1;
+			var beforeColGrabber = parseInt(mainColGrabber) - 1;
+			var mainRowGrabber = $(originalOne).attr('data-row');
+			var addedEditer = 'li.gs_w[data-col="'+afterColGrabber+'"][data-row="'+mainRowGrabber+'"]';
+			var addedClassRemover = $(addedEditer).attr('class');
+				addedClassRemover = addedClassRemover.replace(' tripled', '');
+				addedClassRemover = addedClassRemover.replace(' second', '');
+			
+			$(addedEditer).removeAttr('style').css('display', 'list-item').attr('class', addedClassRemover);
+
+			if ($(this).hasClass('tile')) {
+
+				var beforeAdderID = 'li.gs_w[data-col="'+mainColGrabber+'"][data-row="'+mainRowGrabber+'"]'; 
+					beforeAdderID = $(beforeAdderID).attr('id');
+					beforeAdderID = beforeAdderID.replace('li', '');
+					beforeAdderID = parseInt(beforeAdderID) - 1;
+					beforeAdderID = 'li'+beforeAdderID;
+				var beforeAdderSizeGrabber = 'li.gs_w[data-col="'+mainColGrabber+'"][data-row="'+mainRowGrabber+'"]';
+				var beforeAdderSizeX = $(beforeAdderSizeGrabber).attr('data-sizex');
+				var beforeAdderSizeY = $(beforeAdderSizeGrabber).attr('data-sizey');
+
+				var widgetsTile = [
+					['<li class="'+addedClassRemover+'" blockcontent="holder" id="'+beforeAdderID+'"></li>', beforeAdderSizeX, beforeAdderSizeY, beforeColGrabber, mainRowGrabber]
+				];
+				$.each(widgetsTile, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget);
+				});
+
+				var cutter2xBack = $(clickThisID).attr('id');
+					cutter2xBack = cutter2xBack.replace('li', '');
+					cutter2xBack = parseInt(cutter2xBack) - 1;
+					cutter2xBack = '#li' +cutter2xBack;
+
+				$('.gridster ul').each(function () {
+					$(this).find(cutter2xBack).insertBefore($(this).find(clickThisID));
+				});
+
+			}
+			else {
+
+				var beforeAdderID = 'li.gs_w[data-col="'+mainColGrabber+'"][data-row="'+mainRowGrabber+'"]'; 
+					beforeAdderID = $(beforeAdderID).attr('id');
+					beforeAdderID = beforeAdderID.replace('li', '');
+					beforeAdderID = parseInt(beforeAdderID) - 1;
+					beforeAdderID = 'li'+beforeAdderID;
+				var beforeAdderSizeGrabber = 'li.gs_w[data-col="'+mainColGrabber+'"][data-row="'+mainRowGrabber+'"]';
+				var beforeAdderSizeX = $(beforeAdderSizeGrabber).attr('data-sizex');
+				var beforeAdderSizeY = $(beforeAdderSizeGrabber).attr('data-sizey');
+
+				var widgetsDivider = [
+					['<li class="'+addedClassRemover+'" id="'+beforeAdderID+'"></li>', beforeAdderSizeX, beforeAdderSizeY, beforeColGrabber, mainRowGrabber]
+				];
+				$.each(widgetsDivider, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget);
+				});
+
+				var cutter2xBack = $(clickThisID).attr('id');
+					cutter2xBack = cutter2xBack.replace('li', '');
+					cutter2xBack = parseInt(cutter2xBack) - 1;
+					cutter2xBack = '#li' +cutter2xBack;
+
+				$('.gridster ul').each(function () {
+					$(this).find(cutter2xBack).insertBefore($(this).find(clickThisID));
+				});
+
+			}
+		}
+		// Add single centered
+		else {
+			event.preventDefault();
+
+			grid_canvas.remove_widget($(oneOver), true);
+			grid_canvas.remove_widget($(oneBack), true);
+
+			$(originalOne).addClass('tripled center').removeClass('bookmark');
 		}
 
 	});
@@ -671,16 +1183,15 @@ $(window).ready(function() {
 
 	// Bind a mouseUp event on the document so that we can close the modal window when it is open.
 	$(document).on("mousedown", function() {
-
 		// Check to see if this event handler is "active". If it is not, then exit.
 		if (!isHandlerActive) {
 			return;
 		}
 
+		var grabber = $('.gridster .gs_w');
 		var tileGrabber = $('.gridster .gs_w.tile');
 		var dividerGrabber = $('.gridster .gs_w.divider');
 		var nameTileGrabber = $('.gridster .gs_w.tile.box');
-		// var nameBin = $('#nameBank');
 
 		var activeID = $(this).find("button.active").attr('id');
 			activeID = '#'+ activeID;
@@ -688,6 +1199,8 @@ $(window).ready(function() {
 		var navActiveBTNicon = $(activeID+' span');
 
 		var chartID = $('.gridster');
+		var gridShield = $('.gridster .gridShield');
+		var namerShield = $('.headerHider');
 
 		// remove edit tile
 		if (activeID == '#edit_tile') {
@@ -696,9 +1209,6 @@ $(window).ready(function() {
 			navActiveBTN.removeClass('active');
 
 			console.log("tiles locked.");
-
-			// Now that the modal window is hidden, we need to disable its event handler.
-			isHandlerActive = false;
 		}
 
 		// remove edit divider
@@ -708,8 +1218,15 @@ $(window).ready(function() {
 			navActiveBTN.removeClass('active');
 
 			console.log("dividers locked.");
+		}
 
-			isHandlerActive = false;
+		// remove add nope
+		if (activeID == '#add_nope') {
+			grabber.removeClass('nope_unlocked');
+			navActiveBTNicon.removeClass('icon-working').addClass('icon-nope');
+			navActiveBTN.removeClass('active');
+
+			console.log("nope locked.");
 		}
 
 		// remove add name
@@ -717,64 +1234,49 @@ $(window).ready(function() {
 			nameTileGrabber.removeClass('name_unlocked');
 			navActiveBTNicon.removeClass('icon-working').addClass('icon-name');
 			navActiveBTN.removeClass('active');
+			$('.remover').hide();
 
 			console.log("names locked.");
-
-			isHandlerActive = false;
 		}
 
 		// remove name card
-		if (level2.is(':visible')) {
+		if (chartID.hasClass('activeChart')) {
 			nameTileGrabber.removeClass('name_holder');
 			level2.hide();
 			chartID.addClass('passiveChart').removeClass('activeChart');
+			gridShield.remove();
+			namerShield.prepend('<div class="nameShield"></div>');
 
 			console.log("name place locked.");
-
-			isHandlerActive = true;
 		}
 
-		// navActiveBTN.removeClass('active');
+		// remove 2x spanner
+		if (activeID == '#add_span2') {
+			grabber.removeClass('span2_unlocked');
+			navActiveBTNicon.removeClass('icon-working').addClass('icon-hop');
+			navActiveBTN.removeClass('active');
+
+			console.log("double locked.");
+		}
+
+		// remove 3x spanner
+		if (activeID == '#add_span3') {
+			grabber.removeClass('span3_unlocked');
+			navActiveBTNicon.removeClass('icon-working').addClass('icon-hop');
+			navActiveBTN.removeClass('active');
+
+			console.log("tripled locked.");
+		}
 
 		// Now that the modal window is hidden, we need to disable its event handler.
-		// isHandlerActive = false;
+		isHandlerActive = false;
 
 	});
 
 	////// Safty Zones ////////////////////////////////////////////////////////////////////////
 
-	// var myFunction = function() {
-	// 	var zoneGrapper = $('.gridster').attr('id');
-	// 		zoneGrapper = '#'+ zoneGrapper;
-	// 	console.log(zoneGrapper);
-
-	// var mainException = $(".gridster");
-
-
-	// 	if (zoneGrapper == '#zone2') {
-			
-	// 		level2.on("mousedown", function(event) {
-	// 			console.log("zone 2");
-	// 			event.stopPropagation();
-	// 		});
-	// 	} else {
-	// 		mainException.on("mousedown", function(event) {
-	// 			console.log("zone 1");
-	// 			event.stopPropagation();
-	// 		});
-	// 	}
-
-	// };
-	// setInterval(myFunction, 1000);
-
-	// mainException.on("mousedown", function(event) {
-	// 	console.log("zone 1");
-	// 	event.stopPropagation();
-	// });
-
-
 	saftyZones.on("mousedown", function(event) {
-		event.stopPropagation();
+		return false;
 	});
 
 });
