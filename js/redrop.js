@@ -2080,12 +2080,6 @@ $(window).ready(function() {
 			this.nodeValue = this.nodeValue.replace(/\undefined\b/g, "");
 		});
 
-		$('.cssPos').contents().filter(function() {
-			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('  ') >= 0;
-		}).each(function() {
-			this.nodeValue = this.nodeValue.replace(/\  \b/g, " ");
-		});
-
 		$(".roundTwo").text(function () {
 			return $(this).text().replace("[", "var json = [");
 		});
