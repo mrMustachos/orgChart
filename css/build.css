@@ -329,7 +329,7 @@ li { list-style: none; }
 /*/ gridster /*/
 .gridster * { margin: 0; padding: 0; }
 
-.gridster { margin: 0 auto; -webkit-transition: opacity .6s; -moz-transition: opacity .6s; -o-transition: opacity .6s; -ms-transition: opacity .6s; transition: opacity .6s; }
+.gridster { margin: 0 auto; padding: 0 25px; -webkit-transition: opacity .6s; -moz-transition: opacity .6s; -o-transition: opacity .6s; -ms-transition: opacity .6s; transition: opacity .6s; }
 
 .gridster ul { margin: 0 auto; z-index: 1; }
 
@@ -339,11 +339,19 @@ li { list-style: none; }
 
 .gridster .gs_w.box { background: #fff; }
 
+.gridster .gs_w.department { background: #f80046; color: #fff; }
+
+.gridster .gs_w.contractor { background: #ccc; }
+
 .gridster .gs_w:after { content: ""; background: #000; display: block; width: 5px; height: 10px; position: absolute; bottom: -10px; left: 50%; -ms-transform: translate(-50%, 0); -webkit-transform: translate(-50%, 0); transform: translate(-50%, 0); }
 
 .gridster .gs_w.thru:after { height: 75px; }
 
+.gridster .gs_w.connector.thru:after { height: 40px; }
+
 .gridster .gs_w.divider.thru:after, .gridster .gs_w.reachRight:after, .gridster .gs_w.reachLeft:after { height: 15px; }
+
+.gridster .connector.reachRight:after, .gridster .connector.reachLeft:after { height: 30px; }
 
 .gridster .gs_w.divider.reachLeft { background: -moz-linear-gradient(left, black 0%, black 50%, transparent 50.001%, transparent 100%); background: -webkit-linear-gradient(left, black 0%, black 50%, transparent 50.001%, transparent 100%); background: linear-gradient(to right, #000000 0%, #000000 50%, rgba(0, 0, 0, 0) 50.001%, rgba(0, 0, 0, 0) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#00333333',GradientType=1 ); }
 
@@ -393,7 +401,31 @@ li { list-style: none; }
 
 .tripled.second.reachLeft.divider:before { left: 0px; width: 0px; }
 
-.gs_w.divider.thru:before, .gs_w.divider.blocking:before, .gs_w.nope:after { display: none !important; }
+.gridster .connector.reachRight:before, .gridster .connector.reachLeft:before, .gridster .connector.full:before { content: ""; height: 5px; display: block; background: #000; position: absolute; bottom: 15px; }
+
+.gridster .connector:not(.stepped).full:before { bottom: 28px; }
+
+.gridster .connector.reachRight:before { width: 75px; left: 65px; }
+
+.gridster .connector.reachLeft:before, .gridster .connector.full:before { width: 65px; left: 0; }
+
+.gridster .connector.full:before { width: 150px; left: -10px; }
+
+.gridster .gs_w.stepped.thru:after { height: 70px; }
+
+.gridster .connector.tripled.right.reachRight:before { width: 145px; }
+
+.gridster .connector.tripled.right.full:before { width: 420px; left: -210px; }
+
+.gridster .connector.tripled.right.reachLeft:before { left: -210px; width: 275px; }
+
+.gridster .connector.tripled.left.reachRight:before { width: 285px; }
+
+.gridster .connector.tripled.left.full:before { left: -70px; width: 420px; }
+
+.gridster .connector.tripled.left.reachLeft:before { left: -70px; width: 135px; }
+
+.gs_w.divider.thru:before, .gs_w.divider.blocking:before, .gs_w.nope:after, .gridster .connector.full:after { display: none !important; }
 
 .icon-reset:before { font-size: 15px; }
 
@@ -407,7 +439,7 @@ li { list-style: none; }
 
 .controls { background: rgba(255, 255, 255, 0.75); height: 188px; position: fixed; width: 100%; z-index: 100; padding: 15px; top: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-.build { float: right; width: 463px; }
+.build { float: right; width: 500px; }
 
 .build hr { float: left; width: 1px; background: #ccc; border: 0; height: 34px; margin: 0 5px 0 17px; }
 
@@ -448,19 +480,17 @@ button:disabled { opacity: .25; }
 
 .tabs_item:first-child { display: block; }
 
-.grouping { display: inline-block; margin-bottom: 12px; float: left; max-width: 214px; }
+.grouping { display: inline-block; margin-bottom: 12px; float: left; max-width: 250px; }
 
 .grouping:last-child, .grouping.tall button:last-child { margin-bottom: 0; }
 
 .grouping.tall { float: right; min-width: 115px; margin-bottom: 0; border-left: 1px solid #ccc; margin-left: 15px; padding-left: 5px; }
 
-.grouping button { min-width: 82px; }
+.grouping button { min-width: 115px; }
 
-.grouping button { min-width: 97px; }
+.grouping.name button { width: 155px; }
 
-.grouping.name button { width: 204px; }
-
-.grouping.name button:nth-child(2) { width: 134px; }
+.grouping.name button:nth-child(2) { width: 75px; min-width: 75px; }
 
 .grouping.tall button { clear: both; margin-bottom: 12px; min-width: 106px; }
 
@@ -468,9 +498,13 @@ button:disabled { opacity: .25; }
 
 .trashed { display: none !important; }
 
-.gridster .gs_w.blocking, .gridster .gs_w.divider.blocking { background: url("../images/blocking.png") repeat top left; }
+.gridster .gs_w.tile.blocking { background: url("../images/blockingFill.svg") repeat top left; background-color: rgba(248, 0, 70, 0.5); }
 
-.gridster .gs_w.blocking.stepped { opacity: 0; }
+.gridster .gs_w.divider.blocking { background: url("../images/blockingFillDivider.svg") repeat top left; background-color: rgba(248, 0, 70, 0.5); }
+
+.gridster .gs_w.box.stepped { z-index: 3; }
+
+.gridster .gs_w.stepped.blocking { opacity: 0; }
 
 .gridster .gs_w.blocking.stepped:hover { opacity: 1; }
 
@@ -484,7 +518,7 @@ button:disabled { opacity: .25; }
 
 #nameBank:after { content: ""; clear: both; display: table; }
 
-.nameList { height: 111px; width: 3380px; display: block; padding-left: 2px; margin: 33px 0 0; height: 130px; }
+.nameList { height: 111px; width: 3510px; display: block; padding-left: 2px; margin: 33px 0 0; height: 130px; }
 
 .nameShield:after { content: ""; clear: both; display: table; }
 
@@ -526,7 +560,7 @@ button:disabled { opacity: .25; }
 
 .printout { display: none; }
 
-.printoutHeader { margin-left: 15px; margin-bottom: 5px; font-size: 18px; }
+.printoutHeader { margin-left: 15px; margin-bottom: 5px; font-size: 18px; color: #fff; }
 
 .saverHolder { display: block; float: left; margin-top: 10px; margin-left: 10px; }
 

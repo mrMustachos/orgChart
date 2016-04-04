@@ -25,7 +25,6 @@ $(window).ready(function() {
 	});
 	$("#nameBank").hide().removeAttr('class');
 
-
 	////// Tabbed Buttons /////////////////////////////////////////////////////////////////////
 
 	(function ($) { 
@@ -55,7 +54,7 @@ $(window).ready(function() {
 		// },
 		widget_margins: [5, 5],
 		widget_base_dimensions: [130, 5],
-		// avoid_overlapped_widgets: false,
+		avoid_overlapped_widgets: false,
 		// autogenerate_stylesheet: false,
 		min_cols: 35,
 		shift_larger_widgets_down: false,
@@ -65,7 +64,7 @@ $(window).ready(function() {
 				id: $($w).attr('id'),
 				class: $($w).attr('class'),
 				htmlContent: $($w).html(),
-				blockContent: $($w).attr('blockContent'),
+				tile_name: $($w).attr('data-tilename'),
 				true_row: $($w).attr('data-truerow'),
 				span_row: $($w).attr('data-spanpush'),
 				col: $($w).attr('data-col'),
@@ -112,9 +111,9 @@ $(window).ready(function() {
 					if (colValueNew[i] == rowDataNew) {
 						var trueRowNew = parseInt(rowDataNew);
 
-						$(this).removeAttr('data-truerow');
+						// $(this).removeAttr('data-truerow');
 						$(this).removeAttr('data-row');
-						result = $(this).attr('data-row', trueRowNew);
+						$(this).attr('data-row', trueRowNew);
 						$(this).removeData('truerow');
 					}
 				}
@@ -126,6 +125,7 @@ $(window).ready(function() {
 		var saftyRowValue = $('.gridster li[data-col="1"]');
 		
 		saftyRowValue.each(function() {
+			$(this).removeAttr('data-truerow');
 			var colValueGet = $(this).map(function() {
 				return $(this).data('row');
 			});
@@ -137,8 +137,7 @@ $(window).ready(function() {
 					if (colValueGet[i] == rowDataGet) {
 						var trueRowGet = parseInt(rowDataGet);
 
-						$(this).removeAttr('data-truerow');
-						result = $(this).attr('data-truerow', trueRowGet);
+						$(this).attr('data-truerow', trueRowGet);
 						$(this).removeData('row');
 					}
 				}
@@ -190,12 +189,68 @@ $(window).ready(function() {
 		return [max];
 	}
 	var chartBottom = function () {
-		maxRow('.gridster li');
 		var bottomRow = maxRow('.gridster li');
 			bottomRow = 'li.gs_w[data-row="'+ bottomRow +'"]';
 			bottomRow = $(bottomRow);
 
 		bottomRow.addClass('nope');
+	}
+	function maxCol(selector) {
+		// var min=null, max=null;
+		var max=null;
+
+		$(selector).each(function() {
+			var col = parseInt($(this).attr('data-col'), 10);
+			if (isNaN(col)) { return; }
+			// if ((min===null) || (col < min)) { min = col; }
+			if ((max===null) || (col > max)) { max = col; }
+		});
+
+		// return [min, max];
+		return [max];
+	}
+	function minCol(selector) {
+		var min=null;
+
+		$(selector).each(function() {
+			var col = parseInt($(this).attr('data-col'), 10);
+			if (isNaN(col)) { return; }
+			if ((min===null) || (col < min)) { min = col; }
+		});
+
+		return [min];
+	}
+	var addChartPadding = function () {
+		var lastCol = maxCol('.gridster li');
+		var tileWidth = $('.gridster li').width();
+			tileWidth = tileWidth + 10;
+		var totalChartWidth = tileWidth * lastCol;
+			totalChartWidth = totalChartWidth + 50;
+			totalChartWidth = totalChartWidth+'px';
+
+		$('.gridster').css('width', totalChartWidth);
+	}
+	var dataClass = function () {
+		$('.gridster .gs_w').each(function() {
+
+			if ($(this).attr('data-sizey') == '1') {
+			}
+			else {
+				var dataClassMake = $(this).attr('class');
+				$(this).removeAttr('data-class')
+				$(this).attr('data-class', dataClassMake);
+			}
+
+		});
+	}
+	var dataID = function () {
+		$('.gridster .gs_w').each(function() {
+			var dataMakeID = $(this).attr('id');
+				dataMakeID = dataMakeID.replace('li', '');
+
+			$(this).removeAttr('data-id');
+			$(this).attr('data-id', dataMakeID);
+		});
 	}
 	var saveGrid = function () {
 		resetIDs();
@@ -216,288 +271,661 @@ $(window).ready(function() {
 
 		if (value == null) {
 
+			// Build New Chart Variable
 			var json = [
-				{"id":"li1","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"1","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li2","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"2","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li3","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"3","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li4","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"4","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li5","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"5","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li6","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"6","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li7","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"7","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li8","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"8","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li9","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"9","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li10","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"10","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li11","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"11","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li12","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"12","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li13","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"13","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li14","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"14","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li15","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"15","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li16","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"16","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li17","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"17","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li18","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"18","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li19","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"19","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li20","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"20","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li21","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"21","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li22","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"22","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li23","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"23","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li24","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"24","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li25","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"25","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li26","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"26","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li27","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"27","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li28","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"28","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li29","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"29","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li30","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"30","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li31","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"31","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li32","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"32","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li33","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"33","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li34","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li35","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"28","size_x":"1","size_y":"5"},
-				{"id":"li36","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"1","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li37","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"2","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li38","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"3","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li39","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"4","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li40","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"5","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li41","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"6","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li42","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"7","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li43","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"8","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li44","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"9","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li45","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"10","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li46","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"11","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li47","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"12","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li48","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"13","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li49","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"14","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li50","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"15","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li51","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"16","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li52","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"17","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li53","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"18","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li54","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"19","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li55","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"20","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li56","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"21","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li57","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"22","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li58","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"23","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li59","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"24","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li60","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"25","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li61","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"26","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li62","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"27","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li63","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"28","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li64","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"29","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li65","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"30","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li66","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"31","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li67","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"32","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li68","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"33","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li69","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li70","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"23","size_x":"1","size_y":"5"},
-				{"id":"li71","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"1","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li72","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"2","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li73","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"3","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li74","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"4","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li75","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"5","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li76","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"6","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li77","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"7","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li78","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"8","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li79","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"9","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li80","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"10","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li81","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"11","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li82","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"12","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li83","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"13","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li84","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"14","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li85","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"15","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li86","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"16","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li87","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"17","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li88","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"18","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li89","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"19","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li90","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"20","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li91","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"21","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li92","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"22","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li93","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"23","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li94","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"24","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li95","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"25","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li96","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"26","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li97","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"27","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li98","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"28","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li99","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"29","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li100","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"30","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li101","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"31","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li102","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"32","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li103","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"33","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li104","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li105","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"18","size_x":"1","size_y":"5"},
-				{"id":"li106","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"1","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li107","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"2","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li108","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"3","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li109","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"4","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li110","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"5","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li111","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"6","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li112","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"7","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li113","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"8","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li114","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"9","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li115","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"10","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li116","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"11","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li117","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"12","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li118","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"13","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li119","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"14","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li120","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"15","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li121","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"16","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li122","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"17","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li123","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"18","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li124","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"19","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li125","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"20","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li126","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"21","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li127","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"22","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li128","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"23","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li129","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"24","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li130","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"25","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li131","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"26","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li132","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"27","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li133","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"28","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li134","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"29","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li135","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"30","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li136","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"31","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li137","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"32","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li138","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"33","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li139","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li140","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"13","size_x":"1","size_y":"5"},
-				{"id":"li141","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"1","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li142","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"2","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li143","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"3","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li144","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"4","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li145","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"5","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li146","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"6","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li147","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"7","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li148","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"8","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li149","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"9","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li150","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"10","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li151","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"11","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li152","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"12","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li153","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"13","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li154","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"14","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li155","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"15","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li156","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"16","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li157","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"17","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li158","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"18","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li159","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"19","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li160","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"20","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li161","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"21","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li162","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"22","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li163","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"23","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li164","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"24","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li165","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"25","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li166","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"26","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li167","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"27","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li168","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"28","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li169","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"29","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li170","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"30","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li171","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"31","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li172","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"32","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li173","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"33","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li174","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li175","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"12","size_x":"1","size_y":"1"},
-				{"id":"li176","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"1","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li177","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"2","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li178","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"3","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li179","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"4","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li180","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"5","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li181","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"6","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li182","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"7","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li183","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"8","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li184","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"9","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li185","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"10","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li186","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"11","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li187","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"12","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li188","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"13","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li189","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"14","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li190","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"15","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li191","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"16","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li192","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"17","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li193","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"18","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li194","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"19","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li195","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"20","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li196","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"21","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li197","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"22","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li198","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"23","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li199","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"24","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li200","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"25","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li201","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"26","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li202","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"27","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li203","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"28","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li204","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"29","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li205","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"30","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li206","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"31","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li207","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"32","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li208","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"33","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li209","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li210","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"7","size_x":"1","size_y":"5"},
-				{"id":"li211","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"1","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li212","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"2","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li213","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"3","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li214","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"4","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li215","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"5","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li216","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"6","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li217","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"7","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li218","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"8","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li219","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"9","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li220","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"10","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li221","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"11","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li222","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"12","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li223","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"13","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li224","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"14","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li225","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"15","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li226","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"16","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li227","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"17","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li228","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"18","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li229","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"19","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li230","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"20","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li231","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"21","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li232","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"22","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li233","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"23","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li234","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"24","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li235","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"25","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li236","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"26","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li237","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"27","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li238","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"28","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li239","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"29","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li240","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"30","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li241","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"31","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li242","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"32","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li243","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"33","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li244","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li245","class":"divider blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"6","size_x":"1","size_y":"1"},
-				{"id":"li246","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"1","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li247","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"2","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li248","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"3","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li249","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"4","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li250","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"5","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li251","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"6","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li252","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"7","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li253","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"8","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li254","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"9","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li255","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"10","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li256","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"11","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li257","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"12","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li258","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"13","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li259","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"14","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li260","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"15","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li261","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"16","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li262","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"17","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li263","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"18","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li264","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"19","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li265","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"20","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li266","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"21","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li267","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"22","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li268","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"23","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li269","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"24","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li270","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"25","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li271","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"26","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li272","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"27","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li273","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"28","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li274","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"29","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li275","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"30","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li276","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"31","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li277","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"32","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li278","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"33","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li279","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"34","row":"1","size_x":"1","size_y":"5"},
-				{"id":"li280","class":"tile blocking gs_w","htmlContent":"","blockContent":"holder","col":"35","row":"1","size_x":"1","size_y":"5"}
+				{"id":"li1","class":"tile blocking gs_w nope","col":"1","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li2","class":"tile blocking gs_w nope","col":"2","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li3","class":"tile blocking gs_w nope","col":"3","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li4","class":"tile blocking gs_w nope","col":"4","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li5","class":"tile blocking gs_w nope","col":"5","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li6","class":"tile blocking gs_w nope","col":"6","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li7","class":"tile blocking gs_w nope","col":"7","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li8","class":"tile blocking gs_w nope","col":"8","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li9","class":"tile blocking gs_w nope","col":"9","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li10","class":"tile blocking gs_w nope","col":"10","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li11","class":"tile blocking gs_w nope","col":"11","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li12","class":"tile blocking gs_w nope","col":"12","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li13","class":"tile blocking gs_w nope","col":"13","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li14","class":"tile blocking gs_w nope","col":"14","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li15","class":"tile blocking gs_w nope","col":"15","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li16","class":"tile blocking gs_w nope","col":"16","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li17","class":"tile blocking gs_w nope","col":"17","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li18","class":"tile blocking gs_w nope","col":"18","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li19","class":"tile blocking gs_w nope","col":"19","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li20","class":"tile blocking gs_w nope","col":"20","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li21","class":"tile blocking gs_w nope","col":"21","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li22","class":"tile blocking gs_w nope","col":"22","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li23","class":"tile blocking gs_w nope","col":"23","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li24","class":"tile blocking gs_w nope","col":"24","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li25","class":"tile blocking gs_w nope","col":"25","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li26","class":"tile blocking gs_w nope","col":"26","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li27","class":"tile blocking gs_w nope","col":"27","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li28","class":"tile blocking gs_w nope","col":"28","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li29","class":"tile blocking gs_w nope","col":"29","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li30","class":"tile blocking gs_w nope","col":"30","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li31","class":"tile blocking gs_w nope","col":"31","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li32","class":"tile blocking gs_w nope","col":"32","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li33","class":"tile blocking gs_w nope","col":"33","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li34","class":"tile blocking gs_w nope","col":"34","row":"1","size_x":"1","size_y":"5"},
+				{"id":"li35","class":"tile blocking gs_w nope","col":"35","row":"1","size_x":"1","size_y":"5"}
 			];
+
+			// // Built Out Minus Names
+			// var json = [
+			// 	{"id":"li1","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"1","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li2","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"2","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li3","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"3","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li4","class":"tile gs_w nope box","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"4","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li5","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"5","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li6","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"6","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li7","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"7","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li8","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"8","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li9","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"9","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li10","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"10","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li11","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"11","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li12","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"12","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li13","class":"tile gs_w nope box","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"13","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li14","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"14","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li15","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"15","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li16","class":"tile gs_w nope box","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"16","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li17","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"17","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li18","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"18","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li19","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"19","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li20","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"20","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li21","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"21","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li22","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"22","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li23","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"23","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li24","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"24","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li25","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"25","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li26","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"26","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li27","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"27","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li28","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"28","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li29","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"29","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li30","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"30","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li31","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"31","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li32","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"32","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li33","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"33","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li34","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"34","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li35","class":"tile blocking gs_w nope","htmlContent":"","tile_name":"","true_row":"61","span_row":"","col":"35","row":"61","size_x":"1","size_y":"5"},
+			// 	{"id":"li36","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"1","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li37","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"2","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li38","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"3","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li39","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"4","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li40","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"5","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li41","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"6","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li42","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"7","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li43","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"8","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li44","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"9","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li45","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"10","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li46","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"11","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li47","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"12","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li48","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"13","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li49","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"14","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li50","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"15","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li51","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"16","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li52","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"17","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li53","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"18","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li54","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"19","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li55","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"20","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li56","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"21","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li57","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"22","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li58","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"23","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li59","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"24","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li60","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"25","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li61","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"26","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li62","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"27","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li63","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"28","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li64","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"29","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li65","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"30","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li66","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"31","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li67","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"32","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li68","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"33","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li69","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"34","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li70","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"56","span_row":"","col":"35","row":"56","size_x":"1","size_y":"5"},
+			// 	{"id":"li71","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"1","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li72","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"2","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li73","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"3","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li74","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"4","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li75","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"5","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li76","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"6","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li77","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"7","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li78","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"8","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li79","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"9","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li80","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"10","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li81","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"11","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li82","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"12","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li83","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"13","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li84","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"14","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li85","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"15","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li86","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"16","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li87","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"17","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li88","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"18","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li89","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"19","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li90","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"20","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li91","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"21","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li92","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"22","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li93","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"23","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li94","class":"tile gs_w player-revert box nope","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"24","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li95","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"25","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li96","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"26","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li97","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"27","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li98","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"28","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li99","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"29","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li100","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"30","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li101","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"31","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li102","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"32","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li103","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"33","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li104","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"34","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li105","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"51","span_row":"","col":"35","row":"51","size_x":"1","size_y":"5"},
+			// 	{"id":"li106","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"1","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li107","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"2","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li108","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"3","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li109","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"4","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li110","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"5","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li111","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"6","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li112","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"7","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li113","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"8","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li114","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"9","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li115","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"10","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li116","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"11","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li117","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"12","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li118","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"13","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li119","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"14","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li120","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"15","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li121","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"16","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li122","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"17","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li123","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"18","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li124","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"19","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li125","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"20","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li126","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"21","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li127","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"22","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li128","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"23","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li129","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"24","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li130","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"25","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li131","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"26","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li132","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"27","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li133","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"28","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li134","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"29","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li135","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"30","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li136","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"31","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li137","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"32","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li138","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"33","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li139","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"34","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li140","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"46","span_row":"","col":"35","row":"46","size_x":"1","size_y":"5"},
+			// 	{"id":"li141","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"1","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li142","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"2","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li143","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"3","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li144","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"4","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li145","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"5","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li146","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"6","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li147","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"7","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li148","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"8","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li149","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"9","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li150","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"10","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li151","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"11","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li152","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"12","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li153","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"13","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li154","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"14","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li155","class":"tile gs_w box nope department name_placed","htmlContent":"Global Assistants Program","tile_name":"Global_Assistants_Program","true_row":"41","span_row":"","col":"15","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li156","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"16","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li157","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"17","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li158","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"18","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li159","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"19","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li160","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"20","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li161","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"21","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li162","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"22","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li163","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"23","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li164","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"24","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li165","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"25","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li166","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"26","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li167","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"27","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li168","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"28","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li169","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"29","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li170","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"30","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li171","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"31","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li172","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"32","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li173","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"33","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li174","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"34","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li175","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"41","span_row":"","col":"35","row":"41","size_x":"1","size_y":"5"},
+			// 	{"id":"li176","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"1","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li177","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"2","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li178","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"3","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li179","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"4","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li180","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"5","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li181","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"6","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li182","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"7","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li183","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"8","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li184","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"9","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li185","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"10","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li186","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"11","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li187","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"12","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li188","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"13","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li189","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"14","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li190","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"15","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li191","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"16","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li192","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"17","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li193","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"18","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li194","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"19","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li195","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"20","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li196","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"21","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li197","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"22","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li198","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"23","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li199","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"24","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li200","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"25","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li201","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"26","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li202","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"27","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li203","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"28","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li204","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"29","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li205","class":"divider gs_w blocking","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"30","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li206","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"31","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li207","class":"divider gs_w blocking","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"32","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li208","class":"divider gs_w blocking","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"33","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li209","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"34","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li210","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"40","span_row":"","col":"35","row":"40","size_x":"1","size_y":"1"},
+			// 	{"id":"li211","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"1","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li212","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"2","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li213","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"3","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li214","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"4","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li215","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"5","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li216","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"6","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li217","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"7","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li218","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"8","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li219","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"9","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li220","class":"tile gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"1335","col":"10","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li221","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"12","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li222","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"13","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li223","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"14","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li224","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"15","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li225","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"16","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li226","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"17","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li227","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"18","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li228","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"19","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li229","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"20","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li230","class":"tile gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"2875","col":"21","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li231","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"23","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li232","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"24","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li233","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"25","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li234","class":"tile gs_w doubled box","htmlContent":"","tile_name":"","true_row":"35","span_row":"3575","col":"26","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li235","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"28","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li236","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"29","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li237","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"30","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li238","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"31","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li239","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"32","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li240","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"33","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li241","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"34","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li242","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"35","span_row":"","col":"35","row":"35","size_x":"1","size_y":"5"},
+			// 	{"id":"li243","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"1","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li244","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"2","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li245","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"3","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li246","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"4","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li247","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"5","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li248","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"6","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li249","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"7","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li250","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"8","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li251","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"9","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li252","class":"divider gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"1335","col":"10","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li253","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"12","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li254","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"13","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li255","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"14","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li256","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"15","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li257","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"16","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li258","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"17","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li259","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"18","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li260","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"19","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li261","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"20","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li262","class":"divider gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"2875","col":"21","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li263","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"23","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li264","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"24","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li265","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"25","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li266","class":"divider gs_w doubled reachRight","htmlContent":"","tile_name":"","true_row":"34","span_row":"3575","col":"26","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li267","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"28","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li268","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"29","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li269","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"30","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li270","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"31","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li271","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"32","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li272","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"33","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li273","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"34","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li274","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"34","span_row":"","col":"35","row":"34","size_x":"1","size_y":"1"},
+			// 	{"id":"li275","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"1","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li276","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"2","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li277","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"3","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li278","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"4","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li279","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"5","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li280","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"6","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li281","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"7","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li282","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"8","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li283","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"9","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li284","class":"tile gs_w doubled box","htmlContent":"","tile_name":"","true_row":"29","span_row":"1335","col":"10","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li285","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"12","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li286","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"13","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li287","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"14","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li288","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"15","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li289","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"16","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li290","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"17","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li291","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"18","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li292","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"19","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li293","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"20","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li294","class":"tile gs_w doubled box","htmlContent":"","tile_name":"","true_row":"29","span_row":"2875","col":"21","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li295","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"23","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li296","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"24","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li297","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"25","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li298","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"26","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li299","class":"tile gs_w doubled box","htmlContent":"","tile_name":"","true_row":"29","span_row":"3715","col":"27","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li300","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"29","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li301","class":"tile gs_w doubled box","htmlContent":"","tile_name":"","true_row":"29","span_row":"4135","col":"30","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li302","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"32","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li303","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"33","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li304","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"34","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li305","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"29","span_row":"","col":"35","row":"29","size_x":"1","size_y":"5"},
+			// 	{"id":"li306","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"1","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li307","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"2","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li308","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"3","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li309","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"4","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li310","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"5","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li311","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"6","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li312","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"7","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li313","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"8","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li314","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"9","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li315","class":"divider gs_w doubled full","htmlContent":"","tile_name":"","true_row":"28","span_row":"1335","col":"10","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li316","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"12","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li317","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"13","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li318","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"14","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li319","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"15","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li320","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"16","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li321","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"17","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li322","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"18","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li323","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"19","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li324","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"20","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li325","class":"divider gs_w doubled reachLeft","htmlContent":"","tile_name":"","true_row":"28","span_row":"2875","col":"21","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li326","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"23","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li327","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"24","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li328","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"25","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li329","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"26","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li330","class":"divider gs_w doubled reachLeft","htmlContent":"","tile_name":"","true_row":"28","span_row":"3715","col":"27","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li331","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"29","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li332","class":"divider gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"28","span_row":"4135","col":"30","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li333","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"32","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li334","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"33","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li335","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"34","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li336","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"28","span_row":"","col":"35","row":"28","size_x":"1","size_y":"1"},
+			// 	{"id":"li337","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"1","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li338","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"2","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li339","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"3","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li340","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"4","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li341","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"5","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li342","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"6","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li343","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"7","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li344","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"8","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li345","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"9","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li346","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"10","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li347","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"11","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li348","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"12","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li349","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"13","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li350","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"14","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li351","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"15","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li352","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"16","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li353","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"17","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li354","class":"tile gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"2455","col":"18","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li355","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"20","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li356","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"21","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li357","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"22","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li358","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"23","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li359","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"24","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li360","class":"tile gs_w tripled left thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"3435","col":"26","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li361","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"28","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li362","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"29","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li363","class":"tile gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"4135","col":"30","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li364","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"32","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li365","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"33","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li366","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"34","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li367","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"23","span_row":"","col":"35","row":"23","size_x":"1","size_y":"5"},
+			// 	{"id":"li368","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"1","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li369","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"2","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li370","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"3","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li371","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"4","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li372","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"5","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li373","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"6","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li374","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"7","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li375","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"8","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li376","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"9","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li377","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"10","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li378","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"11","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li379","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"12","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li380","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"13","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li381","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"14","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li382","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"15","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li383","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"16","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li384","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"17","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li385","class":"divider gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"2455","col":"18","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li386","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"20","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li387","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"21","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li388","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"22","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li389","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"23","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li390","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"24","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li391","class":"divider gs_w tripled left thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"3435","col":"26","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li392","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"28","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li393","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"29","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li394","class":"divider gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"4135","col":"30","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li395","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"32","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li396","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"33","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li397","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"34","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li398","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"22","span_row":"","col":"35","row":"22","size_x":"1","size_y":"1"},
+			// 	{"id":"li399","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"1","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li400","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"2","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li401","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"3","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li402","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"4","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li403","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"5","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li404","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"6","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li405","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"7","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li406","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"8","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li407","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"9","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li408","class":"tile gs_w doubled box","htmlContent":"","tile_name":"","true_row":"17","span_row":"1335","col":"10","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li409","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"12","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li410","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"13","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li411","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"14","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li412","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"15","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li413","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"16","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li414","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"17","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li415","class":"tile gs_w doubled box","htmlContent":"","tile_name":"","true_row":"17","span_row":"2455","col":"18","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li416","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"20","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li417","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"21","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li418","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"22","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li419","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"23","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li420","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"24","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li421","class":"tile gs_w tripled left box","htmlContent":"","tile_name":"","true_row":"17","span_row":"3435","col":"26","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li422","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"28","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li423","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"29","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li424","class":"tile gs_w doubled box","htmlContent":"","tile_name":"","true_row":"17","span_row":"4135","col":"30","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li425","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"32","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li426","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"33","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li427","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"34","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li428","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"17","span_row":"","col":"35","row":"17","size_x":"1","size_y":"5"},
+			// 	{"id":"li429","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"1","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li430","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"2","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li431","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"3","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li432","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"4","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li433","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"5","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li434","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"6","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li435","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"7","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li436","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"8","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li437","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"9","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li438","class":"divider gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"16","span_row":"1335","col":"10","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li439","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"12","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li440","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"13","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li441","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"14","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li442","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"15","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li443","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"16","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li444","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"17","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li445","class":"divider gs_w doubled reachRight","htmlContent":"","tile_name":"","true_row":"16","span_row":"2455","col":"18","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li446","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"20","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li447","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"21","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li448","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"22","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li449","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"23","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li450","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"24","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li451","class":"divider gs_w tripled left thru","htmlContent":"","tile_name":"","true_row":"16","span_row":"3435","col":"26","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li452","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"28","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li453","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"29","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li454","class":"divider gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"16","span_row":"4135","col":"30","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li455","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"32","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li456","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"33","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li457","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"34","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li458","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"16","span_row":"","col":"35","row":"16","size_x":"1","size_y":"1"},
+			// 	{"id":"li459","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"1","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li460","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"2","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li461","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"3","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li462","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"4","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li463","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"5","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li464","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"6","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li465","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"7","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li466","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"8","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li467","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"9","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li468","class":"tile gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"1335","col":"10","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li469","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"12","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li470","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"13","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li471","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"14","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li472","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"15","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li473","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"16","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li474","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"17","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li475","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"18","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li476","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"19","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li477","class":"tile gs_w tripled left thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"2735","col":"21","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li478","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"23","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li479","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"24","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li480","class":"tile gs_w tripled left thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"3435","col":"26","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li481","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"28","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li482","class":"tile gs_w thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"29","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li483","class":"tile gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"4135","col":"30","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li484","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"32","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li485","class":"tile gs_w box nope","htmlContent":"","tile_name":"","true_row":"11","span_row":"","col":"33","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li486","class":"tile gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"11","span_row":"4695","col":"34","row":"11","size_x":"1","size_y":"5"},
+			// 	{"id":"li487","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"1","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li488","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"2","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li489","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"3","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li490","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"4","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li491","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"5","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li492","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"6","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li493","class":"divider gs_w reachRight","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"7","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li494","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"8","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li495","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"9","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li496","class":"divider gs_w doubled full","htmlContent":"","tile_name":"","true_row":"10","span_row":"1335","col":"10","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li497","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"12","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li498","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"13","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li499","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"14","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li500","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"15","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li501","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"16","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li502","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"17","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li503","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"18","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li504","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"19","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li505","class":"divider gs_w tripled left thru","htmlContent":"","tile_name":"","true_row":"10","span_row":"2735","col":"21","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li506","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"23","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li507","class":"divider blocking gs_w","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"24","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li508","class":"divider gs_w tripled left reachRight","htmlContent":"","tile_name":"","true_row":"10","span_row":"3435","col":"26","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li509","class":"divider gs_w full nope","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"28","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li510","class":"divider gs_w full","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"29","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li511","class":"divider gs_w doubled full","htmlContent":"","tile_name":"","true_row":"10","span_row":"4135","col":"30","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li512","class":"divider gs_w reachLeft","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"32","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li513","class":"divider gs_w thru","htmlContent":"","tile_name":"","true_row":"10","span_row":"","col":"33","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li514","class":"divider gs_w doubled thru","htmlContent":"","tile_name":"","true_row":"10","span_row":"4695","col":"34","row":"10","size_x":"1","size_y":"1"},
+			// 	{"id":"li515","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"1","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li516","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"2","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li517","class":"tile gs_w thru stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"3","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li518","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"4","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li519","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"5","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li520","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"6","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li521","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"7","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li522","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"8","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li523","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"9","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li524","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"10","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li525","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"11","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li526","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"12","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li527","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"13","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li528","class":"tile gs_w thru stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"14","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li529","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"15","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li530","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"16","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li531","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"17","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li532","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"18","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li533","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"19","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li534","class":"tile gs_w doubled thru stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"2735","col":"20","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li535","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"22","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li536","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"23","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li537","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"24","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li538","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"25","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li539","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"26","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li540","class":"tile gs_w tripled right reachRight connector stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"3855","col":"28","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li541","class":"tile gs_w connector full stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"30","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li542","class":"tile gs_w connector full stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"31","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li543","class":"tile gs_w connector full stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"32","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li544","class":"tile gs_w box stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"","col":"33","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li545","class":"tile gs_w doubled box stepped","htmlContent":"","tile_name":"","true_row":"5","span_row":"4695","col":"34","row":"5","size_x":"1","size_y":"5"},
+			// 	{"id":"li546","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"1","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li547","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"2","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li548","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"3","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li549","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"4","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li550","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"5","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li551","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"6","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li552","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"7","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li553","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"8","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li554","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"9","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li555","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"10","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li556","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"11","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li557","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"12","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li558","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"13","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li559","class":"tile gs_w reachRight connector stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"14","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li560","class":"tile gs_w connector full stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"15","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li561","class":"tile gs_w connector full stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"16","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li562","class":"tile gs_w connector full stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"17","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li563","class":"tile gs_w connector full stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"18","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li564","class":"tile gs_w connector full stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"19","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li565","class":"tile gs_w doubled box stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"2735","col":"20","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li566","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"22","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li567","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"23","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li568","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"24","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li569","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"25","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li570","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"26","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li571","class":"tile gs_w tripled right box stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"3855","col":"28","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li572","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"30","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li573","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"31","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li574","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"32","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li575","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"33","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li576","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"34","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li577","class":"tile blocking gs_w stepped","htmlContent":"","tile_name":"","true_row":"3","span_row":"","col":"35","row":"3","size_x":"1","size_y":"5"},
+			// 	{"id":"li578","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"1","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li579","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"2","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li580","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"3","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li581","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"4","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li582","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"5","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li583","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"6","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li584","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"7","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li585","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"8","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li586","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"9","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li587","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"10","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li588","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"11","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li589","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"12","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li590","class":"tile gs_w connector full","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"13","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li591","class":"tile gs_w box","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"14","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li592","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"15","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li593","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"16","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li594","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"17","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li595","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"18","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li596","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"19","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li597","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"20","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li598","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"21","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li599","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"22","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li600","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"23","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li601","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"24","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li602","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"25","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li603","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"26","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li604","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"27","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li605","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"28","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li606","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"29","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li607","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"30","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li608","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"31","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li609","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"32","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li610","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"33","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li611","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"34","row":"1","size_x":"1","size_y":"5"},
+			// 	{"id":"li612","class":"tile blocking gs_w","htmlContent":"","tile_name":"","true_row":"1","span_row":"","col":"35","row":"1","size_x":"1","size_y":"5"}
+			// ];
+
 			for(i=0; i<json.length; i++) {
 
 				// add a leading zero to fix the build out
@@ -506,16 +934,20 @@ $(window).ready(function() {
 				} else {
 					colID = json[i].col;
 				}
-				grid_canvas.add_widget('<li id="'+json[i]['id']+'" data-spanpush="'+json[i]['span_row']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, colID, json[i].row);
+
+				// // Built Out Minus Names
+				// grid_canvas.add_widget('<li id="'+json[i]['id']+'" data-spanpush="'+json[i]['span_row']+'" data-truerow="'+json[i]['true_row']+'" data-tilename="'+json[i]['tile_name']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, colID, json[i].row);
+
+				// Build New Chart Variable
+				grid_canvas.add_widget('<li id="'+json[i]['id']+'" class="'+json[i]['class']+'"></li>', json[i].size_x, json[i].size_y, colID, json[i].row);
 
 			}
 			fixOrder();
-			setSpans();
+			addChartPadding();
 			
-			// for now
-			resetIDs();
-			chartBottom();
 			setColumns();
+			dataClass();
+			dataID();
 
 		} else {
 
@@ -528,23 +960,31 @@ $(window).ready(function() {
 				} else {
 					colID = json[i].col;
 				}
-				grid_canvas.add_widget('<li id="'+json[i]['id']+'" data-spanpush="'+json[i]['span_row']+'" data-truerow="'+json[i]['true_row']+'" blockcontent="'+json[i]['blockContent']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, json[i].col, json[i].row);
+				grid_canvas.add_widget('<li id="'+json[i]['id']+'" data-spanpush="'+json[i]['span_row']+'" data-truerow="'+json[i]['true_row']+'" data-tilename="'+json[i]['tile_name']+'" class="'+json[i]['class']+'">'+json[i]['htmlContent']+'</li>', json[i].size_x, json[i].size_y, colID, json[i].row);
 			}
 			fixOrder();
 			fixColumns();
 			resetChartHeight();
 			setSpans();
+			addChartPadding();
 
+			dataClass();
+			dataID();
 		}
 
-	});
+		$('.gridster li').each(function() {
+			var namePull = $(this).attr('data-tilename');
+			$("input[value="+namePull+"].radioBtnClass").attr("disabled", true);
+			$("input[value="+namePull+"].radioBtnClass").parent().addClass('used');
 
+		});
+
+	});
+	
 	////// Save Progress //////////////////////////////////////////////////////////////////////
 
 	$('#seralize').on('click', function(e, i) {
 		e.preventDefault();
-		chartBottom();
-		setColumns();
 		saveGrid();
 	});
 
@@ -594,14 +1034,45 @@ $(window).ready(function() {
 		{ col: 34, row: 1, size_x: 1, size_y: 5 },
 		{ col: 35, row: 1, size_x: 1, size_y: 5 }
 	];
-	$('#add_block').on('click', function(e, i) {
+	$('#add_tile').on('click', function(e, i) {
 		e.preventDefault();
-		$.each(blocks, function(i, widget){
-			blocks = grid_canvas.sort_by_row_and_col_asc(blocks);
-			grid_canvas.add_widget('<li class="tile blocking"></li>', this.size_x, this.size_y, this.col, this.row);
+
+		var firstRowTile = maxCol('.gridster li[data-row="1"]');
+			firstRowTile = $('.gridster li[data-row="1"][data-col="'+firstRowTile+'"]').attr('id');
+			firstRowTile = firstRowTile.replace('li', '');
+
+
+		$('.gridster li').each(function() {
+
+			var addTileGetDataID = $(this).map(function() {
+				return $(this).data('id');
+			}).get();
+
+			var addTileRefineArray = $.map(addTileGetDataID, function(n) {
+				return n <= firstRowTile ? n + 0 : null;
+			});
+
+			// moves chart down before adding in new row
+			$('.gridster li').each(function() {
+				var rowTileGetDataID = $(this).data('id');
+				for (i = 0; i < addTileRefineArray.length; i++) {
+					if (addTileRefineArray[i] == rowTileGetDataID) {
+						var addTileGetUpdateID = '#li'+rowTileGetDataID;
+						grid_canvas.move_widget_down($(addTileGetUpdateID), 5);
+						$(this).removeData('id');
+					}
+				}
+			});
 		});
 
-		resetIDs();
+		$.each(blocks, function(i, widget){
+			grid_canvas.add_widget('<li class="tile blocking"></li>', this.size_x, this.size_y, this.col, this.row);
+
+			resetIDs();
+			setColumns();
+			dataClass();
+			dataID();
+		});
 
 		// $('#add_div, #edit_block, #remove_div, #remove_block, #insert_div, #insert_block, #block_connectors, #half_step, #half_stepRemove, #seralize, #archive, #add_span2, #add_span3').prop("disabled", false);
 	});
@@ -647,12 +1118,46 @@ $(window).ready(function() {
 	];
 	$('#add_div').on('click', function(e, i) {
 		e.preventDefault();
-		$.each(dividers, function(i, widget){
-			dividers = grid_canvas.sort_by_row_and_col_asc(dividers);
-			grid_canvas.add_widget('<li class="divider blocking"></li>', this.size_x, this.size_y, this.col, this.row);
-		});
 
-		resetIDs();
+		if ($('.gs_w[data-row="1"]').attr('data-sizey') == '1') {
+			console.log("cant do it");
+		}
+		else {
+			var firstRowDivider = maxCol('.gridster li[data-row="1"]');
+				firstRowDivider = $('.gridster li[data-row="1"][data-col="'+firstRowDivider+'"]').attr('id');
+				firstRowDivider = firstRowDivider.replace('li', '');
+
+			$('.gridster li').each(function() {
+				var addDividerGetDataID = $(this).map(function() {
+					return $(this).data('id');
+				}).get();
+				var addDividerRefineArray = $.map(addDividerGetDataID, function(n) {
+					return n <= firstRowDivider ? n + 0 : null;
+				});
+
+				// moves chart down before adding in new row
+				$('.gridster li').each(function() {
+					var rowDividerGetDataID = $(this).data('id');
+					for (i = 0; i < addDividerRefineArray.length; i++) {
+						if (addDividerRefineArray[i] == rowDividerGetDataID) {
+							var addDividerGetUpdateID = '#li'+rowDividerGetDataID;
+							grid_canvas.move_widget_down($(addDividerGetUpdateID), 1);
+							$(this).removeData('id');
+						}
+					}
+				});
+			});
+
+			$.each(dividers, function(i, widget){
+				grid_canvas.add_widget('<li class="divider blocking"></li>', this.size_x, this.size_y, this.col, this.row);
+
+				resetIDs();
+				setColumns();
+				dataClass();
+				dataID();
+			});
+
+		}
 	});
 
 	////// Nav BTN Unlock State Variables /////////////////////////////////////////////////////
@@ -683,27 +1188,65 @@ $(window).ready(function() {
 		isHandlerActive = true;
 		// Prevent default.
 		event.preventDefault();
-
 	});
 
 	////// Cycle Through Tile Types ///////////////////////////////////////////////////////////
 
-	// switch from blocking to box for the chart boxes
-	$(document).on('click', '.gridster .tile.blocking.tile_unlocked', function(){
-		$(this).addClass('box').append('<div class="nameBox"></div>');
-		$(this).removeClass('blocking');
+	$(document).on('click', '.gridster li.gs_w.tile.tile_unlocked', function(){
+		// switch from blocking to box for the chart tiles
+		if ($(this).hasClass('blocking')) {
+			$(this).addClass('box').append('<div class="nameBox"></div>');
+			$(this).removeClass('blocking');
+		}
+		// switch from box to thru for the chart tiles
+		else if ($(this).hasClass('box')) {
+			$(this).addClass('thru');
+			$(this).removeClass('box').empty();
+		}
+		// switch from thru to blocking for the chart tiles
+		else {
+			$(this).addClass('blocking');
+			$(this).removeClass('thru');
+		}
 	});
 
-	// switch from box to thru for the chart boxes
-	$(document).on('click', '.gridster .tile.box.tile_unlocked', function(){
-		$(this).addClass('thru');
-		$(this).removeClass('box').empty();
+	////// Changing Tile Type /////////////////////////////////////////////////////////////////
+
+	// Bind the trigger link to show the modal window.
+	$("#type_switch").click(function(event) {
+
+		var tileGrabber = $('.gridster .gs_w.tile');
+		var clickedID = $(this).attr('id');
+			clickedID = '#'+ clickedID;
+		var navBTN = $(clickedID);
+		var navBTNicon = $(clickedID+' span');
+
+		tileGrabber.addClass('type_unlocked');
+		navBTN.addClass('active');
+		navBTNicon.removeClass('icon-edit').addClass('icon-working');
+
+		// Now that modal window is shown, we need to activate its event handler.
+		isHandlerActive = true;
+		// Prevent default.
+		event.preventDefault();
 	});
 
-	// switch from thru to blocking for the chart boxes
-	$(document).on('click', '.gridster .tile.thru.tile_unlocked', function(){
-		$(this).addClass('blocking');
-		$(this).removeClass('thru');
+	////// Cycle Through Types Varieties //////////////////////////////////////////////////////
+
+	$(document).on('click', '.gridster li.gs_w.tile.type_unlocked', function(){
+		// switch from box to thru for the chart tiles
+		if ($(this).hasClass('department')) {
+			$(this).addClass('contractor');
+			$(this).removeClass('department');
+		}
+		// switch from thru to blocking for the chart tiles
+		else if ($(this).hasClass('contractor')) {
+			$(this).removeClass('contractor');
+		}
+		// switch from blocking to box for the chart tiles
+		else {
+			$(this).addClass('department');
+		}
 	});
 
 	////// Changing Divider States ////////////////////////////////////////////////////////////
@@ -723,39 +1266,36 @@ $(window).ready(function() {
 		isHandlerActive = true;
 
 		event.preventDefault();
-
 	});
 
 	////// Cycle Through Divider Types ////////////////////////////////////////////////////////
 
-	// switch from blocking to thru for the chart boxes
-	$(document).on('click', '.gridster .divider.blocking.divider_unlocked', function(){
-		$(this).addClass('thru');
-		$(this).removeClass('blocking');
-	});
-
-	// switch from thru to reachRight for the chart boxes
-	$(document).on('click', '.gridster .divider.thru.divider_unlocked', function(){
-		$(this).addClass('reachRight');
-		$(this).removeClass('thru');
-	});
-
-	// switch from reachRight to full for the chart boxes
-	$(document).on('click', '.gridster .divider.reachRight.divider_unlocked', function(){
-		$(this).addClass('full');
-		$(this).removeClass('reachRight');
-	});
-
-	// switch from full to reachLeft for the chart boxes
-	$(document).on('click', '.divider.full.divider_unlocked', function(){
-		$(this).addClass('reachLeft');
-		$(this).removeClass('full');
-	});
-
-	// switch from reachLeft to blocking for the chart boxes
-	$(document).on('click', '.gridster .divider.reachLeft.divider_unlocked', function(){
-		$(this).addClass('blocking');
-		$(this).removeClass('reachLeft');
+	$(document).on('click', '.gridster li.gs_w.divider.divider_unlocked', function(){
+		// switch from blocking to thru for the chart dividers
+		if ($(this).hasClass('blocking')) {
+			$(this).addClass('thru');
+			$(this).removeClass('blocking');
+		}
+		// switch from thru to reachRight for the chart dividers
+		else if ($(this).hasClass('thru')) {
+			$(this).addClass('reachRight');
+			$(this).removeClass('thru');
+		}
+		// switch from reachRight to full for the chart dividers
+		else if ($(this).hasClass('reachRight')) {
+			$(this).addClass('full');
+			$(this).removeClass('reachRight');
+		}
+		// switch from full to reachLeft for the chart dividers
+		else if ($(this).hasClass('full')) {
+			$(this).addClass('reachLeft');
+			$(this).removeClass('full');
+		}
+		// switch from reachLeft to blocking for the chart dividers
+		else {
+			$(this).addClass('blocking');
+			$(this).removeClass('reachLeft');
+		}
 	});
 
 	////// Remove the Down Connector //////////////////////////////////////////////////////////
@@ -775,7 +1315,6 @@ $(window).ready(function() {
 		isHandlerActive = true;
 
 		event.preventDefault();
-
 	});
 
 	////// Nope Action ////////////////////////////////////////////////////////////////////////
@@ -829,8 +1368,8 @@ $(window).ready(function() {
 		var lablr = $(this).attr('value');
 		var named = $(this).attr('name');
 
-		$('.gridster .gs_w.tile.box.name_unlocked.name_holder .nameBox').append('<span class="remover icon-remove" blockcontent="'+lablr+'"></span><span>'+named+'</span>');
-		$('.gridster .gs_w.tile.box.name_unlocked.name_holder').addClass('name_placed').attr('blockcontent', lablr).removeClass('name_holder');
+		$('.gridster .gs_w.tile.box.name_unlocked.name_holder .nameBox').append('<span class="remover icon-remove" data-tilename="'+lablr+'"></span><span>'+named+'</span>');
+		$('.gridster .gs_w.tile.box.name_unlocked.name_holder').addClass('name_placed').attr('data-tilename', lablr).removeClass('name_holder');
 
 		if($('.gridster .gs_w.tile.box.name_unlocked.name_holder')) {
 
@@ -845,17 +1384,17 @@ $(window).ready(function() {
 	// remove name
 	$(document).on('click', '.gs_w.tile.box.name_placed .nameBox .remover', function(event){
 		
-		if ($(this).attr('blockcontent')){
+		if ($(this).attr('data-tilename')){
 
-			var findval = $(this).attr('blockcontent');
+			var findval = $(this).attr('data-tilename');
 
 			var theInput = ("input[value=" + findval + "].radioBtnClass");
-			var theBlock = ("li[blockcontent=" + findval + "].gs_w.box.name_placed");
+			var theBlock = ("li[data-tilename=" + findval + "].gs_w.box.name_placed");
 
 			$(theInput).prop('checked', false).removeAttr('disabled');
 			$(theInput).parent().removeClass('used');
 			$(theBlock).empty().append('<div class="nameBox"></div>');
-			$(theBlock).removeClass('name_placed').addClass('name_unlocked').attr('blockcontent', 'holder');
+			$(theBlock).removeClass('name_placed').addClass('name_unlocked').removeAttr('data-tilename');
 
 		}
 	});
@@ -877,113 +1416,112 @@ $(window).ready(function() {
 		isHandlerActive = true;
 
 		event.preventDefault();
-
 	});
 
 	////// Cycle Through 2x Spanner States ////////////////////////////////////////////////////
 
 	$(document).on('click', '.gridster li.gs_w.span2_unlocked', function(){
+		event.preventDefault();
 
-		// Remove
+		var spannerBuildID = $(this).attr('id');
+			spannerBuildID = spannerBuildID.replace('li', '');
+			spannerBuildID = parseInt(spannerBuildID);
+		
+		var spannerBuildClick = '#li' +spannerBuildID;
+
+		var toBeRemoved = spannerBuildID + 1;
+			toBeRemoved = '#li' +toBeRemoved;
+		
+		var toBeAdded = spannerBuildID + 1;
+			toBeAdded = 'li' +toBeAdded;
+
+		var doubledPush = $(spannerBuildClick).css('left');
+			doubledPush = doubledPush.replace('px', '');
+			doubledPush = parseInt(doubledPush) + 70;
+		var inlinePush = doubledPush+ 'px';
+
+		var clickClass = $(spannerBuildClick).attr('class');
+			clickClass = clickClass.replace(' gs_w', '');
+			clickClass = clickClass.replace(' doubled', '');
+
+		var clickCol = $(spannerBuildClick).attr('data-col');
+			clickCol = parseInt(clickCol) + 1;
+
+		var clickRow = $(spannerBuildClick).attr('data-row');
+			clickRow = parseInt(clickRow);
+
+		var clickXsize = $(spannerBuildClick).attr('data-sizex');
+			clickXsize = parseInt(clickXsize);
+
+		var clickYsize = $(spannerBuildClick).attr('data-sizey');
+			clickYsize = parseInt(clickYsize);
+
+		// Remove Spanner
 		if ($(this).hasClass('doubled')) {
-			event.preventDefault();
 
 			$(this).removeAttr('style').css('display', 'list-item').removeAttr('data-spanpush');
 
-			var currentClick = $(this).attr('data-col');
-				currentClick = parseInt(currentClick);
-				currentClick = '.gs_w.span2_unlocked[data-col="' +currentClick+'"]';
-
-			var clickID = $(this).addClass('bookmark');
-				clickID = $(clickID).attr('id');
-				clickID = clickID.replace('li', '');
-
-			var clickThisID = parseInt(clickID);
-				clickThisID = '#li' +clickThisID;
-				
-			var clickNextID = parseInt(clickID) + 1;
-				clickNextID = 'li' +clickNextID;
-
-			var clickClass = $(clickThisID).attr('class');
-				clickClass = clickClass.replace(' gs_w', '');
-				clickClass = clickClass.replace(' doubled', '');
-				clickClass = clickClass.replace(' bookmark', '');
-
-			var clickCol = $(clickThisID).attr('data-col');
-				clickCol = parseInt(clickCol) + 1;
-
-			var clickRow = $(clickThisID).attr('data-row');
-				clickRow = parseInt(clickRow);
-
-			var clickXsize = $(clickThisID).attr('data-sizex');
-				clickXsize = parseInt(clickXsize);
-
-			var clickYsize = $(clickThisID).attr('data-sizey');
-				clickYsize = parseInt(clickYsize);
+			var addedTileDataClass = $(spannerBuildClick).attr('class');
+				addedTileDataClass = addedTileDataClass.replace(' span2_unlocked', '');
+				addedTileDataClass = addedTileDataClass.replace(' doubled', '');
+			$(spannerBuildClick).attr('data-class', addedTileDataClass);
 
 			if ($(this).hasClass('tile')) {
 
-				$(this).addClass('blocking').removeClass('box');
-				var clickClassTile = clickClass.replace('box', 'blocking');
 				var widgetsTile = [
-					['<li class="'+clickClassTile+'" blockcontent="holder" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
+					['<li class="'+clickClass+'" id="'+toBeAdded+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
 				];
 				$.each(widgetsTile, function(i, widget){
 					grid_canvas.add_widget.apply(grid_canvas, widget);
+
+					var addedTileDataID = spannerBuildID + 1;
+					var addedTileDataClass = $("#"+toBeAdded).attr('class');
+						addedTileDataClass = addedTileDataClass.replace(' span2_unlocked', '');
+						addedTileDataClass = addedTileDataClass.replace(' doubled', '');
+					$("#"+toBeAdded).attr('data-truerow', clickRow).attr('data-class', addedTileDataClass).attr('data-id', addedTileDataID);
 				});
-
-				var cutter2x = $(clickThisID).attr('id');
-					cutter2x = cutter2x.replace('li', '');
-					cutter2x = parseInt(cutter2x) + 1;
-					cutter2x = '#li' +cutter2x;
-
-				$('.gridster ul').each(function () {
-					$(this).find(cutter2x).insertAfter($(this).find(clickThisID));
-				});
-
 			}
 			else {
 				var widgetsDivider = [
-					['<li class="'+clickClass+'" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
+					['<li class="'+clickClass+'" id="'+toBeAdded+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
 				];
 				$.each(widgetsDivider, function(i, widget){
 					grid_canvas.add_widget.apply(grid_canvas, widget);
-				});
 
-				var cutter2x = $(clickThisID).attr('id');
-					cutter2x = cutter2x.replace('li', '');
-					cutter2x = parseInt(cutter2x) + 1;
-					cutter2x = '#li' +cutter2x;
-
-				$('.gridster ul').each(function () {
-					$(this).find(cutter2x).insertAfter($(this).find(clickThisID));
+					var addedTileDataID = spannerBuildID + 1;
+					var addedTileDataClass = $("#"+toBeAdded).attr('class');
+						addedTileDataClass = addedTileDataClass.replace(' span2_unlocked', '');
+						addedTileDataClass = addedTileDataClass.replace(' doubled', '');
+					$("#"+toBeAdded).attr('data-truerow', clickRow).attr('data-class', addedTileDataClass).attr('data-id', addedTileDataID);
 				});
 			}
 
-			$(clickThisID).removeClass('doubled bookmark');
-		}
-		// Add
-		else {
-			event.preventDefault();
+			$('.gridster ul').each(function () {
+				$(this).find("#"+toBeAdded).insertAfter($(this).find(spannerBuildClick));
+			});
+			$(spannerBuildClick).removeClass('doubled');
 
-			var oneOver = $(this).attr('id');
-				oneOver = oneOver.replace('li', '');
-				oneOver = parseInt(oneOver);
-			var originalOne = '#li' +oneOver;
-			var toBeRemoved = oneOver + 1;
-				toBeRemoved = '#li' +toBeRemoved;
-			var doubledPush = $(this).css('left');
-				doubledPush = doubledPush.replace('px', '');
-				doubledPush = parseInt(doubledPush) + 70;
-			var inlinePush = doubledPush+ 'px';
-				
+		}
+
+		// Create Spanner
+		else {
 
 			grid_canvas.remove_widget($(toBeRemoved), true, function(){
-				$(originalOne).addClass('doubled').css({'display': 'list-item', 'left': inlinePush}).attr('data-spanpush', doubledPush);
-				if ($(originalOne).hasClass('tile')) {
-					$(originalOne).addClass('box').removeClass('blocking');
+				$(spannerBuildClick).addClass('doubled').css({'display': 'list-item', 'left': inlinePush}).attr('data-spanpush', doubledPush);
+
+				var addedTileDataClass = $(spannerBuildClick).attr('class');
+					addedTileDataClass = addedTileDataClass.replace(' span2_unlocked', '');
+				$(spannerBuildClick).attr('data-class', addedTileDataClass);
+
+				if ($(spannerBuildClick).hasClass('tile')) {
+					$(this).addClass('box').removeClass('blocking');
+
+					var addedTileDataClass = $(spannerBuildClick).attr('class');
+						addedTileDataClass = addedTileDataClass.replace(' span2_unlocked', '');
+					$(spannerBuildClick).attr('data-class', addedTileDataClass);
 				}
 			});
+
 		}
 	});
 
@@ -1009,214 +1547,368 @@ $(window).ready(function() {
 	////// Cycle Through 3x Spanner States ////////////////////////////////////////////////////
 
 	$(document).on('click', '.gridster li.gs_w.span3_unlocked', function(){
+		event.preventDefault();
 
-		var origin = $(this).attr('id');
-			origin = origin.replace('li', '');
-			origin = parseInt(origin);
+		var spannerBuildID = $(this).attr('id');
+			spannerBuildID = spannerBuildID.replace('li', '');
+			spannerBuildID = parseInt(spannerBuildID);
+		
+		var spannerBuildClick = '#li' +spannerBuildID;
 
-		var originalOne = '#li' +origin;
+		var toBeRemovedRight = spannerBuildID + 1;
+			toBeRemovedRight = '#li' +toBeRemovedRight;
 
-		var oneOver = origin + 1;
-			oneOver = '#li' +oneOver;
+		var toBeRemovedLeft = spannerBuildID - 1;
+			toBeRemovedLeft = '#li' +toBeRemovedLeft;
+		
+		var toBeAddedRight = spannerBuildID + 1;
+			toBeAddedRight = 'li' +toBeAddedRight;
 
-		var oneBack = origin - 1;
-			oneBack = '#li' +oneBack;
+		var toBeAddedLeft = spannerBuildID - 1;
+			toBeAddedLeft = 'li' +toBeAddedLeft;
 
-		var baseCSS = $(originalOne).css('left');
-			baseCSS = baseCSS.replace('px', '');
+		var tripledPush = $(spannerBuildClick).css('left');
+			tripledPush = tripledPush.replace('px', '');
+			tripledPush = parseInt(tripledPush);
 
-		var currentClick = $(originalOne).attr('data-col');
-			currentClick = parseInt(currentClick);
-			currentClick = '.gs_w.span2_unlocked[data-col="' +currentClick+'"]';
-
-		var clickID = $(originalOne).addClass('bookmark');
-			clickID = $(clickID).attr('id');
-			clickID = clickID.replace('li', '');
-
-		var clickThisID = parseInt(clickID);
-			clickThisID = '#li' +clickThisID;
-			
-		var clickNextID = parseInt(clickID) + 1;
-			clickNextID = 'li' +clickNextID;
-
-		var clickClass = $(clickThisID).attr('class');
+		var clickClass = $(spannerBuildClick).attr('class');
 			clickClass = clickClass.replace(' gs_w', '');
-			clickClass = clickClass.replace(' doubled', '');
-			clickClass = clickClass.replace(' bookmark', '');
 
-		var clickCol = $(clickThisID).attr('data-col');
-			clickCol = parseInt(clickCol) + 1;
+		var clickCol = $(spannerBuildClick).attr('data-col');
+			clickCol = parseInt(clickCol);
 
-		var clickRow = $(clickThisID).attr('data-row');
+		var clickColRight = parseInt(clickCol) + 1;
+		var clickColLeft = parseInt(clickCol) - 1;
+
+		var clickRow = $(spannerBuildClick).attr('data-row');
 			clickRow = parseInt(clickRow);
 
-		var clickXsize = $(clickThisID).attr('data-sizex');
+		var clickXsize = $(spannerBuildClick).attr('data-sizex');
 			clickXsize = parseInt(clickXsize);
-		var clickYsize = $(clickThisID).attr('data-sizey');
+
+		var clickYsize = $(spannerBuildClick).attr('data-sizey');
 			clickYsize = parseInt(clickYsize);
 
 		// change to single right
 		if ($(this).hasClass('tripled') && $(this).hasClass('center')) {
+			var TpushRight = tripledPush + 70;
+			var inlineTpushRight = TpushRight+ 'px';
 
-			event.preventDefault();
-			var tripledPushRight = parseInt(baseCSS) + 70;
-				// tripledPushRight = tripledPushRight+ 'px';
-			var inlineTripledPushRight = tripledPushRight+ 'px';
-
-			$(originalOne).addClass('right').removeClass('center bookmark').css({'display': 'list-item', 'left': inlineTripledPushRight}).attr('data-spanpush', tripledPushRight);
-
+			$(spannerBuildClick).addClass('right').removeClass('center').css({'display': 'list-item', 'left': inlineTpushRight}).attr('data-spanpush', TpushRight);
+			
+			var dataClassUpdate = $(spannerBuildClick).attr('class');
+				dataClassUpdate = dataClassUpdate.replace(' span3_unlocked', '');
+			$(spannerBuildClick).attr('data-class', dataClassUpdate);
 		}
+
 		// change to single Left
 		else if ($(this).hasClass('tripled') && $(this).hasClass('right')) {
+			var TpushLeft = tripledPush - 140;
+			var inlineTpushLeft = TpushLeft+ 'px';
 
-			event.preventDefault();
-			$(originalOne).addClass('left').removeClass('right bookmark').removeAttr('style').css('display', 'list-item');
-			var tripledPushLeft = parseInt(baseCSS) - 140;
-				// tripledPushLeft = tripledPushLeft+ 'px';
-			var inlineTripledPushLeft = tripledPushLeft+ 'px';
+			$(spannerBuildClick).removeAttr('style').addClass('left').removeClass('right').css({'display': 'list-item', 'left': inlineTpushLeft}).attr('data-spanpush', TpushLeft);
 
-			$(originalOne).removeAttr('style').css({'display': 'list-item', 'left': inlineTripledPushLeft}).attr('data-spanpush', tripledPushLeft);
-
+			var dataClassUpdate = $(spannerBuildClick).attr('class');
+				dataClassUpdate = dataClassUpdate.replace(' span3_unlocked', '');
+			$(spannerBuildClick).attr('data-class', dataClassUpdate);
 		}
+
 		// change to doubled
 		else if ($(this).hasClass('tripled') && $(this).hasClass('left')) {
+			var TpushLeft1st = tripledPush;
+			var inlineTpushLeft1st = TpushLeft1st+ 'px';
 
-			event.preventDefault();
-			var tripledPushLeft = baseCSS+ 'px';
-			$(originalOne).addClass('first').removeClass('left bookmark').removeAttr('style').css({'display': 'list-item', 'left': tripledPushLeft}).attr('data-spanpush', baseCSS);
+			var TpushLeft2nd = tripledPush + 140;
+			var inlineTpushLeft2nd = TpushLeft2nd+ 'px';
+
+			$(spannerBuildClick).removeAttr('style').addClass('first').removeClass('left').css({'display': 'list-item', 'left': inlineTpushLeft1st}).attr('data-spanpush', TpushLeft1st);
+			
+			var dataClassUpdate = $(spannerBuildClick).attr('class');
+				dataClassUpdate = dataClassUpdate.replace(' span3_unlocked', '');
+			$(spannerBuildClick).attr('data-class', dataClassUpdate);
 
 			if ($(this).hasClass('tile')) {
-				var clickClassTile = clickClass.replace('left', 'second');
-				var tripledSecondPushLeft = parseInt(baseCSS) + 140;
-					// tripledSecondPushLeft = tripledSecondPushLeft+ 'px';
-				var inlineTripledSecondPushLeft = tripledSecondPushLeft+ 'px';
-				
-				var widgetsTile = [
-					['<li class="'+clickClassTile+'" blockcontent="holder" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
+
+				var widgetsTile3 = [
+					['<li class="'+clickClass+'" id="'+toBeAddedRight+'"></li>', clickXsize, clickYsize, clickColRight, clickRow]
 				];
-				$.each(widgetsTile, function(i, widget){
-					grid_canvas.add_widget.apply(grid_canvas, widget).css('left', inlineTripledSecondPushLeft).attr('data-spanpush', tripledSecondPushLeft);
-				});
+				$.each(widgetsTile3, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget).removeAttr('style').addClass('second').removeClass('left first').css({'display': 'list-item', 'left': inlineTpushLeft2nd}).attr('data-spanpush', TpushLeft2nd);
 
-				var cutter2x = $(clickThisID).attr('id');
-					cutter2x = cutter2x.replace('li', '');
-					cutter2x = parseInt(cutter2x) + 1;
-					cutter2x = '#li' +cutter2x;
+					var addedTileDataID = spannerBuildID + 1;
+					var addedTileDataClass = $(toBeRemovedRight).attr('class');
+						addedTileDataClass = addedTileDataClass.replace(' span3_unlocked', '');
+					$(toBeRemovedRight).attr('data-truerow', clickRow).attr('data-class', addedTileDataClass).attr('data-id', addedTileDataID);
 
-				$('.gridster ul').each(function () {
-					$(this).find(cutter2x).insertAfter($(this).find(clickThisID));
 				});
 			}
+
 			else {
-				var clickClassTile = clickClass.replace('left', 'second');
-				var tripledSecondPushLeft = parseInt(baseCSS) + 140;
-					// tripledSecondPushLeft = tripledSecondPushLeft+ 'px';
-				var inlineTripledSecondPushLeft = tripledSecondPushLeft+ 'px';
-
-				var widgetsDivider = [
-					['<li class="'+clickClassDivider+'" id="'+clickNextID+'"></li>', clickXsize, clickYsize, clickCol, clickRow]
+				var widgetsDivider3 = [
+					['<li class="'+clickClass+'" id="'+toBeAddedRight+'"></li>', clickXsize, clickYsize, clickColRight, clickRow]
 				];
-				$.each(widgetsDivider, function(i, widget){
-					grid_canvas.add_widget.apply(grid_canvas, widget).css('left', inlineTripledSecondPushLeft).attr('data-spanpush', tripledSecondPushLeft);
-				});
+				$.each(widgetsDivider3, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget).removeAttr('style').addClass('second').removeClass('left first').css({'display': 'list-item', 'left': inlineTpushLeft2nd}).attr('data-spanpush', TpushLeft2nd);
 
-				var cutter2x = $(clickThisID).attr('id');
-					cutter2x = cutter2x.replace('li', '');
-					cutter2x = parseInt(cutter2x) + 1;
-					cutter2x = '#li' +cutter2x;
+					var addedTileDataID = spannerBuildID + 1;
+					var addedTileDataClass = $(toBeRemovedRight).attr('class');
+						addedTileDataClass = addedTileDataClass.replace(' span3_unlocked', '');
+					$(toBeRemovedRight).attr('data-truerow', clickRow).attr('data-class', addedTileDataClass).attr('data-id', addedTileDataID);
 
-				$('.gridster ul').each(function () {
-					$(this).find(cutter2x).insertAfter($(this).find(clickThisID));
 				});
 			}
-
+			
+			$('.gridster ul').each(function () {
+				$(this).find("#"+toBeAddedRight).insertAfter($(this).find(spannerBuildClick));
+			});
 		}
+
 		// back to default
 		else if ($(this).hasClass('tripled') && $(this).hasClass('first')) {
+			$(spannerBuildClick).removeAttr('style').removeAttr('data-spanpush').removeClass('tripled first').css('display', 'list-item');
+			$(toBeRemovedRight).removeAttr('style').removeAttr('data-spanpush').removeClass('tripled second').css('display', 'list-item');
 
-			event.preventDefault();
-			var tripledPushLeft = baseCSS+ 'px';
-
-			$(originalOne).removeClass('bookmark tripled first').removeAttr('style').removeAttr('data-spanpush').css('display', 'list-item');
-
-			var mainColGrabber = $(originalOne).attr('data-col');
-			var afterColGrabber = parseInt(mainColGrabber) + 1;
-			var beforeColGrabber = parseInt(mainColGrabber) - 1;
-			var mainRowGrabber = $(originalOne).attr('data-row');
-			var addedEditer = 'li.gs_w[data-col="'+afterColGrabber+'"][data-row="'+mainRowGrabber+'"]';
-			var addedClassRemover = $(addedEditer).attr('class');
-				addedClassRemover = addedClassRemover.replace(' tripled', '');
-				addedClassRemover = addedClassRemover.replace(' second', '');
-			
-			$(addedEditer).removeAttr('style').css('display', 'list-item').attr('class', addedClassRemover);
+			var dataClassUpdate = $(spannerBuildClick).attr('class');
+				dataClassUpdate = dataClassUpdate.replace(' span3_unlocked', '');
+			var dataClassUpdate2nd = $(toBeRemovedRight).attr('class');
+				dataClassUpdate2nd = dataClassUpdate2nd.replace(' span3_unlocked', '');
+			$(spannerBuildClick).attr('data-class', dataClassUpdate);
+			$(toBeRemovedRight).attr('data-class', dataClassUpdate2nd);
 
 			if ($(this).hasClass('tile')) {
 
-				var beforeAdderID = 'li.gs_w[data-col="'+mainColGrabber+'"][data-row="'+mainRowGrabber+'"]'; 
-					beforeAdderID = $(beforeAdderID).attr('id');
-					beforeAdderID = beforeAdderID.replace('li', '');
-					beforeAdderID = parseInt(beforeAdderID) - 1;
-					beforeAdderID = 'li'+beforeAdderID;
-				var beforeAdderSizeGrabber = 'li.gs_w[data-col="'+mainColGrabber+'"][data-row="'+mainRowGrabber+'"]';
-				var beforeAdderSizeX = $(beforeAdderSizeGrabber).attr('data-sizex');
-				var beforeAdderSizeY = $(beforeAdderSizeGrabber).attr('data-sizey');
-
-				var widgetsTile = [
-					['<li class="'+addedClassRemover+'" blockcontent="holder" id="'+beforeAdderID+'"></li>', beforeAdderSizeX, beforeAdderSizeY, beforeColGrabber, mainRowGrabber]
+				var widgetsTile3 = [
+					['<li class="'+clickClass+'" id="'+toBeAddedLeft+'"></li>', clickXsize, clickYsize, clickColLeft, clickRow]
 				];
-				$.each(widgetsTile, function(i, widget){
-					grid_canvas.add_widget.apply(grid_canvas, widget);
+				$.each(widgetsTile3, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget).removeClass('tripled first');
+
+					var addedTileDataID = spannerBuildID - 1;
+					var addedTileDataClass = $(toBeRemovedLeft).attr('class');
+						addedTileDataClass = addedTileDataClass.replace(' span3_unlocked', '');
+					$(toBeRemovedLeft).attr('data-truerow', clickRow).attr('data-class', addedTileDataClass).attr('data-id', addedTileDataID);
 				});
-
-				var cutter2xBack = $(clickThisID).attr('id');
-					cutter2xBack = cutter2xBack.replace('li', '');
-					cutter2xBack = parseInt(cutter2xBack) - 1;
-					cutter2xBack = '#li' +cutter2xBack;
-
-				$('.gridster ul').each(function () {
-					$(this).find(cutter2xBack).insertBefore($(this).find(clickThisID));
-				});
-
 			}
+
 			else {
-
-				var beforeAdderID = 'li.gs_w[data-col="'+mainColGrabber+'"][data-row="'+mainRowGrabber+'"]'; 
-					beforeAdderID = $(beforeAdderID).attr('id');
-					beforeAdderID = beforeAdderID.replace('li', '');
-					beforeAdderID = parseInt(beforeAdderID) - 1;
-					beforeAdderID = 'li'+beforeAdderID;
-				var beforeAdderSizeGrabber = 'li.gs_w[data-col="'+mainColGrabber+'"][data-row="'+mainRowGrabber+'"]';
-				var beforeAdderSizeX = $(beforeAdderSizeGrabber).attr('data-sizex');
-				var beforeAdderSizeY = $(beforeAdderSizeGrabber).attr('data-sizey');
-
-				var widgetsDivider = [
-					['<li class="'+addedClassRemover+'" id="'+beforeAdderID+'"></li>', beforeAdderSizeX, beforeAdderSizeY, beforeColGrabber, mainRowGrabber]
+				var widgetsDivider3 = [
+					['<li class="'+clickClass+'" id="'+toBeAddedLeft+'"></li>', clickXsize, clickYsize, clickColLeft, clickRow]
 				];
-				$.each(widgetsDivider, function(i, widget){
-					grid_canvas.add_widget.apply(grid_canvas, widget);
+				$.each(widgetsDivider3, function(i, widget){
+					grid_canvas.add_widget.apply(grid_canvas, widget).removeClass('tripled first');
+
+					var addedTileDataID = spannerBuildID - 1;
+					var addedTileDataClass = $(toBeRemovedLeft).attr('class');
+						addedTileDataClass = addedTileDataClass.replace(' span3_unlocked', '');
+					$(toBeRemovedLeft).attr('data-truerow', clickRow).attr('data-class', addedTileDataClass).attr('data-id', addedTileDataID);
 				});
-
-				var cutter2xBack = $(clickThisID).attr('id');
-					cutter2xBack = cutter2xBack.replace('li', '');
-					cutter2xBack = parseInt(cutter2xBack) - 1;
-					cutter2xBack = '#li' +cutter2xBack;
-
-				$('.gridster ul').each(function () {
-					$(this).find(cutter2xBack).insertBefore($(this).find(clickThisID));
-				});
-
 			}
+
+			$('.gridster ul').each(function () {
+				$(this).find("#"+toBeAddedLeft).insertBefore($(this).find(spannerBuildClick));
+			});
+			
 		}
+
 		// Add single centered
 		else {
-			event.preventDefault();
-
-			grid_canvas.remove_widget($(oneOver), true);
-			grid_canvas.remove_widget($(oneBack), true);
-
-			$(originalOne).addClass('tripled center').removeClass('bookmark');
+			grid_canvas.remove_widget($(toBeRemovedRight), true);
+			grid_canvas.remove_widget($(toBeRemovedLeft), true);
+			$(spannerBuildClick).addClass('tripled center');
+			
+			var dataClassUpdate = $(spannerBuildClick).attr('class');
+				dataClassUpdate = dataClassUpdate.replace(' span3_unlocked', '');
+			$(spannerBuildClick).attr('data-class', dataClassUpdate);
 		}
+	});
 
+	////// Add in Chart Half Step //////////////////////////////////////////////////////////////
+
+	$("#half_step").click(function(event) {
+
+		var grabber = $('.gridster .gs_w');
+		var clickedID = $(this).attr('id');
+			clickedID = '#'+ clickedID;
+		var navBTN = $(clickedID);
+		var navBTNicon = $(clickedID+' span');
+
+		grabber.addClass('halfStep_unlocked');
+		navBTN.addClass('active');
+		navBTNicon.removeClass('icon-add').addClass('icon-working');
+
+		isHandlerActive = true;
+		
+		event.preventDefault();
+	});
+
+	////// Half Step Add Action ///////////////////////////////////////////////////////////////
+
+	$(document).on('click', '.gridster li.gs_w.halfStep_unlocked', function() {
+
+		var currentClick = $(this).attr('data-row');
+			currentClick = parseInt(currentClick);
+		var currentFirstRow = maxCol('.gridster li[data-row="'+currentClick+'"]');
+			currentFirstRow = $('.gridster li[data-row="'+currentClick+'"][data-col="'+currentFirstRow+'"]').attr('id');
+			currentFirstRow = currentFirstRow.replace('li', '');
+
+		$('.gridster li[data-row="'+currentClick+'"]').addClass('stepped');
+		var connectorUpdate = $('.stepped').attr('class');
+			connectorUpdate = $('.stepped').attr('data-class', connectorUpdate);
+
+		$('.gridster').prepend('<div class="gridShield"></div>');
+					
+		// moves chart down before adding in new row
+		$('.gridster li').each(function() {
+			var insertTileValueGet = $(this).map(function() {
+				return $(this).data('id');
+			}).get();
+
+			var refinedArray = $.map(insertTileValueGet, function(n) {
+				return n <= currentFirstRow ? n + 0 : null;
+			});
+
+			$('.gridster li').each(function() {
+				var rowDataGet = $(this).data('id');
+				for (i = 0; i < refinedArray.length; i++) {
+					if (refinedArray[i] == rowDataGet) {
+						var insertRowUpdate = '#li'+rowDataGet;
+						var insertRowGrabber = $(insertRowUpdate).attr('data-row');
+							insertRowGrabber = parseInt(insertRowGrabber, 10) - 3;
+
+						console.log(insertRowUpdate);
+						console.log(insertRowGrabber);
+
+						$(this).attr('data-row', insertRowGrabber);
+						$(this).attr('data-truerow', insertRowGrabber);
+						grid_canvas.register_widget($(insertRowUpdate));
+
+						$(this).removeData('id');
+					}
+				}
+			});
+		});
+
+		var chartHeightUpdate = $('.gridster ul').height();
+			chartHeightUpdate = parseInt(chartHeightUpdate, 10) - 45;
+			chartHeightUpdate = chartHeightUpdate+'px';
+		$('.gridster ul').removeAttr('style').css({'position': 'relative', 'height': chartHeightUpdate});
+		setSpans();
+	});
+
+	////// Add in Chart Half Step //////////////////////////////////////////////////////////////
+
+	$("#half_stepRemove").click(function(event) {
+
+		var grabber = $('.gridster .gs_w');
+		var clickedID = $(this).attr('id');
+			clickedID = '#'+ clickedID;
+		var navBTN = $(clickedID);
+		var navBTNicon = $(clickedID+' span');
+
+		grabber.addClass('halfStepRemove_unlocked');
+		navBTN.addClass('active');
+		navBTNicon.removeClass('icon-clear').addClass('icon-working');
+
+		isHandlerActive = true;
+		
+		event.preventDefault();
+	});
+
+	////// Half Step Remove Action ////////////////////////////////////////////////////////////
+
+	$(document).on('click', '.gridster li.gs_w.halfStepRemove_unlocked', function() {
+
+		var currentClick = $(this).attr('data-row');
+			currentClick = parseInt(currentClick);
+		var currentFirstRow = maxCol('.gridster li[data-row="'+currentClick+'"]');
+			currentFirstRow = $('.gridster li[data-row="'+currentClick+'"][data-col="'+currentFirstRow+'"]').attr('id');
+			currentFirstRow = currentFirstRow.replace('li', '');
+
+		$('.stepped').removeClass('stepped');
+		var connectorRemove = $('.gridster li[data-row="'+currentClick+'"]').attr('class');
+			connectorRemove = $('.gridster li[data-row="'+currentClick+'"]').attr('data-class', connectorRemove);
+
+		$('.gridster').prepend('<div class="gridShield"></div>');
+					
+		// moves chart down before adding in new row
+		$('.gridster li').each(function() {
+			var insertTileValueGet = $(this).map(function() {
+				return $(this).data('id');
+			}).get();
+
+			var refinedArray = $.map(insertTileValueGet, function(n) {
+				return n <= currentFirstRow ? n + 0 : null;
+			});
+
+			$('.gridster li').each(function() {
+				var rowDataGet = $(this).data('id');
+				for (i = 0; i < refinedArray.length; i++) {
+					if (refinedArray[i] == rowDataGet) {
+						var insertRowUpdate = '#li'+rowDataGet;
+						var insertRowGrabber = $(insertRowUpdate).attr('data-row');
+							insertRowGrabber = parseInt(insertRowGrabber, 10) + 3;
+
+						console.log(insertRowUpdate);
+						console.log(insertRowGrabber);
+
+						$(this).attr('data-row', insertRowGrabber);
+						$(this).attr('data-truerow', insertRowGrabber);
+
+						$(this).removeData('id');
+					}
+				}
+			});
+		});
+		setSpans();
+
+		var chartHeightUpdate = $('.gridster ul').height();
+			chartHeightUpdate = parseInt(chartHeightUpdate, 10) + 45;
+			chartHeightUpdate = chartHeightUpdate+'px';
+		$('.gridster ul').removeAttr('style').css({'position': 'relative', 'height': chartHeightUpdate});
+	});
+	
+	////// Add in Connector ////////////////////////////////////////////////////////////////////
+
+	$("#tile_connectors").click(function(event) {
+
+		var dividerGrabber = $('.gridster .gs_w.tile');
+		var clickedID = $(this).attr('id');
+			clickedID = '#'+ clickedID;
+		var navBTN = $(clickedID);
+		var navBTNicon = $(clickedID+' span');
+
+		dividerGrabber.addClass('connectors_unlocked');
+		navBTN.addClass('active');
+		navBTNicon.removeClass('icon-connector').addClass('icon-working');
+
+		isHandlerActive = true;
+
+		event.preventDefault();
+	});
+
+	////// Changing Connector States //////////////////////////////////////////////////////////
+
+	$(document).on('click', '.gridster li.gs_w.connectors_unlocked', function(){
+		// switch from thru to reachRight for the chart tile
+		if ($(this).hasClass('blocking')) {
+			$(this).addClass('reachRight connector');
+			$(this).removeClass('blocking');
+		}
+		// switch from reachRight to full for the chart tile
+		else if ($(this).hasClass('reachRight')) {
+			$(this).addClass('full');
+			$(this).removeClass('reachRight');
+		}
+		// switch from full to reachLeft for the chart tile
+		else if ($(this).hasClass('full')) {
+			$(this).addClass('reachLeft');
+			$(this).removeClass('full');
+		}
+		// switch from reachLeft to blocking for the chart tile
+		else {
+			$(this).addClass('blocking');
+			$(this).removeClass('reachLeft connector');
+		}
 	});
 
 	////// Step Out of Line ///////////////////////////////////////////////////////////////////
@@ -1258,6 +1950,15 @@ $(window).ready(function() {
 			navActiveBTN.removeClass('active');
 
 			console.log("dividers locked.");
+		}
+
+		// remove edit tile type
+		if (activeID == '#type_switch') {
+			tileGrabber.removeClass('type_unlocked');
+			navActiveBTNicon.removeClass('icon-working').addClass('icon-edit');
+			navActiveBTN.removeClass('active');
+
+			console.log("tile type locked.");
 		}
 
 		// remove add nope
@@ -1308,15 +2009,89 @@ $(window).ready(function() {
 			console.log("tripled locked.");
 		}
 
+		// remove add half step row
+		if (activeID == '#half_step') {
+			$('.gridShield').remove();
+			grabber.removeClass('halfStep_unlocked');
+			navActiveBTNicon.removeClass('icon-working').addClass('icon-add');
+			navActiveBTN.removeClass('active');
+
+			console.log("add half step locked.");
+		}
+
+		/// remove remove half step row
+		if (activeID == '#half_stepRemove') {
+			$('.gridShield').remove();
+			grabber.removeClass('halfStepRemove_unlocked');
+			navActiveBTNicon.removeClass('icon-working').addClass('icon-clear');
+			navActiveBTN.removeClass('active');
+
+			console.log("remove half step locked.");
+		}
+
+		/// remove remove half step row
+		if (activeID == '#tile_connectors') {
+			$('.gridShield').remove();
+			grabber.removeClass('connectors_unlocked');
+			navActiveBTNicon.removeClass('icon-working').addClass('icon-connector');
+			navActiveBTN.removeClass('active');
+
+			console.log("remove connector locked.");
+		}
+
+		// remove insert row
+		if (activeID == '#insert_tile') {
+			$('.gridShield').remove();
+			grabber.removeClass('insertTile_unlocked');
+			navActiveBTNicon.removeClass('icon-working').addClass('icon-insert_block');
+			navActiveBTN.removeClass('active');
+
+			console.log("insert a tile row locked.");
+		}
+
 		// Now that the modal window is hidden, we need to disable its event handler.
 		isHandlerActive = false;
-
 	});
 
 	////// Safty Zones ////////////////////////////////////////////////////////////////////////
 
 	saftyZones.on("mousedown", function(event) {
 		return false;
+	});
+
+	////// Save Out Progress For Later Use ////////////////////////////////////////////////////
+
+	$('#archive').on('click', function(e, i) {
+		e.preventDefault();
+
+		var positions = JSON.stringify(grid_canvas.serialize());
+		var blockPositions = $($("style")[1]).html();
+
+		$('#deployr').prop("disabled", false);
+		$('.roundTwo, .cssPos').remove();
+		$('.demo').after('<textarea class="cssPos"></textarea>');
+		$('.cssPos').after('<div class="roundTwo" /div>');
+		$('.cssPos').html(blockPositions).before('<h2 class="printoutHeader">CSS Placement</h2>');
+		$('.roundTwo').html(positions).before('<h2 class="printoutHeader">JSON Output Raw</h2>');
+
+		$('.roundTwo').contents().filter(function() {
+			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('undefined') >= 0;
+		}).each(function() {
+			this.nodeValue = this.nodeValue.replace(/\undefined\b/g, "");
+		});
+
+		$('.cssPos').contents().filter(function() {
+			return this.nodeType == Node.TEXT_NODE && this.nodeValue.indexOf('  ') >= 0;
+		}).each(function() {
+			this.nodeValue = this.nodeValue.replace(/\  \b/g, " ");
+		});
+
+		$(".roundTwo").text(function () {
+			return $(this).text().replace("[", "var json = [");
+		});
+		$(".roundTwo").text(function () {
+			return $(this).text().replace("}]", "}];");
+		});
 	});
 
 });
