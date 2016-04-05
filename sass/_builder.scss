@@ -88,8 +88,8 @@
 button:disabled {
 	opacity: .25;
 }
-#tidy {
-	clear: left;
+.setting .btn {
+	min-width: 87px;
 }
 #seralize {
 	height: 30px;
@@ -370,10 +370,10 @@ button:disabled {
 	opacity: 1;
 }
 
-.printout,
 .cssPos,
-.roundTwo,
-.working {
+.jsonCopy,
+.chartHTML,
+.cssRePos {
 	font-size: 12px;
 	line-height: 1.5;
 	padding: 15px;
@@ -385,9 +385,6 @@ button:disabled {
 	border: 1px solid #3a3a3a;
 	background: #fff;
 }
-.printout {
-	display: none;
-}
 .printoutHeader {
     margin-left: 15px;
     margin-bottom: 5px;
@@ -395,42 +392,44 @@ button:disabled {
     color: #fff;
 }
 
-.saverHolder {
-	display: block;
-	float: left;
-	margin-top: 10px;
-	margin-left: 10px;
-}
+// .saverHolder {
+// 	display: block;
+// 	float: left;
+// 	margin-top: 10px;
+// 	margin-left: 10px;
+// }
 
-.fileNamerSave {
-	border-radius: 0px 3px 3px 0px;
-	margin: 0;
-	float: left;
-	padding: 5px 10px;
-}
+// .fileNamerSave {
+// 	border-radius: 0px 3px 3px 0px;
+// 	margin: 0;
+// 	float: left;
+// 	padding: 5px 10px;
+// }
 
-.fileNamer {
-	padding: 5px 11px 6px 12px;
-	position: relative;
-	top: 0px;
-	border: 1px solid #3a3a3a;
-	border-right: 0;
-	border-radius: 3px 0px 0px 3px;
-	font-size: 14px;
-	color: #3a3a3a;
-	font-weight: 500;
-	float: left;
-}
+// .fileNamer {
+// 	padding: 5px 11px 6px 12px;
+// 	position: relative;
+// 	top: 0px;
+// 	border: 1px solid #3a3a3a;
+// 	border-right: 0;
+// 	border-radius: 3px 0px 0px 3px;
+// 	font-size: 14px;
+// 	color: #3a3a3a;
+// 	font-weight: 500;
+// 	float: left;
+// }
 
-#html-filename {
-	border: 0;
-	border-bottom: 1px solid #E8E8E8;
-	text-align: right;
-	font-weight: 300;
-	letter-spacing: .5px;
-	outline: none;
-	padding-right: 3px;
-}
+// #html-filename {
+// 	border: 0;
+// 	border-bottom: 1px solid #E8E8E8;
+// 	text-align: right;
+// 	font-weight: 300;
+// 	letter-spacing: .5px;
+// 	outline: none;
+// 	padding-right: 3px;
+// }
+
+
 
 
 @import "listSort";

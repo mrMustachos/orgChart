@@ -340,7 +340,7 @@ li { list-style: none; }
 
 .gridster .gs_w.department { background: #f80046; color: #fff; }
 
-.gridster .gs_w.contractor { background: #ccc; }
+.gridster .gs_w.contractor { background: #999; color: #fff; }
 
 .gridster .gs_w:after { content: ""; background: #000; display: block; width: 5px; height: 10px; position: absolute; bottom: -10px; left: 50%; -ms-transform: translate(-50%, 0); -webkit-transform: translate(-50%, 0); transform: translate(-50%, 0); }
 
@@ -424,7 +424,11 @@ li { list-style: none; }
 
 .gridster .connector.tripled.left.reachLeft:before { left: -70px; width: 135px; }
 
-.gs_w.divider.thru:before, .gs_w.divider.blocking:before, .gs_w.nope:after, .gridster .connector.full:after { display: none !important; }
+.gridster .connector.reachLeft.doubled.box:before { width: 70px; left: -70px; }
+
+.gridster .connector.reachRight.doubled.box:before { width: 70px; left: 130px; }
+
+.gs_w.divider.thru:before, .gs_w.divider.blocking:before, .gs_w.nope:after, .gridster .connector.full:after, .gridster .connector.doubled.box:after { display: none !important; }
 
 [class^="icon-"], [class*=" icon-"] { position: absolute; top: 50%; -ms-transform: translate(0, -50%); -webkit-transform: translate(0, -50%); transform: translate(0, -50%); left: 0px; }
 

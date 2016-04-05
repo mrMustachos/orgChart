@@ -162,7 +162,8 @@ li {
 	color: #fff;
 }
 .gridster .gs_w.contractor {
-	background: #ccc;
+	background: #999;
+	color: #fff;
 }
 .gridster .gs_w:after {
 	content: "";
@@ -347,9 +348,19 @@ li {
 	width: 135px;
 }
 
+.gridster .connector.reachLeft.doubled.box:before {
+	width: 70px;
+	left: -70px;
+}
+.gridster .connector.reachRight.doubled.box:before {
+	width: 70px;
+	left: 130px;
+}
+
 .gs_w.divider.thru:before,
 .gs_w.divider.blocking:before,
 .gs_w.nope:after,
-.gridster .connector.full:after {
+.gridster .connector.full:after,
+.gridster .connector.doubled.box:after {
 	display: none !important;
 }
