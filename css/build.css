@@ -331,7 +331,7 @@ li { list-style: none; }
 
 .gridster { margin: 0 auto; padding: 0 25px; -webkit-transition: opacity .6s; -moz-transition: opacity .6s; -o-transition: opacity .6s; -ms-transition: opacity .6s; transition: opacity .6s; }
 
-.gridster ul { margin: 0 auto; z-index: 1; }
+.gridster ul { margin: 0 auto; z-index: 1; position: relative; }
 
 .gridster li { font-size: 1em; font-weight: bold; text-align: center; line-height: 100%; }
 

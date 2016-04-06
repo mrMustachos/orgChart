@@ -1,1430 +1,469 @@
-/*! normalize.css v1.1.0 | MIT License | git.io/normalize */
-/* ========================================================================== HTML5 display definitions ========================================================================== */
-/* Correct `block` display not defined in IE 6/7/8/9 and Firefox 3. */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic,600italic,700italic,800italic);
-article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
-
-/* Correct `inline-block` display not defined in IE 6/7/8/9 and Firefox 3. */
-audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
-
-/* Prevent modern browsers from displaying `audio` without controls. Remove excess height in iOS 5 devices. */
-audio:not([controls]) { display: none; height: 0; }
-
-/* Address styling not present in IE 7/8/9, Firefox 3, and Safari 4. Known issue: no IE 6 support. */
-[hidden] { display: none; }
-
-/* ========================================================================== Base ========================================================================== */
-/* 1. Correct text resizing oddly in IE 6/7 when body `font-size` is set using `em` units. 2. Prevent iOS text size adjust after orientation change, without disabling user zoom.
-*/
-html { font-size: 100%; /* 1 */ -webkit-text-size-adjust: 100%; /* 2 */ -ms-text-size-adjust: 100%; /* 2 */ }
-
-/* Address `font-family` inconsistency between `textarea` and other form elements. */
-html, button, input, select, textarea { font-family: sans-serif; }
-
-/* Address margins handled incorrectly in IE 6/7. */
-body { margin: 0; }
-
-/* ========================================================================== Links ========================================================================== */
-/* Address `outline` inconsistency between Chrome and other browsers. */
-a:focus { outline: thin dotted; }
-
-/* Improve readability when focused and also mouse hovered in all browsers. */
-a:active, a:hover { outline: 0; }
-
-/* ========================================================================== Typography ========================================================================== */
-/* Address font sizes and margins set differently in IE 6/7. Address font sizes within `section` and `article` in Firefox 4+, Safari 5, and Chrome. */
-h1 { font-size: 2em; margin: 0.67em 0; }
-
-h2 { font-size: 1.5em; margin: 0.83em 0; }
-
-h3 { font-size: 1.17em; margin: 1em 0; }
-
-h4 { font-size: 1em; margin: 1.33em 0; }
-
-h5 { font-size: 0.83em; margin: 1.67em 0; }
-
-h6 { font-size: 0.67em; margin: 2.33em 0; }
-
-/* Address styling not present in IE 7/8/9, Safari 5, and Chrome. */
-abbr[title] { border-bottom: 1px dotted; }
-
-/* Address style set to `bolder` in Firefox 3+, Safari 4/5, and Chrome. */
-b, strong { font-weight: bold; }
-
-blockquote { margin: 1em 40px; }
-
-/* Address styling not present in Safari 5 and Chrome. */
-dfn { font-style: italic; }
-
-/* Address differences between Firefox and other browsers. Known issue: no IE 6/7 normalization. */
-hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
-
-/* Address styling not present in IE 6/7/8/9. */
-mark { background: #ff0; color: #000; }
-
-/* Address margins set differently in IE 6/7. */
-p, pre { margin: 1em 0; }
-
-/* Correct font family set oddly in IE 6, Safari 4/5, and Chrome. */
-code, kbd, pre, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 1em; }
-
-/* Improve readability of pre-formatted text in all browsers. */
-pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
-
-/* Address CSS quotes not supported in IE 6/7. */
-q { quotes: none; }
-
-/* Address `quotes` property not supported in Safari 4. */
-q:before, q:after { content: ''; content: none; }
-
-/* Address inconsistent and variable font size in all browsers. */
-small { font-size: 80%; }
-
-/* Prevent `sub` and `sup` affecting `line-height` in all browsers. */
-sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
-
-sup { top: -0.5em; }
-
-sub { bottom: -0.25em; }
-
-/* ========================================================================== Lists ========================================================================== */
-/* Address margins set differently in IE 6/7. */
-dl, menu, ol, ul { margin: 1em 0; }
-
-dd { margin: 0 0 0 40px; }
-
-/* Address paddings set differently in IE 6/7. */
-menu, ol, ul { padding: 0 0 0 40px; }
-
-/* Correct list images handled incorrectly in IE 7. */
-nav ul, nav ol { list-style: none; list-style-image: none; }
-
-/* ========================================================================== Embedded content ========================================================================== */
-/* 1. Remove border when inside `a` element in IE 6/7/8/9 and Firefox 3. 2. Improve image quality when scaled in IE 7.
-*/
-img { border: 0; /* 1 */ -ms-interpolation-mode: bicubic; /* 2 */ }
-
-/* Correct overflow displayed oddly in IE 9. */
-svg:not(:root) { overflow: hidden; }
-
-/* ========================================================================== Figures ========================================================================== */
-/* Address margin not present in IE 6/7/8/9, Safari 5, and Opera 11. */
-figure { margin: 0; }
-
-/* ========================================================================== Forms ========================================================================== */
-/* Correct margin displayed oddly in IE 6/7. */
-form { margin: 0; }
-
-/* Define consistent border, margin, and padding. */
-fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
-
-/* 1. Correct color not being inherited in IE 6/7/8/9. 2. Correct text not wrapping in Firefox 3. 3. Correct alignment displayed oddly in IE 6/7.
-*/
-legend { border: 0; /* 1 */ padding: 0; white-space: normal; /* 2 */ *margin-left: -7px; /* 3 */ }
-
-/* 1. Correct font size not being inherited in all browsers. 2. Address margins set differently in IE 6/7, Firefox 3+, Safari 5, and Chrome. 3. Improve appearance and consistency in all browsers.
-*/
-button, input, select, textarea { font-size: 100%; /* 1 */ margin: 0; /* 2 */ vertical-align: baseline; /* 3 */ *vertical-align: middle; /* 3 */ }
-
-/* Address Firefox 3+ setting `line-height` on `input` using `!important` in the UA stylesheet. */
-button, nput { line-height: normal; }
-
-/* Address inconsistent `text-transform` inheritance for `button` and `select`. All other form control elements do not inherit `text-transform` values. Correct `button` style inheritance in Chrome, Safari 5+, and IE 6+. Correct `select` style inheritance in Firefox 4+ and Opera. */
-button, select { text-transform: none; }
-
-/* 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio` and `video` controls. 2. Correct inability to style clickable `input` types in iOS. 3. Improve usability and consistency of cursor style between image-type `input` and others. 4. Remove inner spacing in IE 7 without affecting normal text inputs. Known issue: inner spacing remains in IE 6.
-*/
-button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; /* 2 */ cursor: pointer; /* 3 */ *overflow: visible; /* 4 */ }
-
-/* Re-set default cursor for disabled elements. */
-button[disabled], html input[disabled] { cursor: default; }
-
-/* 1. Address box sizing set to content-box in IE 8/9. 2. Remove excess padding in IE 8/9. 3. Remove excess padding in IE 7. Known issue: excess padding remains in IE 6.
-*/
-input[type="checkbox"], input[type="radio"] { box-sizing: border-box; /* 1 */ padding: 0; /* 2 */ *height: 13px; /* 3 */ *width: 13px; /* 3 */ }
-
-/* 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome. 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome (include `-moz` to future-proof).
-*/
-input[type="search"] { -webkit-appearance: textfield; /* 1 */ -moz-box-sizing: content-box; -webkit-box-sizing: content-box; /* 2 */ box-sizing: content-box; }
-
-/* Remove inner padding and search cancel button in Safari 5 and Chrome on OS X. */
-input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
-
-/* Remove inner padding and border in Firefox 3+. */
-button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
-
-/* 1. Remove default vertical scrollbar in IE 6/7/8/9. 2. Improve readability and alignment in all browsers.
-*/
-textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
-
-/* ========================================================================== Tables ========================================================================== */
-/* Remove most spacing between table cells. */
-table { border-collapse: collapse; border-spacing: 0; }
-
-/* ========================================================================== Base styles: opinionated defaults ========================================================================== */
-html { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-
-*, *:before, *:after { box-sizing: inherit; }
-
-html, button, input, select, textarea { color: #222; }
-
-/* A better looking default horizontal rule */
-hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
-
-/* Remove the gap between images and the bottom of their containers: h5bp.com/i/440 */
-img { vertical-align: middle; }
-
-/* Remove default fieldset styles. */
-fieldset { border: 0; margin: 0; padding: 0; }
-
-/* Allow only vertical resizing of textareas. */
-textarea { resize: vertical; }
-
-/* Remove text-shadow in selection highlight: h5bp.com/i These selection declarations have to be separate. Customize the background color to match your design. */
-::-moz-selection { background: #b3d4fc; text-shadow: none; }
-
-::selection { background: #b3d4fc; text-shadow: none; }
-
-/* ========================================================================== Chrome Frame prompt ========================================================================== */
-.chromeframe { margin: 0.2em 0; background: #ccc; color: #000; padding: 0.2em 0; }
-
-/* ========================================================================== Helper classes ========================================================================== */
-/* Image replacement */
-.ir { background-color: transparent; border: 0; overflow: hidden; *text-indent: -9999px; }
-
-.ir:before { content: ""; display: block; width: 0; height: 150%; }
-
-/* Hide from both screenreaders and browsers: h5bp.com/u */
-.hidden { display: none !important; visibility: hidden; }
-
-/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
-.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
-
-/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
-.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
-
-/* Hide visually and from screenreaders, but maintain layout */
-.invisible { visibility: hidden; }
-
-@media print, (-o-min-device-pixel-ratio: 5 / 4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) { /* Style adjustments for high resolution devices */ }
-.gridster { position: relative; }
-
-.gridster > * { margin: 0 auto; -webkit-transition: height .4s; -moz-transition: height .4s; -o-transition: height .4s; -ms-transition: height .4s; transition: height .4s; }
-
-.gridster .gs_w { z-index: 2; position: absolute; }
-
-.ready .gs_w:not(.preview-holder) { -webkit-transition: opacity .3s, left .3s, top .3s; -moz-transition: opacity .3s, left .3s, top .3s; -o-transition: opacity .3s, left .3s, top .3s; transition: opacity .3s, left .3s, top .3s; }
-
-.ready .gs_w:not(.preview-holder) { -webkit-transition: opacity .3s, left .3s, top .3s, width .3s, height .3s; -moz-transition: opacity .3s, left .3s, top .3s, width .3s, height .3s; -o-transition: opacity .3s, left .3s, top .3s, width .3s, height .3s; transition: opacity .3s, left .3s, top .3s, width .3s, height .3s; }
-
-.gridster .preview-holder { z-index: 1; position: absolute; background-color: #fff; border-color: #fff; opacity: 0.3; }
-
-.gridster .player-revert { z-index: 10 !important; -webkit-transition: left 0.3s, top 0.3s !important; -moz-transition: left 0.3s, top 0.3s !important; -o-transition: left 0.3s, top 0.3s !important; transition: left 0.3s, top 0.3s !important; }
-
-.gridster .dragging { z-index: 10 !important; -webkit-transition: all 0s !important; -moz-transition: all 0s !important; -o-transition: all 0s !important; transition: all 0s !important; }
-
-@font-face { font-family: 'icomoon'; src: url("fonts/icomoon.eot?g53qt4"); src: url("fonts/icomoon.eot?g53qt4#iefix") format("embedded-opentype"), url("fonts/icomoon.ttf?g53qt4") format("truetype"), url("fonts/icomoon.woff?g53qt4") format("woff"), url("fonts/icomoon.svg?g53qt4#icomoon") format("svg"); font-weight: normal; font-style: normal; }
-[class^="icon-"], [class*=" icon-"] { font-family: 'icomoon' !important; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-
-.icon-add:before { content: "\e900"; }
-
-.icon-archive:before { content: "\e901"; }
-
-.icon-clear:before { content: "\e902"; }
-
-.icon-connector:before { content: "\e903"; }
-
-.icon-deployr:before { content: "\e904"; }
-
-.icon-edit:before { content: "\e905"; }
-
-.icon-hop:before { content: "\e906"; }
-
-.icon-insert_block:before { content: "\e907"; }
-
-.icon-insert_divider:before { content: "\e908"; }
-
-.icon-linkedin:before { content: "\e909"; }
-
-.icon-lock:before { content: "\e90a"; }
-
-.icon-name:before { content: "\e90b"; }
-
-.icon-next:before { content: "\e90c"; }
-
-.icon-nope:before { content: "\e90d"; }
-
-.icon-pause:before { content: "\e90e"; }
-
-.icon-phone:before { content: "\e90f"; }
-
-.icon-play:before { content: "\e910"; }
-
-.icon-previous:before { content: "\e911"; }
-
-.icon-remove_block:before { content: "\e912"; }
-
-.icon-remove_divider:before { content: "\e913"; }
-
-.icon-remove:before { content: "\e914"; }
-
-.icon-reset:before { content: "\e915"; }
-
-.icon-save:before { content: "\e916"; }
-
-.icon-tidy:before { content: "\e917"; }
-
-.icon-volumeMute:before { content: "\e918"; }
-
-.icon-volumeOff:before { content: "\e919"; }
-
-.icon-volumeOn:before { content: "\e91a"; }
-
-.icon-working:before { content: "\e91b"; }
-
-.icon-zoomIn:before { content: "\e91c"; }
-
-.icon-zoomOut:before { content: "\e91d"; }
-
-body { font-family: 'Open Sans', Helvetica, 'Helvetica Neue', Arial, sans-serif; color: #3a3a3a; background-color: #312f32; font-size: 14px; line-height: 1.2; font-weight: 400; }
-
-a { transition: background-color .15s ease,color .15s ease,border-color .15s ease,opacity .15s ease; text-decoration: none; color: #3a3a3a; }
-a:hover { color: #f80046; }
-
-ul, ol { margin: 0; padding: 0; }
-
-li { list-style: none; }
-
-::-moz-selection { background: #b3d4fc; }
-
-::selection { background: #b3d4fc; }
-
-::-webkit-scrollbar { width: 8px; height: 8px; }
-
-::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.04); border-radius: 5px; }
-
-::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 5px; }
-
-.wrapper { position: relative; }
-
-.site-header { background: rgba(30, 33, 38, 0.95); border-top: 5px solid #f80046; padding: 0 1.25em; position: fixed; width: 100%; top: 0; z-index: 200; }
-.site-header:after { content: ""; clear: both; display: table; }
-.site-header .logo, .site-header nav { height: 32px; line-height: 32px; margin: 10px 0; }
-.site-header .logo { float: left; }
-.site-header .logo img { height: 32px; }
-.site-header nav { float: right; }
-.site-header nav li { float: left; }
-.site-header nav li .menu-link { padding-top: 4px; }
-.site-header nav li a { color: #fff; padding: 5px 10px; }
-.site-header nav li a:hover { color: #f80046; }
-.site-header nav li a .threeLines { padding-left: 4px; font-size: 16px; }
-.site-header nav li a .icon { position: relative; top: 4px; }
-.site-header nav li .menu-link.active { color: #f80046; }
-.site-header nav li .menu-link.active:hover { color: #fff; }
-.site-header nav li:last-child a { padding-right: 0; }
-
-.chart { margin-top: 77px; }
-
-/*/ gridster /*/
-.gridster * { margin: 0; padding: 0; }
-
-.gridster { margin: 0 auto; padding: 0 25px; -webkit-transition: opacity .6s; -moz-transition: opacity .6s; -o-transition: opacity .6s; -ms-transition: opacity .6s; transition: opacity .6s; }
-
-.gridster ul { margin: 0 auto; z-index: 1; position: relative; }
-
-.gridster li { font-size: 1em; font-weight: bold; text-align: center; line-height: 100%; }
-
-.gridster .gs_w { background: transparent; cursor: pointer; }
-
-.gridster .gs_w.box { background: #fff; }
-
-.gridster .gs_w.department { background: #f80046; color: #fff; }
-
-.gridster .gs_w.contractor { background: #999; color: #fff; }
-
-.gridster .gs_w:after { content: ""; background: #000; display: block; width: 5px; height: 10px; position: absolute; bottom: -10px; left: 50%; -ms-transform: translate(-50%, 0); -webkit-transform: translate(-50%, 0); transform: translate(-50%, 0); }
-
-.gridster .gs_w.thru:after { height: 75px; }
-
-.gridster .gs_w.connector.thru:after { height: 40px; }
-
-.gridster .gs_w.divider.thru:after, .gridster .gs_w.reachRight:after, .gridster .gs_w.reachLeft:after { height: 15px; }
-
-.gridster .connector.reachRight:after, .gridster .connector.reachLeft:after { height: 30px; }
-
-.gridster .gs_w.divider.reachLeft { background: -moz-linear-gradient(left, black 0%, black 50%, transparent 50.001%, transparent 100%); background: -webkit-linear-gradient(left, black 0%, black 50%, transparent 50.001%, transparent 100%); background: linear-gradient(to right, #000000 0%, #000000 50%, rgba(0, 0, 0, 0) 50.001%, rgba(0, 0, 0, 0) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#00333333',GradientType=1 ); }
-
-.gridster .gs_w.divider.reachRight { background: -moz-linear-gradient(left, transparent 0%, transparent 50%, black 50.001%, black 100%); background: -webkit-linear-gradient(left, transparent 0%, transparent 50%, black 50.001%, black 100%); background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, #000000 50.001%, #000000 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00333333', endColorstr='#333333',GradientType=1 ); }
-
-.gridster .gs_w.divider.full { background: #000; }
-
-.divider:before { content: ""; display: block; height: 5px; width: 12px; background: #000; position: absolute; }
-
-.reachLeft.divider:before { left: -11px; }
-
-.reachRight.divider:before, .full.divider:before { left: 129px; }
-
-.doubled.reachRight.divider:before { width: 82px; }
-
-.doubled.full.divider:before { left: -70px; width: 282px; }
-
-.doubled.reachLeft.divider:before { left: -70px; width: 72px; }
-
-.tripled.center.reachRight.divider:before { width: 153px; }
-
-.tripled.center.full.divider:before { left: -140px; width: 422px; }
-
-.tripled.center.reachLeft.divider:before { left: -140px; width: 142px; }
-
-.tripled.right.reachRight.divider:before { width: 83px; }
-
-.tripled.right.full.divider:before { left: -210px; width: 422px; }
-
-.tripled.right.reachLeft.divider:before { left: -210px; width: 212px; }
-
-.tripled.left.reachRight.divider:before { width: 223px; }
-
-.tripled.left.full.divider:before { left: -70px; width: 422px; }
-
-.tripled.left.reachLeft.divider:before { left: -70px; width: 72px; }
-
-.tripled.first.reachRight.divider:before { width: 13px; }
-
-.tripled.first.full.divider:before { left: -70px; width: 212px; }
-
-.tripled.first.reachLeft.divider:before { left: -70px; width: 72px; }
-
-.tripled.second.reachRight.divider:before { width: 83px; }
-
-.tripled.second.full.divider:before { left: 0px; width: 212px; }
-
-.tripled.second.reachLeft.divider:before { left: 0px; width: 0px; }
-
-.gridster .connector.reachRight:before, .gridster .connector.reachLeft:before, .gridster .connector.full:before { content: ""; height: 5px; display: block; background: #000; position: absolute; bottom: 15px; }
-
-.gridster .connector:not(.stepped).full:before { bottom: 28px; }
-
-.gridster .connector.reachRight:before { width: 75px; left: 65px; }
-
-.gridster .connector.reachLeft:before, .gridster .connector.full:before { width: 65px; left: 0; }
-
-.gridster .connector.full:before { width: 150px; left: -10px; }
-
-.gridster .gs_w.stepped.thru:after { height: 70px; }
-
-.gridster .connector.tripled.right.reachRight:before { width: 145px; }
-
-.gridster .connector.tripled.right.full:before { width: 420px; left: -210px; }
-
-.gridster .connector.tripled.right.reachLeft:before { left: -210px; width: 275px; }
-
-.gridster .connector.tripled.left.reachRight:before { width: 285px; }
-
-.gridster .connector.tripled.left.full:before { left: -70px; width: 420px; }
-
-.gridster .connector.tripled.left.reachLeft:before { left: -70px; width: 135px; }
-
-.gridster .connector.reachLeft.doubled.box:before { width: 70px; left: -70px; }
-
-.gridster .connector.reachRight.doubled.box:before { width: 70px; left: 130px; }
-
-.gs_w.divider.thru:before, .gs_w.divider.blocking:before, .gs_w.nope:after, .gridster .connector.full:after, .gridster .connector.doubled.box:after { display: none !important; }
-
-[class^="icon-"], [class*=" icon-"] { position: absolute; top: 50%; -ms-transform: translate(0, -50%); -webkit-transform: translate(0, -50%); transform: translate(0, -50%); left: 0px; }
-
-/*////////// Breakout Popup //////////////////*/
-.md-modal { top: 40%; left: 50%; width: 90%; max-width: 640px; height: auto; z-index: 2000; visibility: hidden; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; backface-visibility: hidden; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); position: fixed; }
-
-.md-show { visibility: visible; }
-
-.md-overlay { position: fixed; width: 100%; height: 100%; visibility: hidden; top: 0; left: 0; z-index: 1000; opacity: 0; background: rgba(248, 0, 70, 0.8); -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
-
-.md-show ~ .md-overlay { opacity: 1; visibility: visible; }
-
-.md-content { color: #555; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
-
-.modal_tag { padding: 20px; padding-right: 25px; font-size: 14px; font-weight: 300; float: left; width: 100%; font-family: 'Open Sans', Helvetica, 'Helvetica Neue', Arial, sans-serif; color: #3a3a3a; }
-
-.mugShot { float: left; width: 51.75%; }
-
-.mugShot img { width: 100%; }
-
-.mugShot img:hover { opacity: 0; }
-
-.details { float: right; width: 48.25%; padding-left: 3%; }
-
-.details ul { padding-left: 0; }
-
-.contact li { float: left; display: block; position: relative; padding-left: 20px; line-height: 1.3; clear: both; }
-
-.details .title { margin: 0; font-size: 14px; }
-
-.details .name { font-size: 20px; margin: 0; font-weight: 700; }
-
-.numbers { display: inline-block; }
-
-.numbers:after, .contact:after { content: ""; clear: both; display: table; }
-
-.numbers span { clear: left; float: left; }
-
-.linkedIn a { text-decoration: none; color: inherit; }
-
-.flag { width: 40px; display: inline-block; height: 30px; vertical-align: top; }
-
-.flag.NY, .flag.TN, .flag.LA, .flag.WY { background: url("../images/USflag.png") no-repeat top left; background-size: 100%; }
-
-.flag.LN { background: url("../images/UKflag.png") no-repeat top left; background-size: 100%; }
-
-.location { line-height: 30px; vertical-align: top; padding-right: 5px; }
-
-.office { width: calc(100% + 10px); display: block; text-align: right; }
-
-/*////////// Breakout Popup Styling //////////*/
-.md-content { width: 100%; color: #3a3a3a; background: #fff; position: relative; border-bottom: 12px solid #bfbfbf; margin: 0 auto; }
-.md-content:after { content: ""; clear: both; display: table; }
-
-.md-effect.md-modal { -webkit-perspective: 1300px; -moz-perspective: 1300px; perspective: 1300px; }
-
-.md-effect .md-content { -webkit-transform-style: preserve-3d; -moz-transform-style: preserve-3d; transform-style: preserve-3d; -webkit-transform: translateZ(600px) rotateX(20deg); -moz-transform: translateZ(600px) rotateX(20deg); -ms-transform: translateZ(600px) rotateX(20deg); transform: translateZ(600px) rotateX(20deg); opacity: 0; }
-
-.md-effect.md-out .md-content { -webkit-transform: rotateX(0deg) translateY(-20%) translateZ(0px); -moz-transform: rotateX(0deg) translateY(-20%) translateZ(0px); -ms-transform: rotateX(0deg) translateY(-20%) translateZ(0px); transform: rotateX(0deg) translateY(-20%) translateZ(0px); opacity: 0; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
-
-.md-show.md-effect .md-content { -webkit-transition: all 0.3s ease-in; -moz-transition: all 0.3s ease-in; transition: all 0.3s ease-in; -webkit-transform: translateZ(0px) rotateX(0deg); -moz-transform: translateZ(0px) rotateX(0deg); -ms-transform: translateZ(0px) rotateX(0deg); transform: translateZ(0px) rotateX(0deg); opacity: 1; }
-
-.blank { display: none !important; }
-
-.empty { visibility: hidden !important; }
-
-.name { line-height: 1; font-size: 13px; font-weight: 700; position: relative; }
-
-.title.longName { top: 11px; }
-
-.title { font-size: 10px; font-weight: 600; position: relative; top: 3px; line-height: 1.2; }
-
-.nameBox { position: relative; -ms-transform: translate(0, -50%); -webkit-transform: translate(0, -50%); transform: translate(0, -50%); top: 45%; padding: 0 4px; }
-
-.name span { display: inline-block; }
-
-.name span:last-of-type { padding-left: 5px; }
-
-.name.longName span:last-of-type { padding-left: 0; display: block; }
-
-.department .nameBox { top: 50%; }
-
-.demo { margin: 87px 0 50px; }
 
 /*////////// Modal Roll Overs ////////////////*/
+
 .mugShot.Alyea_Afzal { background: url("../images/headshots/Alyea_Afzal_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Ikhsan_Assaat { background: url("../images/headshots/Ikhsan_Assaat_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jon_Attfield { background: url("../images/headshots/Jon_Attfield_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Bel_Aztiria { background: url("../images/headshots/Bel_Aztiria_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Dan_Bagnall { background: url("../images/headshots/Dan_Bagnall_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Josh_Baron { background: url("../images/headshots/Josh_Baron_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Vivien_Barousse { background: url("../images/headshots/Vivien_Barousse_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Alexsis_Bass { background: url("../images/headshots/Alexsis_Bass_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Laura_Becker { background: url("../images/headshots/Laura_Becker_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Sabina_Bejasa-Dimmock { background: url("../images/headshots/Sabina_Bejasa-Dimmock_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jesse_Bellin { background: url("../images/headshots/Jesse_Bellin_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Alexey_Blinov { background: url("../images/headshots/Alexey_Blinov_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Josh_Block { background: url("../images/headshots/Josh_Block_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Kyle_Bolt { background: url("../images/headshots/Kyle_Bolt_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Sam_Briggs { background: url("../images/headshots/Sam_Briggs_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Gideon_Bullock { background: url("../images/headshots/Gideon_Bullock_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Shaun_Burke { background: url("../images/headshots/Shaun_Burke_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Caitlin_Came { background: url("../images/headshots/Caitlin_Came_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Gonzalo_Castro { background: url("../images/headshots/Gonzalo_Castro_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Steve_Cielinski { background: url("../images/headshots/Steve_Cielinski_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Mitch_Clark { background: url("../images/headshots/Mitch_Clark_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Tom_Clarke { background: url("../images/headshots/Tom_Clarke_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Dan_Crow { background: url("../images/headshots/Dan_Crow_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Meredith_Croy { background: url("../images/headshots/Meredith_Croy_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Sarah_Dear { background: url("../images/headshots/Sarah_Dear_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Andy_Deeley { background: url("../images/headshots/Andy_Deeley_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jiv_Dhaliwal { background: url("../images/headshots/Jiv_Dhaliwal_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jason_Dierkes { background: url("../images/headshots/Jason_Dierkes_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Kalyn_Dobbs { background: url("../images/headshots/Kalyn_Dobbs_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Bill_Domanick { background: url("../images/headshots/Bill_Domanick_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Christine_Dombrowski { background: url("../images/headshots/Christine_Dombrowski_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Mac_Donoghue { background: url("../images/headshots/Mac_Donoghue_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Kendyl_Dunn { background: url("../images/headshots/Kendyl_Dunn_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Noel_Edwards { background: url("../images/headshots/Noel_Edwards_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Dean_Elbaz { background: url("../images/headshots/Dean_Elbaz_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Ewan_Eyre { background: url("../images/headshots/Ewan_Eyre_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Ricky_Faillace { background: url("../images/headshots/Ricky_Faillace_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Stephen_Field { background: url("../images/headshots/Stephen_Field_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Andrea_Frey { background: url("../images/headshots/Andrea_Frey_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.James_Gibb { background: url("../images/headshots/James_Gibb_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Stephen_Glicken { background: url("../images/headshots/Stephen_Glicken_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Brigitte_Gomez { background: url("../images/headshots/Brigitte_Gomez_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Lauren_Gottlieb { background: url("../images/headshots/Lauren_Gottlieb_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Elliot_Hancock { background: url("../images/headshots/Elliot_Hancock_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Lydia_Hecomovich { background: url("../images/headshots/Lydia_Hecomovich_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Eddie_Herdemian { background: url("../images/headshots/Eddie_Herdemian_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Paul_Herdemian { background: url("../images/headshots/Paul_Herdemian_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Ryan_Herrmann { background: url("../images/headshots/Ryan_Herrmann_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Loren_Hinkson { background: url("../images/headshots/Loren_Hinkson_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Ben_Hodgson { background: url("../images/headshots/Ben_Hodgson_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Freya_Houlding { background: url("../images/headshots/Freya_Houlding_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jamie_Hughes { background: url("../images/headshots/Jamie_Hughes_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Joey_Isaacson { background: url("../images/headshots/Joey_Isaacson_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Gareth_Jones { background: url("../images/headshots/Gareth_Jones_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Matt_Jones { background: url("../images/headshots/Matt_Jones_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Kim_Knup { background: url("../images/headshots/Kim_Knup_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Paul_Lawson { background: url("../images/headshots/Paul_Lawson_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Sabrina_Leandro { background: url("../images/headshots/Sabrina_Leandro_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Tracey_Lee-Joe { background: url("../images/headshots/Tracey_Lee-Joe_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Yi_Lin { background: url("../images/headshots/Yi_Lin_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Anastasia_Lopez { background: url("../images/headshots/Anastasia_Lopez_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Dan_Lucraft { background: url("../images/headshots/Dan_Lucraft_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.David_MacGladrie { background: url("../images/headshots/David_MacGladrie_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Christian_Marchand { background: url("../images/headshots/Christian_Marchand_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Lee_Martin { background: url("../images/headshots/Lee_Martin_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Michael_May { background: url("../images/headshots/Michael_May_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Tom_May { background: url("../images/headshots/Tom_May_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.JD_May { background: url("../images/headshots/JD_May_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Taylor_McDermott { background: url("../images/headshots/Taylor_McDermott_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Mark_McIntyre { background: url("../images/headshots/Mark_McIntyre_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Callum_Merriman { background: url("../images/headshots/Callum_Merriman_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Andy_Mitchell { background: url("../images/headshots/Andy_Mitchell_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Charlie_Morrison { background: url("../images/headshots/Charlie_Morrison_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Aaron_Neigher { background: url("../images/headshots/Aaron_Neigher_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Matthew_Nelson { background: url("../images/headshots/Matthew_Nelson_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Sean_OKeeffe { background: url("../images/headshots/Sean_OKeeffe_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Michael_Orland { background: url("../images/headshots/Michael_Orland_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Marc_Pacheco { background: url("../images/headshots/Marc_Pacheco_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Wilson_Palmer { background: url("../images/headshots/Wilson_Palmer_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Ian_Petts { background: url("../images/headshots/Ian_Petts_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Amy_Phillips { background: url("../images/headshots/Amy_Phillips_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Romain_Piel { background: url("../images/headshots/Romain_Piel_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Amy_Polacsek { background: url("../images/headshots/Amy_Polacsek_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Paula_Lopez-Pozuelo { background: url("../images/headshots/Paula_Lopez-Pozuelo_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Mizanur_Rahman { background: url("../images/headshots/Mizanur_Rahman_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Tom_Ralston { background: url("../images/headshots/Tom_Ralston_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Aaron_Randall { background: url("../images/headshots/Aaron_Randall_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Adam_Ray { background: url("../images/headshots/Adam_Ray_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Glenn_Ray { background: url("../images/headshots/Glenn_Ray_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Adam_Raza { background: url("../images/headshots/Adam_Raza_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Alex_Reade { background: url("../images/headshots/Alex_Reade_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Arnaud_Rinquin { background: url("../images/headshots/Arnaud_Rinquin_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Aaron_Rodgers { background: url("../images/headshots/Aaron_Rodgers_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Megan_Rondeau { background: url("../images/headshots/Megan_Rondeau_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Sam_Rudge { background: url("../images/headshots/Sam_Rudge_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Elena_Sansigre-Silva { background: url("../images/headshots/Elena_Sansigre-Silva_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Sam_Saunders { background: url("../images/headshots/Sam_Saunders_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Ian_Schiffer { background: url("../images/headshots/Ian_Schiffer_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Adam_Schiffer { background: url("../images/headshots/Adam_Schiffer_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Adam_Schuster { background: url("../images/headshots/Adam_Schuster_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Emily_Sergent { background: url("../images/headshots/Emily_Sergent_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Alex_Shellim { background: url("../images/headshots/Alex_Shellim_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Igor_Shpakov { background: url("../images/headshots/Igor_Shpakov_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Ryan_Simms { background: url("../images/headshots/Ryan_Simms_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Paul_Springett { background: url("../images/headshots/Paul_Springett_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Francesca_Stabile { background: url("../images/headshots/Francesca_Stabile_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jack_Stephens { background: url("../images/headshots/Jack_Stephens_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Nina_Thistlethwaite { background: url("../images/headshots/Nina_Thistlethwaite_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Karim-Dia_Toubajie { background: url("../images/headshots/Karim-Dia_Toubajie_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Matt_Vail { background: url("../images/headshots/Matt_Vail_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Stephen_Vallimarescu { background: url("../images/headshots/Stephen_Vallimarescu_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jenny_Verdon { background: url("../images/headshots/Jenny_Verdon_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Cassie_Waduge { background: url("../images/headshots/Cassie_Waduge_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Leonie_Wakeman { background: url("../images/headshots/Leonie_Wakeman_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Merry_Webster { background: url("../images/headshots/Merry_Webster_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Tom_Weir { background: url("../images/headshots/Tom_Weir_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.James_White { background: url("../images/headshots/James_White_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jake_Williams { background: url("../images/headshots/Jake_Williams_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Michelle_Wood { background: url("../images/headshots/Michelle_Wood_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Jamie_Wright { background: url("../images/headshots/Jamie_Wright_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Michelle_You { background: url("../images/headshots/Michelle_You_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Naadir_Jeewa { background: url("../images/headshots/Naadir_Jeewa_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Leandro_Maione { background: url("../images/headshots/Leandro_Maione_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
-
 .mugShot.Alesha_Gooden { background: url("../images/headshots/Alesha_Gooden_ProfileSilly.jpg") no-repeat top left; background-size: 100%; }
 
 /*////////// Chart Positioning ///////////////*/
+
 #Leandro_Maione { height: 65px; width: 130px; left: 425px; top: 905px; }
-
 #Sean_OKeeffe { height: 65px; width: 130px; left: 1685px; top: 905px; }
-
 #Ikhsan_Assaat { height: 65px; width: 130px; left: 2105px; top: 905px; }
-
 #Alex_Shellim { height: 65px; width: 130px; left: 425px; top: 830px; }
-
 #Kyle_Bolt { height: 65px; width: 130px; left: 1685px; top: 830px; }
-
 #Romain_Piel { height: 65px; width: 130px; left: 2105px; top: 830px; }
-
 #Jiv_Dhaliwal { height: 65px; width: 130px; left: 2385px; top: 830px; }
-
 #Jamie_Wright { height: 65px; width: 130px; left: 3085px; top: 830px; }
-
 #Mitch_Clark { height: 65px; width: 130px; left: 425px; top: 755px; }
-
 #Bel_Aztiria { height: 65px; width: 130px; left: 1125px; top: 755px; }
-
 #Lydia_Hecomovich { height: 65px; width: 130px; left: 1685px; top: 755px; }
-
 #Nina_Thistlethwaite { height: 65px; width: 130px; left: 1825px; top: 755px; }
-
 #Anastasia_Lopez { height: 65px; width: 130px; left: 2105px; top: 755px; }
-
 #Arnaud_Rinquin { height: 65px; width: 130px; left: 2385px; top: 755px; }
-
 #Naadir_Jeewa { height: 65px; width: 130px; left: 2945px; top: 755px; }
-
 #Dean_Elbaz { height: 65px; width: 130px; left: 3085px; top: 755px; }
-
 #Jason_Dierkes { height: 65px; width: 130px; left: 3225px; top: 755px; }
-
 #Loren_Hinkson { height: 65px; width: 130px; left: 3365px; top: 755px; }
-
 #Sarah_Dear { height: 65px; width: 130px; left: 3785px; top: 755px; }
-
 #Alesha_Gooden { height: 65px; width: 130px; left: 3925px; top: 755px; }
-
 #Joey_Isaacson { height: 65px; width: 130px; left: 4625px; top: 755px; }
-
 #Stephen_Field { height: 65px; width: 130px; left: 4765px; top: 755px; }
-
 #Bill_Domanick { height: 65px; width: 130px; left: 425px; top: 680px; }
-
 #Ryan_Herrmann { height: 65px; width: 130px; left: 565px; top: 680px; }
-
 #Adam_Raza { height: 65px; width: 130px; left: 705px; top: 680px; }
-
 #Freya_Houlding { height: 65px; width: 130px; left: 1125px; top: 680px; }
-
 #Mac_Donoghue { height: 65px; width: 130px; left: 1265px; top: 680px; }
-
 #Megan_Rondeau { height: 65px; width: 130px; left: 1405px; top: 680px; }
-
 #Jenny_Verdon { height: 65px; width: 130px; left: 1545px; top: 680px; }
-
 #Jake_Williams { height: 65px; width: 130px; left: 1685px; top: 680px; }
-
 #James_Gibb { height: 65px; width: 130px; left: 1825px; top: 680px; }
-
 #Alexey_Blinov { height: 65px; width: 130px; left: 2105px; top: 680px; }
-
 #Paula_Lopez-Pozuelo { height: 65px; width: 130px; left: 2245px; top: 680px; }
-
 #Ben_Hodgson { height: 65px; width: 130px; left: 2385px; top: 680px; }
-
 #James_White { height: 65px; width: 130px; left: 2805px; top: 680px; }
-
 #Sam_Rudge { height: 65px; width: 130px; left: 2945px; top: 680px; }
-
 #Paul_Lawson { height: 65px; width: 130px; left: 3085px; top: 680px; }
-
 #Christian_Marchand { height: 65px; width: 130px; left: 3225px; top: 680px; }
-
 #Alyea_Afzal { height: 65px; width: 130px; left: 3365px; top: 680px; }
-
 #Taylor_McDermott { height: 65px; width: 130px; left: 3505px; top: 680px; }
-
 #Kalyn_Dobbs { height: 65px; width: 130px; left: 3785px; top: 680px; }
-
 #Tom_Weir { height: 65px; width: 130px; left: 3925px; top: 680px; }
-
 #Aaron_Rodgers { height: 65px; width: 130px; left: 4625px; top: 680px; }
-
 #Tom_Ralston { height: 65px; width: 130px; left: 4765px; top: 680px; }
-
 #Yi_Lin { height: 65px; width: 130px; left: 425px; top: 605px; }
-
 #Josh_Baron { height: 65px; width: 130px; left: 565px; top: 605px; }
-
 #Stephen_Vallimarescu { height: 65px; width: 130px; left: 705px; top: 605px; }
-
 #Jack_Stephens { height: 65px; width: 130px; left: 845px; top: 605px; }
-
 #Steve_Cielinski { height: 65px; width: 130px; left: 985px; top: 605px; }
-
 #Leonie_Wakeman { height: 65px; width: 130px; left: 1125px; top: 605px; }
-
 #Gonzalo_Castro { height: 65px; width: 130px; left: 1265px; top: 605px; }
-
 #Dan_Bagnall { height: 65px; width: 130px; left: 1405px; top: 605px; }
-
 #Caitlin_Came { height: 65px; width: 130px; left: 1545px; top: 605px; }
-
 #Christine_Dombrowski { height: 65px; width: 130px; left: 1685px; top: 605px; }
-
 #Ewan_Eyre { height: 65px; width: 130px; left: 1825px; top: 605px; }
-
 #Global_Assistants_Program { height: 65px; width: 130px; left: 1965px; top: 605px; }
-
 #Michael_May { height: 65px; width: 130px; left: 2105px; top: 605px; }
-
 #Sabina_Bejasa-Dimmock { height: 65px; width: 130px; left: 2245px; top: 605px; }
-
 #Andy_Mitchell { height: 65px; width: 130px; left: 2385px; top: 605px; }
-
 #Ryan_Simms { height: 65px; width: 130px; left: 2525px; top: 605px; }
-
 #Kim_Knup { height: 65px; width: 130px; left: 2665px; top: 605px; }
-
 #Paul_Springett { height: 65px; width: 130px; left: 2805px; top: 605px; }
-
 #Igor_Shpakov { height: 65px; width: 130px; left: 2945px; top: 605px; }
-
 #Marc_Pacheco { height: 65px; width: 130px; left: 3085px; top: 605px; }
-
 #Mizanur_Rahman { height: 65px; width: 130px; left: 3225px; top: 605px; }
-
 #Wilson_Palmer { height: 65px; width: 130px; left: 3365px; top: 605px; }
-
 #Matthew_Nelson { height: 65px; width: 130px; left: 3505px; top: 605px; }
-
 #Ian_Petts { height: 65px; width: 130px; left: 3645px; top: 605px; }
-
 #Elena_Sansigre-Silva { height: 65px; width: 130px; left: 3785px; top: 605px; }
-
 #Brigitte_Gomez { height: 65px; width: 130px; left: 3925px; top: 605px; }
-
 #Alexsis_Bass { height: 65px; width: 130px; left: 4205px; top: 605px; }
-
 #Karim-Dia_Toubajie { height: 65px; width: 130px; left: 4625px; top: 605px; }
-
 #Callum_Merriman { height: 65px; width: 130px; left: 4765px; top: 605px; }
-
 #gs_w1 { height: 5px; width: 130px; left: 425px; top: 590px; }
-
 #gs_w2 { height: 5px; width: 130px; left: 565px; top: 590px; }
-
 #gs_w3 { height: 5px; width: 130px; left: 705px; top: 590px; }
-
 #gs_w4 { height: 5px; width: 130px; left: 845px; top: 590px; }
-
 #gs_w5 { height: 5px; width: 130px; left: 985px; top: 590px; }
-
 #gs_w6 { height: 5px; width: 130px; left: 1125px; top: 590px; }
-
 #gs_w7 { height: 5px; width: 130px; left: 1265px; top: 590px; }
-
 #gs_w8 { height: 5px; width: 130px; left: 1405px; top: 590px; }
-
 #gs_w9 { height: 5px; width: 130px; left: 1545px; top: 590px; }
-
 #gs_w10 { height: 5px; width: 130px; left: 1685px; top: 590px; }
-
 #gs_w11 { height: 5px; width: 130px; left: 1825px; top: 590px; }
-
 #gs_w12 { height: 5px; width: 130px; left: 1965px; top: 590px; }
-
 #gs_w13 { height: 5px; width: 130px; left: 2105px; top: 590px; }
-
 #gs_w14 { height: 5px; width: 130px; left: 2245px; top: 590px; }
-
 #gs_w15 { height: 5px; width: 130px; left: 2385px; top: 590px; }
-
 #gs_w16 { height: 5px; width: 130px; left: 2525px; top: 590px; }
-
 #gs_w17 { height: 5px; width: 130px; left: 2665px; top: 590px; }
-
 #gs_w18 { height: 5px; width: 130px; left: 2805px; top: 590px; }
-
 #gs_w19 { height: 5px; width: 130px; left: 2945px; top: 590px; }
-
 #gs_w20 { height: 5px; width: 130px; left: 3085px; top: 590px; }
-
 #gs_w21 { height: 5px; width: 130px; left: 3225px; top: 590px; }
-
 #gs_w22 { height: 5px; width: 130px; left: 3365px; top: 590px; }
-
 #gs_w23 { height: 5px; width: 130px; left: 3505px; top: 590px; }
-
 #gs_w24 { height: 5px; width: 130px; left: 3645px; top: 590px; }
-
 #gs_w25 { height: 5px; width: 130px; left: 3785px; top: 590px; }
-
 #gs_w26 { height: 5px; width: 130px; left: 3925px; top: 590px; }
-
 #gs_w27 { height: 5px; width: 130px; left: 4205px; top: 590px; }
-
 #gs_w28 { height: 5px; width: 130px; left: 4625px; top: 590px; }
-
 #gs_w29 { height: 5px; width: 130px; left: 4765px; top: 590px; }
-
 #Sam_Saunders { height: 65px; width: 130px; left: 5px; top: 515px; }
-
 #Tom_May { height: 65px; width: 130px; left: 285px; top: 515px; }
-
 #gs_w30 { height: 65px; width: 130px; left: 425px; top: 515px; }
-
 #gs_w31 { height: 65px; width: 130px; left: 565px; top: 515px; }
-
 #gs_w32 { height: 65px; width: 130px; left: 705px; top: 515px; }
-
 #gs_w33 { height: 65px; width: 130px; left: 845px; top: 515px; }
-
 #gs_w34 { height: 65px; width: 130px; left: 985px; top: 515px; }
-
 #gs_w35 { height: 65px; width: 130px; left: 1125px; top: 515px; }
-
 #gs_w36 { height: 65px; width: 130px; left: 1335px; top: 515px; }
-
 #Michelle_Wood { height: 65px; width: 130px; left: 1545px; top: 515px; }
-
 #Amy_Polacsek { height: 65px; width: 130px; left: 1685px; top: 515px; }
-
 #gs_w37 { height: 65px; width: 130px; left: 1825px; top: 515px; }
-
 #gs_w38 { height: 65px; width: 130px; left: 1965px; top: 515px; }
-
 #Aaron_Randall { height: 65px; width: 130px; left: 2105px; top: 515px; }
-
 #Vivien_Barousse { height: 65px; width: 130px; left: 2245px; top: 515px; }
-
 #David_MacGladrie { height: 65px; width: 130px; left: 2385px; top: 515px; }
-
 #gs_w39 { height: 65px; width: 130px; left: 2525px; top: 515px; }
-
 #gs_w40 { height: 65px; width: 130px; left: 2665px; top: 515px; }
-
 #gs_w41 { height: 65px; width: 130px; left: 2875px; top: 515px; }
-
 #gs_w42 { height: 65px; width: 130px; left: 3085px; top: 515px; }
-
 #gs_w43 { height: 65px; width: 130px; left: 3225px; top: 515px; }
-
 #gs_w44 { height: 65px; width: 130px; left: 3365px; top: 515px; }
-
 #Alex_Reade { height: 65px; width: 130px; left: 3575px; top: 515px; }
-
 #Elliot_Hancock { height: 65px; width: 130px; left: 3785px; top: 515px; }
-
 #Merry_Webster { height: 65px; width: 130px; left: 3925px; top: 515px; }
-
 #Charlie_Morrison { height: 65px; width: 130px; left: 4065px; top: 515px; }
-
 #Lauren_Gottlieb { height: 65px; width: 130px; left: 4205px; top: 515px; }
-
 #Tracey_Lee-Joe { height: 65px; width: 130px; left: 4625px; top: 515px; }
-
 #Tom_Clarke { height: 65px; width: 130px; left: 4765px; top: 515px; }
-
 #gs_w45 { height: 5px; width: 130px; left: 5px; top: 500px; }
-
 #gs_w46 { height: 5px; width: 130px; left: 285px; top: 500px; }
-
 #gs_w47 { height: 5px; width: 130px; left: 425px; top: 500px; }
-
 #gs_w48 { height: 5px; width: 130px; left: 565px; top: 500px; }
-
 #gs_w49 { height: 5px; width: 130px; left: 705px; top: 500px; }
-
 #gs_w50 { height: 5px; width: 130px; left: 845px; top: 500px; }
-
 #gs_w51 { height: 5px; width: 130px; left: 985px; top: 500px; }
-
 #gs_w52 { height: 5px; width: 130px; left: 1125px; top: 500px; }
-
 #gs_w53 { height: 5px; width: 130px; left: 1335px; top: 500px; }
-
 #gs_w54 { height: 5px; width: 130px; left: 1545px; top: 500px; }
-
 #gs_w55 { height: 5px; width: 130px; left: 1685px; top: 500px; }
-
 #gs_w56 { height: 5px; width: 130px; left: 1825px; top: 500px; }
-
 #gs_w57 { height: 5px; width: 130px; left: 1965px; top: 500px; }
-
 #gs_w58 { height: 5px; width: 130px; left: 2105px; top: 500px; }
-
 #gs_w59 { height: 5px; width: 130px; left: 2245px; top: 500px; }
-
 #gs_w60 { height: 5px; width: 130px; left: 2385px; top: 500px; }
-
 #gs_w61 { height: 5px; width: 130px; left: 2525px; top: 500px; }
-
 #gs_w62 { height: 5px; width: 130px; left: 2665px; top: 500px; }
-
 #gs_w63 { height: 5px; width: 130px; left: 2875px; top: 500px; }
-
 #gs_w64 { height: 5px; width: 130px; left: 3085px; top: 500px; }
-
 #gs_w65 { height: 5px; width: 130px; left: 3225px; top: 500px; }
-
 #gs_w66 { height: 5px; width: 130px; left: 3365px; top: 500px; }
-
 #gs_w67 { height: 5px; width: 130px; left: 3575px; top: 500px; }
-
 #gs_w68 { height: 5px; width: 130px; left: 3785px; top: 500px; }
-
 #gs_w69 { height: 5px; width: 130px; left: 3925px; top: 500px; }
-
 #gs_w70 { height: 5px; width: 130px; left: 4065px; top: 500px; }
-
 #gs_w71 { height: 5px; width: 130px; left: 4205px; top: 500px; }
-
 #gs_w72 { height: 5px; width: 130px; left: 4625px; top: 500px; }
-
 #gs_w73 { height: 5px; width: 130px; left: 4765px; top: 500px; }
-
 #gs_w74 { height: 65px; width: 130px; left: 5px; top: 425px; }
-
 #Jamie_Hughes { height: 65px; width: 130px; left: 145px; top: 425px; }
-
 #gs_w75 { height: 65px; width: 130px; left: 285px; top: 425px; }
-
 #Jon_Attfield { height: 65px; width: 130px; left: 425px; top: 425px; }
-
 #gs_w76 { height: 65px; width: 130px; left: 565px; top: 425px; }
-
 #Ian_Schiffer { height: 65px; width: 130px; left: 705px; top: 425px; }
-
 #Sam_Briggs { height: 65px; width: 130px; left: 845px; top: 425px; }
-
 #gs_w77 { height: 65px; width: 130px; left: 985px; top: 425px; }
-
 #Gareth_Jones { height: 65px; width: 130px; left: 1125px; top: 425px; }
-
 #Meredith_Croy { height: 65px; width: 130px; left: 1335px; top: 425px; }
-
 #Aaron_Neigher { height: 65px; width: 130px; left: 1545px; top: 425px; }
-
 #Ricky_Faillace { height: 65px; width: 130px; left: 1685px; top: 425px; }
-
 #Noel_Edwards { height: 65px; width: 130px; left: 1825px; top: 425px; }
-
 #Shaun_Burke { height: 65px; width: 130px; left: 1965px; top: 425px; }
-
 #gs_w78 { height: 65px; width: 130px; left: 2105px; top: 425px; }
-
 #gs_w79 { height: 65px; width: 130px; left: 2245px; top: 425px; }
-
 #gs_w80 { height: 65px; width: 130px; left: 2385px; top: 425px; }
-
 #gs_w81 { height: 65px; width: 130px; left: 2525px; top: 425px; }
-
 #Amy_Phillips { height: 65px; width: 130px; left: 2665px; top: 425px; }
-
 #Dan_Lucraft { height: 65px; width: 130px; left: 2875px; top: 425px; }
-
 #gs_w82 { height: 65px; width: 130px; left: 3085px; top: 425px; }
-
 #Andy_Deeley { height: 65px; width: 130px; left: 3225px; top: 425px; }
-
 #Eddie_Herdemian { height: 65px; width: 130px; left: 3365px; top: 425px; }
-
 #Emily_Sergent { height: 65px; width: 130px; left: 3715px; top: 425px; }
-
 #Andrea_Frey { height: 65px; width: 130px; left: 4135px; top: 425px; }
-
 #gs_w83 { height: 65px; width: 130px; left: 4625px; top: 425px; }
-
 #gs_w84 { height: 65px; width: 130px; left: 4765px; top: 425px; }
-
 #gs_w85 { height: 5px; width: 130px; left: 5px; top: 410px; }
-
 #gs_w86 { height: 5px; width: 130px; left: 145px; top: 410px; }
-
 #gs_w87 { height: 5px; width: 130px; left: 285px; top: 410px; }
-
 #gs_w88 { height: 5px; width: 130px; left: 425px; top: 410px; }
-
 #gs_w89 { height: 5px; width: 130px; left: 565px; top: 410px; }
-
 #gs_w90 { height: 5px; width: 130px; left: 705px; top: 410px; }
-
 #gs_w91 { height: 5px; width: 130px; left: 845px; top: 410px; }
-
 #gs_w92 { height: 5px; width: 130px; left: 985px; top: 410px; }
-
 #gs_w93 { height: 5px; width: 130px; left: 1125px; top: 410px; }
-
 #gs_w94 { height: 5px; width: 130px; left: 1335px; top: 410px; }
-
 #gs_w95 { height: 5px; width: 130px; left: 1545px; top: 410px; }
-
 #gs_w96 { height: 5px; width: 130px; left: 1685px; top: 410px; }
-
 #gs_w97 { height: 5px; width: 130px; left: 1825px; top: 410px; }
-
 #gs_w98 { height: 5px; width: 130px; left: 1965px; top: 410px; }
-
 #gs_w99 { height: 5px; width: 130px; left: 2105px; top: 410px; }
-
 #gs_w100 { height: 5px; width: 130px; left: 2245px; top: 410px; }
-
 #gs_w101 { height: 5px; width: 130px; left: 2385px; top: 410px; }
-
 #gs_w102 { height: 5px; width: 130px; left: 2525px; top: 410px; }
-
 #gs_w103 { height: 5px; width: 130px; left: 2665px; top: 410px; }
-
 #gs_w104 { height: 5px; width: 130px; left: 2875px; top: 410px; }
-
 #gs_w105 { height: 5px; width: 130px; left: 3085px; top: 410px; }
-
 #gs_w106 { height: 5px; width: 130px; left: 3225px; top: 410px; }
-
 #gs_w107 { height: 5px; width: 130px; left: 3365px; top: 410px; }
-
 #gs_w108 { height: 5px; width: 130px; left: 3505px; top: 410px; }
-
 #gs_w109 { height: 5px; width: 130px; left: 3715px; top: 410px; }
-
 #gs_w110 { height: 5px; width: 130px; left: 4135px; top: 410px; }
-
 #gs_w111 { height: 5px; width: 130px; left: 4625px; top: 410px; }
-
 #gs_w112 { height: 5px; width: 130px; left: 4765px; top: 410px; }
-
 #gs_w113 { height: 65px; width: 130px; left: 145px; top: 335px; }
-
 #gs_w114 { height: 65px; width: 130px; left: 425px; top: 335px; }
-
 #gs_w115 { height: 65px; width: 130px; left: 565px; top: 335px; }
-
 #gs_w116 { height: 65px; width: 130px; left: 845px; top: 335px; }
-
 #Kendyl_Dunn { height: 65px; width: 130px; left: 1265px; top: 335px; }
-
 #gs_w117 { height: 65px; width: 130px; left: 1405px; top: 335px; }
-
 #gs_w118 { height: 65px; width: 130px; left: 1825px; top: 335px; }
-
 #gs_w119 { height: 65px; width: 130px; left: 2455px; top: 335px; }
-
 #gs_w120 { height: 65px; width: 130px; left: 3085px; top: 335px; }
-
 #gs_w121 { height: 65px; width: 130px; left: 3435px; top: 335px; }
-
 #gs_w122 { height: 65px; width: 130px; left: 4135px; top: 335px; }
-
 #gs_w123 { height: 65px; width: 130px; left: 4625px; top: 335px; }
-
 #gs_w124 { height: 65px; width: 130px; left: 4765px; top: 335px; }
-
 #gs_w125 { height: 5px; width: 130px; left: 145px; top: 320px; }
-
 #gs_w126 { height: 5px; width: 130px; left: 425px; top: 320px; }
-
 #gs_w127 { height: 5px; width: 130px; left: 565px; top: 320px; }
-
 #gs_w128 { height: 5px; width: 130px; left: 845px; top: 320px; }
-
 #gs_w129 { height: 5px; width: 130px; left: 1265px; top: 320px; }
-
 #gs_w130 { height: 5px; width: 130px; left: 1405px; top: 320px; }
-
 #gs_w131 { height: 5px; width: 130px; left: 1825px; top: 320px; }
-
 #gs_w132 { height: 5px; width: 130px; left: 2455px; top: 320px; }
-
 #gs_w133 { height: 5px; width: 130px; left: 3085px; top: 320px; }
-
 #gs_w134 { height: 5px; width: 130px; left: 3435px; top: 320px; }
-
 #gs_w135 { height: 5px; width: 130px; left: 4135px; top: 320px; }
-
 #gs_w136 { height: 5px; width: 130px; left: 4625px; top: 320px; }
-
 #gs_w137 { height: 5px; width: 130px; left: 4765px; top: 320px; }
-
 #Michael_Orland { height: 65px; width: 130px; left: 145px; top: 245px; }
-
 #Lee_Martin { height: 65px; width: 130px; left: 425px; top: 245px; }
-
 #Stephen_Glicken { height: 65px; width: 130px; left: 565px; top: 245px; }
-
 #gs_w138 { height: 65px; width: 130px; left: 705px; top: 245px; }
-
 #JD_May { height: 65px; width: 130px; left: 845px; top: 245px; }
-
 #Jesse_Bellin { height: 65px; width: 130px; left: 1335px; top: 245px; }
-
 #Laura_Becker { height: 65px; width: 130px; left: 1825px; top: 245px; }
-
 #Mark_McIntyre { height: 65px; width: 130px; left: 2455px; top: 245px; }
-
 #Sabrina_Leandro { height: 65px; width: 130px; left: 3085px; top: 245px; }
-
 #Paul_Herdemian { height: 65px; width: 130px; left: 3435px; top: 245px; }
-
 #Matt_Vail { height: 65px; width: 130px; left: 3925px; top: 245px; }
-
 #Adam_Schuster { height: 65px; width: 130px; left: 4135px; top: 245px; }
-
 #Gideon_Bullock { height: 65px; width: 130px; left: 4625px; top: 245px; }
-
 #gs_w139 { height: 65px; width: 130px; left: 4765px; top: 245px; }
-
 #gs_w140 { height: 5px; width: 130px; left: 145px; top: 230px; }
-
 #gs_w141 { height: 5px; width: 130px; left: 285px; top: 230px; }
-
 #gs_w142 { height: 5px; width: 130px; left: 425px; top: 230px; }
-
 #gs_w143 { height: 5px; width: 130px; left: 845px; top: 230px; }
-
 #gs_w144 { height: 5px; width: 130px; left: 1335px; top: 230px; }
-
 #gs_w145 { height: 5px; width: 130px; left: 1825px; top: 230px; }
-
 #gs_w146 { height: 5px; width: 130px; left: 2455px; top: 230px; }
-
 #gs_w147 { height: 5px; width: 130px; left: 2665px; top: 230px; }
-
 #gs_w148 { height: 5px; width: 130px; left: 2805px; top: 230px; }
-
 #gs_w149 { height: 5px; width: 130px; left: 2945px; top: 230px; }
-
 #gs_w150 { height: 5px; width: 130px; left: 3085px; top: 230px; }
-
 #gs_w151 { height: 5px; width: 130px; left: 3435px; top: 230px; }
-
 #gs_w152 { height: 5px; width: 130px; left: 3925px; top: 230px; }
-
 #gs_w153 { height: 5px; width: 130px; left: 4135px; top: 230px; }
-
 #gs_w154 { height: 5px; width: 130px; left: 4625px; top: 230px; }
-
 #gs_w155 { height: 5px; width: 130px; left: 4765px; top: 230px; }
-
 #gs_w156 { height: 65px; width: 130px; left: 285px; top: 155px; }
-
 #gs_w157 { height: 65px; width: 130px; left: 845px; top: 155px; }
-
 #gs_w158 { height: 65px; width: 130px; left: 1335px; top: 155px; }
-
 #gs_w159 { height: 65px; width: 130px; left: 1825px; top: 155px; }
-
 #Francesca_Stabile { height: 65px; width: 130px; left: 1965px; top: 155px; }
-
 #gs_w160 { height: 65px; width: 130px; left: 2735px; top: 155px; }
-
 #gs_w161 { height: 65px; width: 130px; left: 3435px; top: 155px; }
-
 #gs_w162 { height: 65px; width: 130px; left: 3925px; top: 155px; }
-
 #gs_w163 { height: 65px; width: 130px; left: 4135px; top: 155px; }
-
 #Glenn_Ray { height: 65px; width: 130px; left: 4345px; top: 155px; }
-
 #Cassie_Waduge { height: 65px; width: 130px; left: 4485px; top: 155px; }
-
 #gs_w164 { height: 65px; width: 130px; left: 4695px; top: 155px; }
-
 #gs_w165 { height: 5px; width: 130px; left: 285px; top: 140px; }
-
 #gs_w166 { height: 5px; width: 130px; left: 845px; top: 140px; }
-
 #gs_w167 { height: 5px; width: 130px; left: 985px; top: 140px; }
-
 #gs_w168 { height: 5px; width: 130px; left: 1125px; top: 140px; }
-
 #gs_w169 { height: 5px; width: 130px; left: 1335px; top: 140px; }
-
 #gs_w170 { height: 5px; width: 130px; left: 1545px; top: 140px; }
-
 #gs_w171 { height: 5px; width: 130px; left: 1685px; top: 140px; }
-
 #gs_w172 { height: 5px; width: 130px; left: 1825px; top: 140px; }
-
 #gs_w173 { height: 5px; width: 130px; left: 1965px; top: 140px; }
-
 #gs_w174 { height: 5px; width: 130px; left: 2735px; top: 140px; }
-
 #gs_w175 { height: 5px; width: 130px; left: 3435px; top: 140px; }
-
 #gs_w176 { height: 5px; width: 130px; left: 3785px; top: 140px; }
-
 #gs_w177 { height: 5px; width: 130px; left: 3925px; top: 140px; }
-
 #gs_w178 { height: 5px; width: 130px; left: 4135px; top: 140px; }
-
 #gs_w179 { height: 5px; width: 130px; left: 4345px; top: 140px; }
-
 #gs_w180 { height: 5px; width: 130px; left: 4485px; top: 140px; }
-
 #gs_w181 { height: 5px; width: 130px; left: 4695px; top: 140px; }
-
 #gs_w182 { height: 65px; width: 130px; left: 285px; top: 65px; }
-
 #gs_w183 { height: 65px; width: 130px; left: 1825px; top: 65px; }
-
 #gs_w184 { height: 65px; width: 130px; left: 2735px; top: 65px; }
-
 #gs_w185 { height: 65px; width: 130px; left: 3855px; top: 65px; }
-
 #gs_w186 { height: 65px; width: 130px; left: 4065px; top: 65px; }
-
 #gs_w187 { height: 65px; width: 130px; left: 4205px; top: 65px; }
-
 #gs_w188 { height: 65px; width: 130px; left: 4345px; top: 65px; }
-
 #Adam_Ray { height: 65px; width: 130px; left: 4485px; top: 65px; }
-
 #Michelle_You { height: 65px; width: 130px; left: 4695px; top: 65px; }
-
 #gs_w189 { height: 65px; width: 130px; left: 1825px; top: 35px; }
-
 #gs_w190 { height: 65px; width: 130px; left: 1965px; top: 35px; }
-
 #gs_w191 { height: 65px; width: 130px; left: 2105px; top: 35px; }
-
 #gs_w192 { height: 65px; width: 130px; left: 2245px; top: 35px; }
-
 #gs_w193 { height: 65px; width: 130px; left: 2385px; top: 35px; }
-
 #gs_w194 { height: 65px; width: 130px; left: 2525px; top: 35px; }
-
 #Dan_Crow { height: 65px; width: 130px; left: 2735px; top: 35px; }
-
 #Adam_Schiffer { height: 65px; width: 130px; left: 3855px; top: 35px; }
-
 #Josh_Block { height: 65px; width: 130px; left: 285px; top: 5px; }
-
 #gs_w195 { height: 65px; width: 130px; left: 425px; top: 5px; }
-
 #gs_w196 { height: 65px; width: 130px; left: 565px; top: 5px; }
-
 #gs_w197 { height: 65px; width: 130px; left: 705px; top: 5px; }
-
 #gs_w198 { height: 65px; width: 130px; left: 845px; top: 5px; }
-
 #gs_w199 { height: 65px; width: 130px; left: 985px; top: 5px; }
-
 #gs_w200 { height: 65px; width: 130px; left: 1125px; top: 5px; }
-
 #gs_w201 { height: 65px; width: 130px; left: 1265px; top: 5px; }
-
 #gs_w202 { height: 65px; width: 130px; left: 1405px; top: 5px; }
-
 #gs_w203 { height: 65px; width: 130px; left: 1545px; top: 5px; }
-
 #gs_w204 { height: 65px; width: 130px; left: 1685px; top: 5px; }
-
 #Matt_Jones { height: 65px; width: 130px; left: 1825px; top: 5px; }
 
 .gridster { width: 4950px; }
-
 .gridster ul { height: 975px; }
 
-#Karim-Dia_Toubajie .name.longName span:last-of-type { display: block; }
-
-#Stephen_Vallimarescu .name.longName { padding-top: 3px; }
+#Karim-Dia_Toubajie .name.longName span:last-of-type {
+	display: block;
+}
+#Stephen_Vallimarescu .name.longName {
+	padding-top: 3px;
+}
