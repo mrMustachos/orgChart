@@ -120,12 +120,16 @@
     height: 30px;
     vertical-align: top;
 }
-.flag.NY, .flag.TN, .flag.LA, .flag.WY {
+.flag {
     background: url("../images/USflag.png") no-repeat top left;
     background-size: 100%;
 }
 .flag.LN {
-    background: url("../images/UKflag.png") no-repeat top left;
+    background: url("../images/UKflag.svg") no-repeat top left;
+    background-size: 100%;
+}
+.flag.BR {
+    background: url("../images/BRflag.svg") no-repeat top left;
     background-size: 100%;
 }
 .location {
