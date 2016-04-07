@@ -353,6 +353,8 @@ li { list-style: none; }
 
 .gridster .connector.reachRight:after, .gridster .connector.reachLeft:after { height: 30px; }
 
+.gridster .connector:not(.stepped).reachRight:after, .gridster .connector:not(.stepped).reachLeft:after { height: 43px; }
+
 .gridster .gs_w.divider.reachLeft { background: -moz-linear-gradient(left, black 0%, black 50%, transparent 50.001%, transparent 100%); background: -webkit-linear-gradient(left, black 0%, black 50%, transparent 50.001%, transparent 100%); background: linear-gradient(to right, #000000 0%, #000000 50%, rgba(0, 0, 0, 0) 50.001%, rgba(0, 0, 0, 0) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#00333333',GradientType=1 ); }
 
 .gridster .gs_w.divider.reachRight { background: -moz-linear-gradient(left, transparent 0%, transparent 50%, black 50.001%, black 100%); background: -webkit-linear-gradient(left, transparent 0%, transparent 50%, black 50.001%, black 100%); background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, #000000 50.001%, #000000 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00333333', endColorstr='#333333',GradientType=1 ); }
@@ -403,7 +405,7 @@ li { list-style: none; }
 
 .gridster .connector.reachRight:before, .gridster .connector.reachLeft:before, .gridster .connector.full:before { content: ""; height: 5px; display: block; background: #000; position: absolute; bottom: 15px; }
 
-.gridster .connector:not(.stepped).full:before { bottom: 28px; }
+.gridster .connector:not(.stepped).full:before, .gridster .connector:not(.stepped).reachRight:before, .gridster .connector:not(.stepped).reachLeft:before { bottom: 28px; }
 
 .gridster .connector.reachRight:before { width: 75px; left: 65px; }
 
